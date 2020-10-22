@@ -1,2 +1,2 @@
-# dslib
+# deeplib
 C++ deep learning framework
