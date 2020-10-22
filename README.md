@@ -1,2 +1,2 @@
 # dslib
-C++ data science framework
+C++ deep learning framework

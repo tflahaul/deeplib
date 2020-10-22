@@ -6,7 +6,7 @@
 /*   By: thflahau <thflahau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/21 16:13:43 by thflahau          #+#    #+#             */
-/*   Updated: 2020/10/22 12:59:23 by thflahau         ###   ########.fr       */
+/*   Updated: 2020/10/22 13:04:22 by thflahau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 
 #include "../core/core.hpp"
 #include <iostream>
-#include <string>
 
 class				Dense : public Layer
 {

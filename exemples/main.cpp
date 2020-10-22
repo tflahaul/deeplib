@@ -1,4 +1,5 @@
 #include "../include/neural/neural.hpp"
+#include <iostream>
 
 int			main(void)
 {
