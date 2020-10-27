@@ -1,20 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   neural.hpp                                         :+:      :+:    :+:   */
+/*   core.hpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: thflahau <thflahau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/21 16:15:18 by thflahau          #+#    #+#             */
-/*   Updated: 2020/10/22 12:52:31 by thflahau         ###   ########.fr       */
+/*   Created: 2020/10/22 12:47:23 by thflahau          #+#    #+#             */
+/*   Updated: 2020/10/27 15:41:07 by thflahau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef __NEURAL_HPP__
-#define __NEURAL_HPP__
+#ifndef __CORE_HPP__
+#define __CORE_HPP__
 
-#include "input.hpp"
-#include "dense.hpp"
-#include "dropout.hpp"
+#include "core/vector.hpp"
+#include "core/layer.hpp"
 
-#endif /* __NEURAL_HPP__ */
+#endif /* __CORE_HPP__ */
