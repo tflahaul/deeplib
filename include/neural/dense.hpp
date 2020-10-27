@@ -6,7 +6,7 @@
 /*   By: thflahau <thflahau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/21 16:13:43 by thflahau          #+#    #+#             */
-/*   Updated: 2020/10/27 15:41:42 by thflahau         ###   ########.fr       */
+/*   Updated: 2020/10/27 15:52:31 by thflahau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 
 #include "../core.hpp"
 #include "../activations/activations.h"
-#include <exception>
 #include <iostream>
 
 class				Dense : public Layer
@@ -37,7 +36,7 @@ std::ostream&	operator<<(std::ostream &stream, Dense &instance) {
 void		Dense::forward([[maybe_unused]] Layer const &instance) {}
 void		Dense::backward([[maybe_unused]] Layer const &instance) {}
 
-Dense::Dense(unsigned int shape) : Layer(shape) {}
+Dense::Dense(unsigned int shape) : Layer(shape), activate(&linear_activate) {}
 
 Dense::Dense(unsigned int shape, void (*ptr)(struct vector const *)) : Layer(shape) {
 	this->activate = (ptr != NULL) ? ptr : &linear_activate;
