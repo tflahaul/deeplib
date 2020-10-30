@@ -1,19 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   core.hpp                                           :+:      :+:    :+:   */
+/*   unit.hpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: thflahau <thflahau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/22 12:47:23 by thflahau          #+#    #+#             */
-/*   Updated: 2020/10/30 16:29:57 by thflahau         ###   ########.fr       */
+/*   Created: 2020/10/30 16:28:05 by thflahau          #+#    #+#             */
+/*   Updated: 2020/10/30 16:32:35 by thflahau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef __CORE_HPP__
-#define __CORE_HPP__
+#ifndef __UNIT_HPP__
+#define __UNIT_HPP__
 
-#include "core/layer.hpp"
-#include "core/unit.hpp"
+typedef struct	s_unit
+{
+	float	value;
+	float	bias;
+} t_unit;
 
-#endif /* __CORE_HPP__ */
+#endif /* __UNIT_HPP__ */
