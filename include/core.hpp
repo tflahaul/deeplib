@@ -6,7 +6,7 @@
 /*   By: thflahau <thflahau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/22 12:47:23 by thflahau          #+#    #+#             */
-/*   Updated: 2020/10/30 16:29:57 by thflahau         ###   ########.fr       */
+/*   Updated: 2020/10/30 21:37:38 by thflahau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,6 @@
 #define __CORE_HPP__
 
 #include "core/layer.hpp"
-#include "core/unit.hpp"
+#include "core/unit.h"
 
 #endif /* __CORE_HPP__ */

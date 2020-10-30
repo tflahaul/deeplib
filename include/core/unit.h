@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   unit.hpp                                           :+:      :+:    :+:   */
+/*   unit.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: thflahau <thflahau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/30 16:28:05 by thflahau          #+#    #+#             */
-/*   Updated: 2020/10/30 16:32:35 by thflahau         ###   ########.fr       */
+/*   Updated: 2020/10/30 21:34:04 by thflahau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef __UNIT_HPP__
-#define __UNIT_HPP__
+#ifndef __UNIT_H__
+#define __UNIT_H__
 
 typedef struct	s_unit
 {
@@ -19,4 +19,4 @@ typedef struct	s_unit
 	float	bias;
 } t_unit;
 
-#endif /* __UNIT_HPP__ */
+#endif /* __UNIT_H__ */

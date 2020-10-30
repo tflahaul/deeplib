@@ -6,7 +6,7 @@
 /*   By: thflahau <thflahau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/28 22:25:03 by thflahau          #+#    #+#             */
-/*   Updated: 2020/10/30 16:57:41 by thflahau         ###   ########.fr       */
+/*   Updated: 2020/10/30 21:55:41 by thflahau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #define __ACTIVATION_HPP__
 
 #include "./activation_functions.hpp"
-#include "../core/unit.hpp"
+#include "../core/unit.h"
 #include <string>
 #include <vector>
 #include <map>
@@ -25,7 +25,8 @@ static const std::map<std::string, void (*)(std::vector<t_unit> &)> activations 
 	{"linear", &linear_activate},
 	{"leaky", &leaky_activate},
 	{"relu", &relu_activate},
-	{"tanh", &tanh_activate}
+	{"tanh", &tanh_activate},
+	{"minmax", &minmax_normalize}
 };
 
 /*!

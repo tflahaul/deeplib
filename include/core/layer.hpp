@@ -5,17 +5,16 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: thflahau <thflahau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/14 18:28:58 by thflahau          #+#    #+#             */
-/*   Updated: 2020/10/30 18:18:58 by thflahau         ###   ########.fr       */
+/*   Created: 2020/10/30 21:31:57 by thflahau          #+#    #+#             */
+/*   Updated: 2020/10/30 22:23:27 by thflahau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef __LAYER_HPP__
 #define __LAYER_HPP__
 
-#include "unit.hpp"
+#include "unit.h"
 #include <cstdint>
-#include <cstdlib>
 #include <vector>
 #include <tuple>
 
@@ -27,15 +26,15 @@ public:
 	std::vector<t_unit>	units;
 
 	std::tuple<uint, uint>	shape(void);
-	virtual void		forward(Layer const &);
-	virtual void		backward(Layer const &);
+	virtual void		forward(std::vector<t_unit> &);
+	virtual void		backward(std::vector<t_unit> &);
 
 	Layer(unsigned int, unsigned int);
 	~Layer();
 };
 
-void		Layer::forward([[maybe_unused]] Layer const &instance) {}
-void		Layer::backward([[maybe_unused]] Layer const &instance) {}
+void		Layer::forward([[maybe_unused]] std::vector<t_unit> & output) {}
+void		Layer::backward([[maybe_unused]] std::vector<t_unit> & output) {}
 
 std::tuple<uint, uint>		Layer::shape(void) {
 	return (std::make_tuple(this->weights.size() / this->units.size(), this->units.size()));
