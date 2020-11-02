@@ -1,20 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   input.hpp                                          :+:      :+:    :+:   */
+/*   input.class.hpp                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: thflahau <thflahau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/22 12:17:13 by thflahau          #+#    #+#             */
-/*   Updated: 2020/11/02 22:24:16 by thflahau         ###   ########.fr       */
+/*   Updated: 2020/11/02 22:38:35 by thflahau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef __INPUT_HPP__
-#define __INPUT_HPP__
+#ifndef __INPUT_CLASS_HPP__
+#define __INPUT_CLASS_HPP__
 
+#include "../activations/activation.class.hpp"
 #include "../core.hpp"
-#include "../activations/activation.hpp"
 #include <iostream>
 #include <string>
 #include <vector>
@@ -59,4 +59,4 @@ Input::Input(unsigned int size) : Layer(size), _activation("linear") {}
 Input::Input(unsigned int size, std::string const &name) : Layer(size), _activation(name) {}
 Input::~Input() {}
 
-#endif /* __INPUT_HPP__ */
+#endif /* __INPUT_CLASS_HPP__ */

@@ -1,20 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   dense.hpp                                          :+:      :+:    :+:   */
+/*   dense.class.hpp                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: thflahau <thflahau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/21 16:13:43 by thflahau          #+#    #+#             */
-/*   Updated: 2020/11/02 22:23:52 by thflahau         ###   ########.fr       */
+/*   Updated: 2020/11/02 22:38:41 by thflahau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef __DENSE_HPP__
-#define __DENSE_HPP__
+#ifndef __DENSE_CLASS_HPP__
+#define __DENSE_CLASS_HPP__
 
+#include "../activations/activation.class.hpp"
 #include "../core.hpp"
-#include "../activations/activation.hpp"
 #include <iostream>
 #include <cstdint>
 #include <string>
@@ -79,4 +79,4 @@ Dense::Dense(uint32_t in, uint32_t out, std::string const &name) : Layer(in), _w
 	this->_init(in, out);
 }
 
-#endif /* __DENSE_HPP__ */
+#endif /* __DENSE_CLASS_HPP__ */

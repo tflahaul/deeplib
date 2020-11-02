@@ -1,7 +1,7 @@
+#include "../include/activations/activation.class.hpp"
 #include "../include/network.hpp"
 #include "../include/neural.hpp"
 #include "../include/core.hpp"
-#include "../include/activations/activation.hpp"
 
 int			main(void)
 {

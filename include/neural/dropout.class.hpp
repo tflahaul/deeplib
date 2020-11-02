@@ -1,19 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   dropout.hpp                                        :+:      :+:    :+:   */
+/*   dropout.class.hpp                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: thflahau <thflahau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/21 15:11:19 by thflahau          #+#    #+#             */
-/*   Updated: 2020/11/02 22:24:09 by thflahau         ###   ########.fr       */
+/*   Updated: 2020/11/02 22:36:13 by thflahau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef __DROPOUT_HPP__
-#define __DROPOUT_HPP__
+#ifndef __DROPOUT_CLASS_HPP__
+#define __DROPOUT_CLASS_HPP__
 
-#include "../core/unit.h"
+#include "../core/unit.struct.h"
 #include <iostream>
 #include <random>
 #include <vector>
@@ -56,4 +56,4 @@ Dropout::Dropout(unsigned int in, double rate) : Layer(in) {
 	this->_rate = static_cast<float>(std::min(1.0, std::max(0.0, rate)));
 }
 
-#endif /* __DROPOUT_HPP__ */
+#endif /* __DROPOUT_CLASS_HPP__ */

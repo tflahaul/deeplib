@@ -6,15 +6,14 @@
 /*   By: thflahau <thflahau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/28 23:21:17 by thflahau          #+#    #+#             */
-/*   Updated: 2020/11/02 21:01:07 by thflahau         ###   ########.fr       */
+/*   Updated: 2020/11/02 22:38:15 by thflahau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef __ACTIVATION_FUNCTIONS_HPP__
 #define __ACTIVATION_FUNCTIONS_HPP__
 
-#include "../core/unit.h"
-#include <algorithm>
+#include "../core/unit.struct.h"
 #include <cstdint>
 #include <vector>
 #include <cmath>

@@ -1,19 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   layer.hpp                                          :+:      :+:    :+:   */
+/*   layer.class.hpp                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: thflahau <thflahau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/30 21:31:57 by thflahau          #+#    #+#             */
-/*   Updated: 2020/11/02 22:25:12 by thflahau         ###   ########.fr       */
+/*   Updated: 2020/11/02 22:35:52 by thflahau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef __LAYER_HPP__
-#define __LAYER_HPP__
+#ifndef __LAYER_CLASS_HPP__
+#define __LAYER_CLASS_HPP__
 
-#include "unit.h"
+#include "unit.struct.h"
 #include <iostream>
 #include <cstdint>
 #include <vector>
@@ -47,4 +47,4 @@ void		Layer::describe([[maybe_unused]] std::ostream & stream) const {}
 Layer::Layer(uint32_t const size) : units(size) {}
 Layer::~Layer() {}
 
-#endif /* __LAYER_HPP__ */
+#endif /* __LAYER_CLASS_HPP__ */
