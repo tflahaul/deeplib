@@ -6,7 +6,7 @@
 /*   By: thflahau <thflahau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/30 21:31:57 by thflahau          #+#    #+#             */
-/*   Updated: 2020/10/30 22:23:27 by thflahau         ###   ########.fr       */
+/*   Updated: 2020/11/01 18:31:55 by thflahau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,8 @@
 
 class				Layer
 {
-protected:
-	std::vector<float>	weights;
 public:
+	std::vector<float>	weights;
 	std::vector<t_unit>	units;
 
 	std::tuple<uint, uint>	shape(void);
@@ -45,9 +44,9 @@ std::tuple<uint, uint>		Layer::shape(void) {
  * \param size	Number of units for the current layer
  */
 Layer::Layer(unsigned int prev, unsigned int size) : weights(prev * size), units(size) {
-	for (register unsigned int idx = 0; idx < prev * size; ++idx)
-		this->weights[idx] = static_cast<float>(std::rand()) / RAND_MAX;
-	for (register unsigned int idx = 0; idx < size; ++idx)
+	for (register uint_fast32_t idx = 0; idx < prev * size; ++idx)
+		this->weights[idx] = (static_cast<float>(std::rand()) / RAND_MAX) - 0.5;
+	for (register uint_fast32_t idx = 0; idx < size; ++idx)
 		this->units[idx].bias = static_cast<float>(std::rand()) / RAND_MAX;
 }
 

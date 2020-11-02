@@ -1,2 +1,4 @@
 # deeplib
-C++ deep learning framework for implementing different types of neural networks without compromising on high-performance.
+C++ deep learning framework to easily implement different types of neural networks without compromising on performance.
+
+TODO:

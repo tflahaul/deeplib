@@ -6,7 +6,7 @@
 /*   By: thflahau <thflahau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/21 15:11:19 by thflahau          #+#    #+#             */
-/*   Updated: 2020/10/30 22:17:23 by thflahau         ###   ########.fr       */
+/*   Updated: 2020/11/01 18:26:43 by thflahau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
 class				Dropout
 {
 private:
-	double			_rate;
+	float			_rate;
 public:
 	std::vector<t_unit>	units;
 
@@ -52,11 +52,11 @@ std::ostream&	operator<<(std::ostream & stream, Dropout & instance) {
 }
 
 /*!
- * \param size		Number of units of the previous layer
- * \param rate		Fraction of the input units to drop
+ * \param in		Number of units of the previous layer
+ * \param rate		Fraction of the input units to drop (between 0 and 1)
  */
-Dropout::Dropout(unsigned int size, double rate) : units(size) {
-	this->_rate = std::min(1., std::max(0., rate));
+Dropout::Dropout(unsigned int in, double rate) : units(in) {
+	this->_rate = static_cast<float>(std::min(1.0, std::max(0.0, rate)));
 }
 
 #endif /* __DROPOUT_HPP__ */

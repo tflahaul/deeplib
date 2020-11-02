@@ -6,7 +6,7 @@
 /*   By: thflahau <thflahau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/21 16:13:43 by thflahau          #+#    #+#             */
-/*   Updated: 2020/10/30 22:25:08 by thflahau         ###   ########.fr       */
+/*   Updated: 2020/11/01 18:26:20 by thflahau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 #include "../core.hpp"
 #include "../activations/activation.hpp"
 #include <iostream>
+#include <cstdint>
 #include <string>
 #include <vector>
 
@@ -31,18 +32,19 @@ public:
 	void			backward(std::vector<t_unit> &);
 	friend std::ostream&	operator<<(std::ostream &, Dense &);
 
-	Dense(unsigned int, unsigned int);
-	Dense(unsigned int, unsigned int, std::string const &);
+	Dense(uint32_t, uint32_t);
+	Dense(uint32_t, uint32_t, std::string const &);
 };
 
 void		Dense::forward(std::vector<t_unit> & output) {
-	for (register unsigned int idx = 0; idx < this->units.size(); ++idx) {
-		for (unsigned int x = 0; x < output.size(); ++x)
-			this->units[idx].value += output[x].value * this->weights[idx + x];
-		this->units[idx].value += this->units[idx].bias;
+	for (register uint_fast32_t x = 0; x < this->units.size(); ++x) {
+		for (register uint_fast32_t y = 0; y < output.size(); ++y)
+			this->units[x].value += output[y].value * this->weights[x + y];
+		this->units[x].value += this->units[x].bias;
 	}
 	this->_activation.call(this->units);
 }
+
 void		Dense::backward([[maybe_unused]] std::vector<t_unit> & output) {}
 
 std::ostream&	operator<<(std::ostream & stream, Dense & instance) {
@@ -53,16 +55,16 @@ std::ostream&	operator<<(std::ostream & stream, Dense & instance) {
 }
 
 /*!
- * \param prev	Number of units of the previous layer
- * \param size	Number of units for the current layer
+ * \param in	Number of units of the previous layer
+ * \param out	Number of units for the current layer
  */
-Dense::Dense(unsigned int prev, unsigned int size) : Layer(prev, size), _activation("linear") {}
+Dense::Dense(uint32_t in, uint32_t out) : Layer(in, out), _activation("linear") {}
 
 /*!
- * \param prev	Number of units of the previous layer
- * \param size	Number of units for the current layer
+ * \param in	Number of units of the previous layer
+ * \param out	Number of units for the current layer
  * \param name	Activation function to use
  */
-Dense::Dense(unsigned int prev, unsigned int size, std::string const &name) : Layer(prev, size), _activation(name) {}
+Dense::Dense(uint32_t in, uint32_t out, std::string const &name) : Layer(in, out), _activation(name) {}
 
 #endif /* __DENSE_HPP__ */
