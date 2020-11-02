@@ -6,7 +6,7 @@
 /*   By: thflahau <thflahau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/21 15:11:19 by thflahau          #+#    #+#             */
-/*   Updated: 2020/11/01 18:26:43 by thflahau         ###   ########.fr       */
+/*   Updated: 2020/11/02 22:24:09 by thflahau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,16 +21,14 @@
 /*!
  * \brief Regular dropout neural network layer : applies dropout to the input
  */
-class				Dropout
+class				Dropout : public Layer
 {
 private:
 	float			_rate;
 public:
-	std::vector<t_unit>	units;
-
 	void			forward(std::vector<t_unit> &);
 	void			backward(std::vector<t_unit> &);
-	friend std::ostream&	operator<<(std::ostream &, Dropout &);
+	virtual void		describe(std::ostream &) const;
 
 	Dropout(unsigned int, double);
 };
@@ -45,17 +43,16 @@ void		Dropout::forward(std::vector<t_unit> & output) {
 
 void		Dropout::backward([[maybe_unused]] std::vector<t_unit> & output) {}
 
-std::ostream&	operator<<(std::ostream & stream, Dropout & instance) {
-	stream << "Layer: type=dropout, shape=(" << instance.units.size() << ")";
-	stream << ", droprate=" << instance._rate;
-	return (stream);
+void		Dropout::describe(std::ostream & stream) const {
+	stream << "Layer: type=dropout, shape=(" << this->units.size() << ")";
+	stream << ", droprate=" << this->_rate;
 }
 
 /*!
  * \param in		Number of units of the previous layer
  * \param rate		Fraction of the input units to drop (between 0 and 1)
  */
-Dropout::Dropout(unsigned int in, double rate) : units(in) {
+Dropout::Dropout(unsigned int in, double rate) : Layer(in) {
 	this->_rate = static_cast<float>(std::min(1.0, std::max(0.0, rate)));
 }
 

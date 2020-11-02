@@ -6,7 +6,7 @@
 /*   By: thflahau <thflahau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/28 22:25:03 by thflahau          #+#    #+#             */
-/*   Updated: 2020/10/30 21:55:41 by thflahau         ###   ########.fr       */
+/*   Updated: 2020/11/02 22:06:38 by thflahau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,33 +19,32 @@
 #include <vector>
 #include <map>
 
-static const std::map<std::string, void (*)(std::vector<t_unit> &)> activations = {
-	{"softmax", &softmax_activate},
-	{"sigmoid", &sigmoid_activate},
-	{"linear", &linear_activate},
-	{"leaky", &leaky_activate},
-	{"relu", &relu_activate},
-	{"tanh", &tanh_activate},
-	{"minmax", &minmax_normalize}
+static const std::map<std::string, void (*)(std::vector<t_unit>&)> activations = {
+	{"sigmoid", &sigmoid},
+	{"softmax", &softmax},
+	{"linear", &linear},
+	{"leaky", &leaky},
+	{"relu", &relu},
+	{"tanh", &tanh},
+	{"minmax", &minmax}
 };
 
-/*!
- * \brief Generic activation layer class. This particular layer has no weights
- *        since it only applies an activation function to the input.
- */
 class			Activation
 {
 private:
 	std::string	_name = "linear";
 public:
-	void		(*call)(std::vector<t_unit> &) = &linear_activate;
-	std::string	get_name(void) const;
+	void		(*call)(std::vector<t_unit> &) = &linear;
+
+	std::string	name(void) const;
+	bool		need_vector_input(void) const;
+
 	Activation(void);
 	Activation(std::string const &);
 	~Activation();
 };
 
-std::string	Activation::get_name(void) const {
+std::string	Activation::name(void) const {
 	return (this->_name);
 }
 

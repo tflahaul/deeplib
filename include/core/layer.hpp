@@ -6,7 +6,7 @@
 /*   By: thflahau <thflahau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/30 21:31:57 by thflahau          #+#    #+#             */
-/*   Updated: 2020/11/01 18:31:55 by thflahau         ###   ########.fr       */
+/*   Updated: 2020/11/02 22:25:12 by thflahau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,42 +14,37 @@
 #define __LAYER_HPP__
 
 #include "unit.h"
+#include <iostream>
 #include <cstdint>
 #include <vector>
-#include <tuple>
 
 class				Layer
 {
 public:
-	std::vector<float>	weights;
 	std::vector<t_unit>	units;
 
-	std::tuple<uint, uint>	shape(void);
 	virtual void		forward(std::vector<t_unit> &);
 	virtual void		backward(std::vector<t_unit> &);
+	virtual void		describe(std::ostream &) const;
+	friend std::ostream&	operator<<(std::ostream &, Layer const &);
 
-	Layer(unsigned int, unsigned int);
+	Layer(uint32_t const);
 	~Layer();
 };
 
+std::ostream&	operator<<(std::ostream & stream, Layer const & instance) {
+	instance.describe(stream);
+	return (stream);
+}
+
 void		Layer::forward([[maybe_unused]] std::vector<t_unit> & output) {}
 void		Layer::backward([[maybe_unused]] std::vector<t_unit> & output) {}
-
-std::tuple<uint, uint>		Layer::shape(void) {
-	return (std::make_tuple(this->weights.size() / this->units.size(), this->units.size()));
-}
+void		Layer::describe([[maybe_unused]] std::ostream & stream) const {}
 
 /*!
- * \param prev	Number of units of the previous layer
  * \param size	Number of units for the current layer
  */
-Layer::Layer(unsigned int prev, unsigned int size) : weights(prev * size), units(size) {
-	for (register uint_fast32_t idx = 0; idx < prev * size; ++idx)
-		this->weights[idx] = (static_cast<float>(std::rand()) / RAND_MAX) - 0.5;
-	for (register uint_fast32_t idx = 0; idx < size; ++idx)
-		this->units[idx].bias = static_cast<float>(std::rand()) / RAND_MAX;
-}
-
+Layer::Layer(uint32_t const size) : units(size) {}
 Layer::~Layer() {}
 
 #endif /* __LAYER_HPP__ */

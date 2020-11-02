@@ -6,33 +6,31 @@
 /*   By: thflahau <thflahau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/31 11:40:34 by thflahau          #+#    #+#             */
-/*   Updated: 2020/11/01 18:22:20 by thflahau         ###   ########.fr       */
+/*   Updated: 2020/11/02 22:29:12 by thflahau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef __NETWORK_CLASS_HPP__
 #define __NETWORK_CLASS_HPP__
 
+#include "../core.hpp"
+#include <iostream>
 #include <vector>
 
-class			Network
+class				Network
 {
-private:
-	/* data */
 public:
-	void		fit(std::vector<float> const &, std::vector<float> const &);
+	std::vector<Layer *>	_layers;
 
-	Network(void);
-	~Network();
+	void			describe(void) {
+		for (unsigned int idx = 0; idx < this->_layers.size(); ++idx) {
+			this->_layers[idx]->describe(std::cout);
+			std::cout << std::endl;
+		}
+	}
+
+	Network(void) {}
+	~Network() {}
 };
-
-/*!
- * \param X	Training data
- * \param y	Target data
- */
-void		Network::fit(std::vector<float> const & X, std::vector<float> const & y) {}
-
-Network::Network(void) {}
-Network::~Network() {}
 
 #endif /* __NETWORK_CLASS_HPP__ */
