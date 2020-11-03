@@ -6,7 +6,7 @@
 /*   By: thflahau <thflahau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/22 12:17:13 by thflahau          #+#    #+#             */
-/*   Updated: 2020/11/02 22:38:35 by thflahau         ###   ########.fr       */
+/*   Updated: 2020/11/03 15:01:21 by thflahau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,11 +36,12 @@ public:
 	~Input();
 };
 
-void		Input::forward([[maybe_unused]] std::vector<t_unit> &) {
+void		Input::forward([[maybe_unused]] std::vector<t_unit> & input) {
+	this->units = input;
 	this->_activation.call(this->units);
 }
 
-void		Input::backward([[maybe_unused]] std::vector<t_unit> &) {}
+void		Input::backward([[maybe_unused]] std::vector<t_unit> & input) {}
 
 void		Input::describe(std::ostream & stream) const {
 	stream << "Layer: type=input, shape=(" << this->units.size() << ")";

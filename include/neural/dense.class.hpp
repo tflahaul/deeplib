@@ -6,7 +6,7 @@
 /*   By: thflahau <thflahau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/21 16:13:43 by thflahau          #+#    #+#             */
-/*   Updated: 2020/11/02 22:38:41 by thflahau         ###   ########.fr       */
+/*   Updated: 2020/11/03 15:35:01 by thflahau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ void		Dense::describe(std::ostream & stream) const {
 void		Dense::_init(uint32_t const in, uint32_t const out) {
 	for (register uint_fast32_t idx = 0; idx < in * out; ++idx)
 		this->_weights[idx] = (static_cast<float>(std::rand()) / RAND_MAX) - 0.5;
-	for (register uint_fast32_t idx = 0; idx < in; ++idx)
+	for (register uint_fast32_t idx = 0; idx < out; ++idx)
 		this->units[idx].bias = static_cast<float>(std::rand()) / RAND_MAX;
 }
 
@@ -66,7 +66,7 @@ void		Dense::_init(uint32_t const in, uint32_t const out) {
  * \param in	Number of units of the previous layer
  * \param out	Number of units for the current layer
  */
-Dense::Dense(uint32_t in, uint32_t out) : Layer(in), _weights(in * out), _activation("linear") {
+Dense::Dense(uint32_t in, uint32_t out) : Layer(out), _weights(in * out), _activation("linear") {
 	this->_init(in, out);
 }
 
@@ -75,7 +75,7 @@ Dense::Dense(uint32_t in, uint32_t out) : Layer(in), _weights(in * out), _activa
  * \param out	Number of units for the current layer
  * \param name	Activation function to use
  */
-Dense::Dense(uint32_t in, uint32_t out, std::string const &name) : Layer(in), _weights(in * out), _activation(name) {
+Dense::Dense(uint32_t in, uint32_t out, std::string const &name) : Layer(out), _weights(in * out), _activation(name) {
 	this->_init(in, out);
 }
 

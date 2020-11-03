@@ -6,7 +6,7 @@
 /*   By: thflahau <thflahau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/30 21:31:57 by thflahau          #+#    #+#             */
-/*   Updated: 2020/11/02 22:35:52 by thflahau         ###   ########.fr       */
+/*   Updated: 2020/11/03 15:24:05 by thflahau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ public:
 	friend std::ostream&	operator<<(std::ostream &, Layer const &);
 
 	Layer(uint32_t const);
-	~Layer();
+	virtual ~Layer();
 };
 
 std::ostream&	operator<<(std::ostream & stream, Layer const & instance) {
