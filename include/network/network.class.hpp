@@ -6,7 +6,7 @@
 /*   By: thflahau <thflahau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/31 11:40:34 by thflahau          #+#    #+#             */
-/*   Updated: 2020/11/03 15:36:04 by thflahau         ###   ########.fr       */
+/*   Updated: 2020/11/04 19:19:54 by thflahau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ public:
 	std::vector<Layer *>	_layers;
 
 	void			describe(void);
-	void			fit(std::vector<t_unit> &);
+	void			fit(std::vector<t_unit> &, std::vector<float> &);
 
 	Network(void);
 	~Network();
@@ -37,17 +37,10 @@ void		Network::describe(void) {
 	}
 }
 
-void		Network::fit(std::vector<t_unit> & inputs) {
+void		Network::fit(std::vector<t_unit> & inputs, [[maybe_unused]] std::vector<float> & targets) {
 	this->_layers[0]->forward(inputs);
-	for (unsigned int x = 0; x < this->_layers[0]->units.size(); ++x)
-		printf("%.2f ", this->_layers[0]->units[x].value);
-	std::cout << std::endl;
-	for (unsigned int idx = 1; idx < this->_layers.size(); ++idx) {
+	for (unsigned int idx = 1; idx < this->_layers.size(); ++idx)
 		this->_layers[idx]->forward(this->_layers[idx - 1]->units);
-		for (unsigned int x = 0; x < this->_layers[idx]->units.size(); ++x)
-			printf("%.2f ", this->_layers[idx]->units[x].value);
-		std::cout << std::endl;
-	}
 }
 
 Network::Network(void) {}

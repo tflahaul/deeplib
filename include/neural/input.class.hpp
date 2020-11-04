@@ -6,7 +6,7 @@
 /*   By: thflahau <thflahau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/22 12:17:13 by thflahau          #+#    #+#             */
-/*   Updated: 2020/11/03 15:01:21 by thflahau         ###   ########.fr       */
+/*   Updated: 2020/11/03 18:02:27 by thflahau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ public:
 	~Input();
 };
 
-void		Input::forward([[maybe_unused]] std::vector<t_unit> & input) {
+void		Input::forward(std::vector<t_unit> & input) {
 	this->units = input;
 	this->_activation.call(this->units);
 }

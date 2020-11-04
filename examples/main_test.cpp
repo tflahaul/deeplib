@@ -18,12 +18,5 @@ int			main(void)
 	network._layers.push_back(new Dense(HIDDEN_SIZE, 4, "softmax"));
 
 	network.describe();
-	std::cout << std::endl;
-
-	std::vector<t_unit>	input(INPUT_SIZE);
-	for (unsigned int idx = 0; idx < INPUT_SIZE; ++idx)
-		input[idx].value = static_cast<float>(idx);
-	std::cout << std::endl;
-	network.fit(input);
 	return (0);
 }

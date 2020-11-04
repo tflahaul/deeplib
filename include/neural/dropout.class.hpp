@@ -6,7 +6,7 @@
 /*   By: thflahau <thflahau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/21 15:11:19 by thflahau          #+#    #+#             */
-/*   Updated: 2020/11/02 22:36:13 by thflahau         ###   ########.fr       */
+/*   Updated: 2020/11/03 18:13:38 by thflahau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,15 +33,19 @@ public:
 	Dropout(unsigned int, double);
 };
 
-void		Dropout::forward(std::vector<t_unit> & output) {
-	std::random_device dev;
-	std::mt19937 generator(dev());
+/*!
+ * \brief	Apply dropout to the input using the Mersenne Twister RNG (mt19937)
+ *		to generate evenly distributed numbers
+ */
+void		Dropout::forward(std::vector<t_unit> & input) {
+	std::random_device	dev;
+	std::mt19937		generator(dev());
 	std::uniform_real_distribution<double>	rng(0.0, 1.0);
 	for (register unsigned int idx = 0; idx < this->units.size(); ++idx)
-		this->units[idx].value = output[idx].value * (rng(generator) >= this->_rate);
+		this->units[idx].value = input[idx].value * (rng(generator) >= this->_rate);
 }
 
-void		Dropout::backward([[maybe_unused]] std::vector<t_unit> & output) {}
+void		Dropout::backward([[maybe_unused]] std::vector<t_unit> & input) {}
 
 void		Dropout::describe(std::ostream & stream) const {
 	stream << "Layer: type=dropout, shape=(" << this->units.size() << ")";

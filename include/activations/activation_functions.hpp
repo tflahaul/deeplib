@@ -6,7 +6,7 @@
 /*   By: thflahau <thflahau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/28 23:21:17 by thflahau          #+#    #+#             */
-/*   Updated: 2020/11/02 22:38:15 by thflahau         ###   ########.fr       */
+/*   Updated: 2020/11/04 15:53:44 by thflahau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,10 @@ void			linear([[maybe_unused]] std::vector<t_unit> & units) {}
 void			sigmoid(std::vector<t_unit> & units) {
 	for (register uint_fast32_t idx = 0; idx < units.size(); ++idx)
 		units[idx].value = __sigmoid(units[idx].value);
+}
+
+void			sigmoid_derivative(std::vector<t_unit> & units) {
+	for (register uint_fast32_t idx = 0; idx < units.size(); ++idx);
 }
 
 void			relu(std::vector<t_unit> & units) {

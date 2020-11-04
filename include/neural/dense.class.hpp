@@ -6,7 +6,7 @@
 /*   By: thflahau <thflahau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/21 16:13:43 by thflahau          #+#    #+#             */
-/*   Updated: 2020/11/03 15:35:01 by thflahau         ###   ########.fr       */
+/*   Updated: 2020/11/03 18:10:38 by thflahau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,22 +39,25 @@ public:
 	Dense(uint32_t, uint32_t, std::string const &);
 };
 
-void		Dense::forward(std::vector<t_unit> & output) {
+void		Dense::forward(std::vector<t_unit> & input) {
 	for (register uint_fast32_t x = 0; x < this->units.size(); ++x) {
-		for (register uint_fast32_t y = 0; y < output.size(); ++y)
-			this->units[x].value += output[y].value * this->_weights[x + y];
+		for (register uint_fast32_t y = 0; y < input.size(); ++y)
+			this->units[x].value += input[y].value * this->_weights[x + y];
 		this->units[x].value += this->units[x].bias;
 	}
 	this->_activation.call(this->units);
 }
 
-void		Dense::backward([[maybe_unused]] std::vector<t_unit> & output) {}
+void		Dense::backward([[maybe_unused]] std::vector<t_unit> & input) {}
 
 void		Dense::describe(std::ostream & stream) const {
 	stream << "Layer: type=dense, shape=(" << this->_weights.size() / this->units.size();
 	stream << "," << this->units.size() << "), activation=" << this->_activation.name();
 }
 
+/*!
+ * \brief	Initialize all weights and biases for this specific layer
+ */
 void		Dense::_init(uint32_t const in, uint32_t const out) {
 	for (register uint_fast32_t idx = 0; idx < in * out; ++idx)
 		this->_weights[idx] = (static_cast<float>(std::rand()) / RAND_MAX) - 0.5;
