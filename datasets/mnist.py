@@ -6,13 +6,12 @@
 #    By: thflahau <thflahau@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/05 19:50:33 by thflahau          #+#    #+#              #
-#    Updated: 2020/11/05 19:50:34 by thflahau         ###   ########.fr        #
+#    Updated: 2020/11/05 19:53:39 by thflahau         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 """ Import the MNIST dataset from internet """
 
-import pandas as pd, numpy as np
 import requests, gzip
 
 URL = 'http://yann.lecun.com/exdb/mnist/'
