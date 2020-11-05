@@ -6,7 +6,7 @@
 /*   By: thflahau <thflahau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/21 15:11:19 by thflahau          #+#    #+#             */
-/*   Updated: 2020/11/04 22:56:32 by thflahau         ###   ########.fr       */
+/*   Updated: 2020/11/05 18:22:59 by thflahau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,7 @@
 /*!
  * \brief Regular dropout neural network layer : applies dropout to the input
  */
-class				Dropout : public Layer
-{
+class				Dropout : public Layer {
 private:
 	float			_rate;
 public:

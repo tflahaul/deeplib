@@ -6,7 +6,7 @@
 /*   By: thflahau <thflahau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/28 22:25:03 by thflahau          #+#    #+#             */
-/*   Updated: 2020/11/02 22:37:38 by thflahau         ###   ########.fr       */
+/*   Updated: 2020/11/05 18:22:30 by thflahau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,7 @@ static const std::map<std::string, void (*)(std::vector<t_unit>&)> activations =
 	{"minmax", &minmax}
 };
 
-class			Activation
-{
+class			Activation {
 private:
 	std::string	_name = "linear";
 public:

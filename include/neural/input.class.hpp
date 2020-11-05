@@ -6,7 +6,7 @@
 /*   By: thflahau <thflahau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/22 12:17:13 by thflahau          #+#    #+#             */
-/*   Updated: 2020/11/04 22:56:21 by thflahau         ###   ########.fr       */
+/*   Updated: 2020/11/05 18:23:06 by thflahau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,7 @@
 /*!
  * \brief Regular input layer
  */
-class			Input : public Layer
-{
+class			Input : public Layer {
 private:
 	Activation	_activation;
 public:

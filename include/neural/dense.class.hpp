@@ -6,7 +6,7 @@
 /*   By: thflahau <thflahau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/21 16:13:43 by thflahau          #+#    #+#             */
-/*   Updated: 2020/11/04 22:57:45 by thflahau         ###   ########.fr       */
+/*   Updated: 2020/11/05 18:22:53 by thflahau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,7 @@
 /*!
  * \brief Regular fully-connected neural network layer
  */
-class				Dense : public Layer
-{
+class				Dense : public Layer {
 private:
 	Activation		_activation;
 public:

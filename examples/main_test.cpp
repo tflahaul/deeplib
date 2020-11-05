@@ -17,7 +17,7 @@ int			main(void)
 	net.layers.push_back(new Dense(512, 2048, "relu"));
 	try {
 		net.build();
-	} catch(std::logic_error const & ex) {
+	} catch (std::logic_error const & ex) {
 		std::cerr << "Error: " << ex.what() << std::endl;
 	}
 	return (EXIT_SUCCESS);
