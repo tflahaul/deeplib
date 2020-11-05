@@ -1,22 +1,24 @@
+#include "../include/initializers/uniform.class.hpp"
+#include "../include/initializers/constant.class.hpp"
+#include "../include/initializers/regular.class.hpp"
 #include "../include/activations/activation.class.hpp"
-#include "../include/network.hpp"
-#include "../include/neural.hpp"
-#include "../include/core.hpp"
+#include "../network.hpp"
+#include "../neural.hpp"
+#include "../core.hpp"
+#include <stdexcept>
 #include <iostream>
 #include <vector>
 
-#define INPUT_SIZE	5
-#define HIDDEN_SIZE	10
-
 int			main(void)
 {
-	Network		network;
+	Network		net(new build::Uniform());
 
-	network._layers.push_back(new Input(INPUT_SIZE, "minmax"));
-	network._layers.push_back(new Dense(INPUT_SIZE, HIDDEN_SIZE, "sigmoid"));
-	network._layers.push_back(new Dropout(HIDDEN_SIZE, 0.2));
-	network._layers.push_back(new Dense(HIDDEN_SIZE, 4, "softmax"));
-
-	network.describe();
-	return (0);
+	net.layers.push_back(new Input(512));
+	net.layers.push_back(new Dense(512, 2048, "relu"));
+	try {
+		net.build();
+	} catch(std::logic_error const & ex) {
+		std::cerr << "Error: " << ex.what() << std::endl;
+	}
+	return (EXIT_SUCCESS);
 }

@@ -6,7 +6,7 @@
 /*   By: thflahau <thflahau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/22 12:17:13 by thflahau          #+#    #+#             */
-/*   Updated: 2020/11/03 18:02:27 by thflahau         ###   ########.fr       */
+/*   Updated: 2020/11/04 22:56:21 by thflahau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,13 +51,13 @@ void		Input::describe(std::ostream & stream) const {
 /*!
  * \param size	Number of units for the input layer
  */
-Input::Input(unsigned int size) : Layer(size), _activation("linear") {}
+Input::Input(unsigned int size) : Layer(size, INPUT), _activation("linear") {}
 
 /*!
  * \param size	Number of units for the input layer
  * \param name	Normalization function to use
  */
-Input::Input(unsigned int size, std::string const &name) : Layer(size), _activation(name) {}
+Input::Input(unsigned int size, std::string const &name) : Layer(size, INPUT), _activation(name) {}
 Input::~Input() {}
 
 #endif /* __INPUT_CLASS_HPP__ */

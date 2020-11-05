@@ -6,7 +6,7 @@
 /*   By: thflahau <thflahau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/21 15:11:19 by thflahau          #+#    #+#             */
-/*   Updated: 2020/11/03 18:13:38 by thflahau         ###   ########.fr       */
+/*   Updated: 2020/11/04 22:56:32 by thflahau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void		Dropout::describe(std::ostream & stream) const {
  * \param in		Number of units of the previous layer
  * \param rate		Fraction of the input units to drop (between 0 and 1)
  */
-Dropout::Dropout(unsigned int in, double rate) : Layer(in) {
+Dropout::Dropout(unsigned int in, double rate) : Layer(in, DROPOUT) {
 	this->_rate = static_cast<float>(std::min(1.0, std::max(0.0, rate)));
 }
 

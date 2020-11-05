@@ -1,22 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   initializers.hpp                                   :+:      :+:    :+:   */
+/*   initializer.class.hpp                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: thflahau <thflahau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/04 19:32:25 by thflahau          #+#    #+#             */
-/*   Updated: 2020/11/04 19:36:47 by thflahau         ###   ########.fr       */
+/*   Created: 2020/11/04 20:06:45 by thflahau          #+#    #+#             */
+/*   Updated: 2020/11/05 12:50:54 by thflahau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef __INITIALIZERS_HPP__
-#define __INITIALIZERS_HPP__
+#ifndef __INITIALIZER_CLASS_HPP__
+#define __INITIALIZER_CLASS_HPP__
 
 #include <vector>
 
-void			regular(std::vector<float> &);
-void			uniform(std::vector<float> &);
-void			constant(std::vector<float> &, float const);
+namespace build {
 
-#endif /* __INITIALIZERS_HPP__ */
+class			Initializer {
+public:
+	virtual void	init(std::vector<float> &) = 0;
+	Initializer(void);
+	~Initializer();
+};
+
+Initializer::Initializer(void) {}
+Initializer::~Initializer() {}
+
+} /* namespace build */
+
+#endif /* __INITIALIZER_CLASS_HPP__ */
