@@ -6,7 +6,7 @@
 /*   By: thflahau <thflahau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/04 20:38:38 by thflahau          #+#    #+#             */
-/*   Updated: 2020/11/06 13:45:29 by thflahau         ###   ########.fr       */
+/*   Updated: 2020/11/06 18:52:57 by thflahau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 #include <cstdint>
 #include <vector>
 
-namespace build {
+namespace initializer {
 
 struct			Constant : public Initializer {
 	float		constant;
@@ -32,6 +32,6 @@ void			Constant::init(std::vector<float> & weights) {
 
 Constant::Constant(float const x) : constant(x) {}
 
-} /* namespace build */
+} /* namespace initializer */
 
 #endif /* __CONSTANT_CLASS_HPP__ */

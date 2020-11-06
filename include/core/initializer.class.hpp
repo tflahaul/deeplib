@@ -6,7 +6,7 @@
 /*   By: thflahau <thflahau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/04 20:06:45 by thflahau          #+#    #+#             */
-/*   Updated: 2020/11/06 13:57:39 by thflahau         ###   ########.fr       */
+/*   Updated: 2020/11/06 18:52:49 by thflahau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 #include <vector>
 
-namespace build {
+namespace initializer {
 
 class			Initializer {
 public:
@@ -27,6 +27,6 @@ public:
 Initializer::Initializer(void) {}
 Initializer::~Initializer() {}
 
-} /* namespace build */
+} /* namespace initializer */
 
 #endif /* __INITIALIZER_CLASS_HPP__ */

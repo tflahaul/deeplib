@@ -6,7 +6,7 @@
 /*   By: thflahau <thflahau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/21 16:13:43 by thflahau          #+#    #+#             */
-/*   Updated: 2020/11/06 15:34:06 by thflahau         ###   ########.fr       */
+/*   Updated: 2020/11/06 19:19:58 by thflahau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,9 @@
 
 #include "../activations/activation.class.hpp"
 #include "../core/layer.class.hpp"
-#include "../core/unit.struct.h"
 #include <iostream>
 #include <cstdint>
+#include <cstdlib>
 #include <string>
 #include <vector>
 
@@ -26,31 +26,32 @@
  */
 class				Dense : public Layer {
 private:
+	float			_bias = static_cast<float>(rand()) / RAND_MAX;
 	Activation		_activation;
 public:
 	std::vector<float>	weights;
 
-	void			forward(std::vector<t_unit> &);
-	void			backward(std::vector<t_unit> &);
+	void			forward(std::vector<float> &);
+	void			backward(std::vector<float> &);
 	virtual void		describe(std::ostream &) const;
 
 	Dense(uint32_t, uint32_t);
 	Dense(uint32_t, uint32_t, std::string const &);
 };
 
-void		Dense::forward(std::vector<t_unit> & input) {
+void		Dense::forward(std::vector<float> & input) {
 	for (register uint_fast32_t x = 0; x < this->units.size(); ++x) {
 		for (register uint_fast32_t y = 0; y < input.size(); ++y)
-			this->units[x].value += input[y].value * this->weights[x + y];
-		this->units[x].value += this->units[x].bias;
+			this->units[x] += input[y] * this->weights[x + y];
+		this->units[x] = this->units[x] + this->_bias;
 	}
 	this->_activation.call(this->units);
 }
 
-void		Dense::backward([[maybe_unused]] std::vector<t_unit> & input) {}
+void		Dense::backward([[maybe_unused]] std::vector<float> & input) {}
 
 void		Dense::describe(std::ostream & stream) const {
-	stream << "Layer: type=dense, shape=(" << this->weights.size() / this->units.size();
+	stream << "type=dense, shape=(" << this->weights.size() / this->units.size();
 	stream << "," << this->units.size() << "), activation=" << this->_activation.name();
 }
 
@@ -58,13 +59,13 @@ void		Dense::describe(std::ostream & stream) const {
  * \param in	Number of units of the previous layer
  * \param out	Number of units for the current layer
  */
-Dense::Dense(uint32_t in, uint32_t out) : Layer(out, DENSE), _activation("linear"), weights(in * out) {}
+Dense::Dense(uint32_t in, uint32_t out) : Layer(out, true), _activation("linear"), weights(in * out) {}
 
 /*!
  * \param in	Number of units of the previous layer
  * \param out	Number of units for the current layer
  * \param name	Activation function to use
  */
-Dense::Dense(uint32_t in, uint32_t out, std::string const &name) : Layer(out, DENSE), _activation(name), weights(in * out) {}
+Dense::Dense(uint32_t in, uint32_t out, std::string const &name) : Layer(out, true), _activation(name), weights(in * out) {}
 
 #endif /* __DENSE_CLASS_HPP__ */

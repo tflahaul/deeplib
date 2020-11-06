@@ -6,7 +6,7 @@
 /*   By: thflahau <thflahau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/04 20:44:27 by thflahau          #+#    #+#             */
-/*   Updated: 2020/11/06 13:47:22 by thflahau         ###   ########.fr       */
+/*   Updated: 2020/11/06 18:53:06 by thflahau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 #include <vector>
 #include <random>
 
-namespace build {
+namespace initializer {
 
 /*!
  * \brief Initialize weights with uniform distribution of values using the
@@ -48,6 +48,6 @@ Uniform::Uniform(void) {
 	this->_generator.seed(device());
 }
 
-} /* namespace build */
+} /* namespace initializer */
 
 #endif /* __UNIFORM_CLASS_HPP__ */

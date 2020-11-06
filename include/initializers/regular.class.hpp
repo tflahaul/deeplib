@@ -6,7 +6,7 @@
 /*   By: thflahau <thflahau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/04 20:18:30 by thflahau          #+#    #+#             */
-/*   Updated: 2020/11/06 13:45:23 by thflahau         ###   ########.fr       */
+/*   Updated: 2020/11/06 18:53:01 by thflahau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 #include <vector>
 #include <ctime>
 
-namespace build {
+namespace initializer {
 
 /*!
  * \brief Initialize weights with normal distribution of values
@@ -43,6 +43,6 @@ Regular::Regular(void) {
 	std::srand(time(NULL));
 }
 
-} /* namespace build */
+} /* namespace initializer */
 
 #endif /* __REGULAR_CLASS_HPP__ */

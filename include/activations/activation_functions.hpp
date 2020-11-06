@@ -6,14 +6,13 @@
 /*   By: thflahau <thflahau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/28 23:21:17 by thflahau          #+#    #+#             */
-/*   Updated: 2020/11/04 15:53:44 by thflahau         ###   ########.fr       */
+/*   Updated: 2020/11/06 19:18:06 by thflahau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef __ACTIVATION_FUNCTIONS_HPP__
 #define __ACTIVATION_FUNCTIONS_HPP__
 
-#include "../core/unit.struct.h"
 #include <cstdint>
 #include <vector>
 #include <cmath>
@@ -23,56 +22,52 @@
 #define __tanh(x)	((expf((x) * 2) - 1) / (expf((x) * 2) + 1))
 #define __relu(x)	((x) * ((x) > 0.0))
 
-void			linear([[maybe_unused]] std::vector<t_unit> & units) {}
+void			linear([[maybe_unused]] std::vector<float> & units) {}
 
-void			sigmoid(std::vector<t_unit> & units) {
+void			sigmoid(std::vector<float> & units) {
 	for (register uint_fast32_t idx = 0; idx < units.size(); ++idx)
-		units[idx].value = __sigmoid(units[idx].value);
+		units[idx] = __sigmoid(units[idx]);
 }
 
-void			sigmoid_derivative(std::vector<t_unit> & units) {
-	for (register uint_fast32_t idx = 0; idx < units.size(); ++idx);
-}
-
-void			relu(std::vector<t_unit> & units) {
+void			relu(std::vector<float> & units) {
 	for (register uint_fast32_t idx = 0; idx < units.size(); ++idx)
-		units[idx].value = __relu(units[idx].value);
+		units[idx] = __relu(units[idx]);
 }
 
-void			leaky(std::vector<t_unit> & units) {
+void			leaky(std::vector<float> & units) {
 	for (register uint_fast32_t idx = 0; idx < units.size(); ++idx)
-		units[idx].value = __leaky(units[idx].value);
+		units[idx] = __leaky(units[idx]);
 }
 
-void			tanh(std::vector<t_unit> & units) {
+void			tanh(std::vector<float> & units) {
 	for (register uint_fast32_t idx = 0; idx < units.size(); ++idx)
-		units[idx].value = __tanh(units[idx].value);
+		units[idx] = __tanh(units[idx]);
 }
 
-void			softmax(std::vector<t_unit> & units) {
-	float		max = units[0].value, sum = 0.0, offset;
+void			softmax(std::vector<float> & units) {
+	float		max = units[0], sum = 0.0, offset;
 
 	for (register unsigned int idx = 1; idx < units.size(); ++idx)
-		if (max < units[idx].value)
-			max = units[idx].value;
+		if (max < units[idx])
+			max = units[idx];
 	for (register unsigned int idx = 0; idx < units.size(); ++idx)
-		sum = sum + expf(units[idx].value - max);
+		sum = sum + expf(units[idx] - max);
 	offset = max + log(sum);
 	for (register unsigned int idx = 0; idx < units.size(); ++idx)
-		units[idx].value = expf(units[idx].value - offset);
+		units[idx] = expf(units[idx] - offset);
 }
 
-void			minmax(std::vector<t_unit> & units) {
-	float		max = units[0].value, min = units[0].value;
+void			minmax(std::vector<float> & units) {
+	float		max = units[0], min = units[0];
 
 	for (register unsigned int idx = 0; idx < units.size(); ++idx) {
-		if (max < units[idx].value)
-			max = units[idx].value;
-		if (min > units[idx].value)
-			min = units[idx].value;
+		if (max < units[idx])
+			max = units[idx];
+		if (min > units[idx])
+			min = units[idx];
 	}
 	for (register unsigned int idx = 0; idx < units.size(); ++idx)
-		units[idx].value = (units[idx].value - min) / (max - min);
+		units[idx] = (units[idx] - min) / (max - min);
 }
 
 #endif /* __ACTIVATION_FUNCTIONS_HPP__ */

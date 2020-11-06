@@ -13,14 +13,14 @@
 
 int			main(void)
 {
-	Network		model;
+	class Network	model;
 
-	model.add<Input>(Input(8));
-	model.add<Dense>(Dense(8, 16, "relu"));
-	model.add<Dropout>(Dropout(16, 0.4));
-	model.add<Dense>(Dense(16, 4, "softmax"));
+	model.add<Input>(Input(512, "minmax"));
+	model.add<Dense>(Dense(512, 300, "relu"));
+	model.add<Dropout>(Dropout(300, 0.50));
+	model.add<Dense>(Dense(300, 6, "softmax"));
 	try {
-		model.build<build::Uniform>();
+		model.build<initializer::Uniform>();
 	} catch (std::logic_error const & ex) {
 		std::cerr << "Error: " << ex.what() << std::endl;
 	}
