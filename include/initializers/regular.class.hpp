@@ -6,7 +6,7 @@
 /*   By: thflahau <thflahau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/04 20:18:30 by thflahau          #+#    #+#             */
-/*   Updated: 2020/11/05 15:46:12 by thflahau         ###   ########.fr       */
+/*   Updated: 2020/11/06 13:45:23 by thflahau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,10 @@ namespace build {
 /*!
  * \brief Initialize weights with normal distribution of values
  */
-class			Regular : public Initializer {
-public:
+struct			Regular : public Initializer {
 	virtual void	init(std::vector<float> &);
 	Regular(unsigned int const);
 	Regular(void);
-	~Regular();
 };
 
 void			Regular::init(std::vector<float> & weights) {
@@ -44,8 +42,6 @@ Regular::Regular(unsigned int const seed) {
 Regular::Regular(void) {
 	std::srand(time(NULL));
 }
-
-Regular::~Regular() {}
 
 } /* namespace build */
 

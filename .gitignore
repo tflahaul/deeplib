@@ -1,0 +1,10 @@
+# C/C++
+*.o
+*.d
+
+# Python
+__pycache__
+*.pyc
+
+# Binaries
+*.bin

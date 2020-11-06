@@ -6,7 +6,7 @@
 /*   By: thflahau <thflahau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/04 20:38:38 by thflahau          #+#    #+#             */
-/*   Updated: 2020/11/05 15:46:00 by thflahau         ###   ########.fr       */
+/*   Updated: 2020/11/06 13:45:29 by thflahau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,22 +19,18 @@
 
 namespace build {
 
-class			Constant : public Initializer {
-private:
-	float		_value;
-public:
+struct			Constant : public Initializer {
+	float		constant;
 	virtual void	init(std::vector<float> &);
 	Constant(float const);
-	~Constant();
 };
 
 void			Constant::init(std::vector<float> & weights) {
 	for (register uint_fast32_t idx = 0; idx < weights.size(); ++idx)
-		weights[idx] = this->_value;
+		weights[idx] = this->constant;
 }
 
-Constant::Constant(float const x) : _value(x) {}
-Constant::~Constant() {}
+Constant::Constant(float const x) : constant(x) {}
 
 } /* namespace build */
 

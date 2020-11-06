@@ -6,7 +6,7 @@
 /*   By: thflahau <thflahau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/21 16:13:43 by thflahau          #+#    #+#             */
-/*   Updated: 2020/11/05 18:22:53 by thflahau         ###   ########.fr       */
+/*   Updated: 2020/11/06 15:34:06 by thflahau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 #define __DENSE_CLASS_HPP__
 
 #include "../activations/activation.class.hpp"
-#include "../core.hpp"
+#include "../core/layer.class.hpp"
+#include "../core/unit.struct.h"
 #include <iostream>
 #include <cstdint>
 #include <string>
