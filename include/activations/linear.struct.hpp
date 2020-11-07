@@ -1,41 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   activation.class.hpp                               :+:      :+:    :+:   */
+/*   linear.struct.hpp                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: thflahau <thflahau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/28 22:25:03 by thflahau          #+#    #+#             */
-/*   Updated: 2020/11/07 21:42:15 by thflahau         ###   ########.fr       */
+/*   Created: 2020/11/07 21:52:16 by thflahau          #+#    #+#             */
+/*   Updated: 2020/11/07 22:53:44 by thflahau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef __ACTIVATION_CLASS_HPP__
-#define __ACTIVATION_CLASS_HPP__
+#ifndef __LINEAR_CLASS_HPP__
+#define __LINEAR_CLASS_HPP__
 
-#include <string>
+#include "activation.class.hpp"
+#include <cstdint>
 #include <vector>
 
 namespace activation {
 
-class			Activation {
-private:
-	std::string	_name;
-public:
-	virtual void	call(std::vector<float> &) const = 0;
-	std::string	name(void) const;
-
-	Activation(std::string const &);
-	~Activation();
+struct		linear : public Activation {
+	void	call(std::vector<float> &) const;
+	linear(void);
 };
 
-std::string	Activation::name(void) const {
-	return (this->_name);
-}
+void		linear::call([[maybe_unused]] std::vector<float> & units) const {}
 
-Activation::Activation(std::string const &name) : _name(name) {}
-Activation::~Activation() {}
+linear::linear(void) : Activation("linear") {}
 
 } /* namespace activation */
 
-#endif /* __ACTIVATION_CLASS_HPP__ */
+#endif /* __LINEAR_CLASS_HPP__ */

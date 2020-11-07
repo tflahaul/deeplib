@@ -1,41 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   activation.class.hpp                               :+:      :+:    :+:   */
+/*   sigmoid.class.hpp                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: thflahau <thflahau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/28 22:25:03 by thflahau          #+#    #+#             */
-/*   Updated: 2020/11/07 21:42:15 by thflahau         ###   ########.fr       */
+/*   Created: 2020/11/07 21:52:55 by thflahau          #+#    #+#             */
+/*   Updated: 2020/11/07 21:55:48 by thflahau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef __ACTIVATION_CLASS_HPP__
-#define __ACTIVATION_CLASS_HPP__
+#ifndef __SIGMOID_CLASS_HPP__
+#define __SIGMOID_CLASS_HPP__
 
-#include <string>
+#include "activation.class.hpp"
+#include <cstdint>
 #include <vector>
+#include <cmath>
 
 namespace activation {
 
-class			Activation {
-private:
-	std::string	_name;
-public:
-	virtual void	call(std::vector<float> &) const = 0;
-	std::string	name(void) const;
-
-	Activation(std::string const &);
-	~Activation();
+struct		sigmoid : public Activation {
+	void	call(std::vector<float> &) const;
+	sigmoid(void);
 };
 
-std::string	Activation::name(void) const {
-	return (this->_name);
+void		sigmoid::call(std::vector<float> & units) const {
+	for (register uint_fast32_t idx = 0; idx < units.size(); ++idx)
+		units[idx] = 1.0 / (1.0 + expf(-(units[idx])));
 }
 
-Activation::Activation(std::string const &name) : _name(name) {}
-Activation::~Activation() {}
+sigmoid::sigmoid(void) : Activation("sigmoid") {}
 
 } /* namespace activation */
 
-#endif /* __ACTIVATION_CLASS_HPP__ */
+#endif /* __SIGMOID_CLASS_HPP__ */

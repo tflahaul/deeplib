@@ -6,7 +6,7 @@
 /*   By: thflahau <thflahau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/22 12:17:13 by thflahau          #+#    #+#             */
-/*   Updated: 2020/11/06 19:20:34 by thflahau         ###   ########.fr       */
+/*   Updated: 2020/11/07 23:13:42 by thflahau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,41 +22,32 @@
 /*!
  * \brief Regular input layer
  */
+template<class Activation>
 class			Input : public Layer {
-private:
-	Activation	_activation;
 public:
 	void		forward(std::vector<float> &);
 	void		backward(std::vector<float> &);
 	virtual void	describe(std::ostream &) const;
-
 	Input(unsigned int);
-	Input(unsigned int, std::string const &);
-	~Input();
 };
 
-void		Input::forward(std::vector<float> & input) {
+template<class T> void	Input<T>::forward(std::vector<float> & input) {
+	T const		activation;
 	this->units = input;
-	this->_activation.call(this->units);
+	activation.call(this->units);
 }
 
-void		Input::backward([[maybe_unused]] std::vector<float> & input) {}
+template<class T> void	Input<T>::backward([[maybe_unused]] std::vector<float> & input) {}
 
-void		Input::describe(std::ostream & stream) const {
+template<class T> void	Input<T>::describe(std::ostream & stream) const {
+	T const		activation;
 	stream << "type=input, shape=(" << this->units.size() << ")";
-	stream << ", normalization=" << this->_activation.name();
+	stream << ", normalization=" << activation.name();
 }
 
 /*!
  * \param size	Number of units for the input layer
  */
-Input::Input(unsigned int size) : Layer(size), _activation("linear") {}
-
-/*!
- * \param size	Number of units for the input layer
- * \param name	Normalization function to use
- */
-Input::Input(unsigned int size, std::string const &name) : Layer(size), _activation(name) {}
-Input::~Input() {}
+template<class T> Input<T>::Input(unsigned int size) : Layer(size) {}
 
 #endif /* __INPUT_CLASS_HPP__ */

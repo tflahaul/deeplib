@@ -1,41 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   activation.class.hpp                               :+:      :+:    :+:   */
+/*   tanh.class.hpp                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: thflahau <thflahau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/28 22:25:03 by thflahau          #+#    #+#             */
-/*   Updated: 2020/11/07 21:42:15 by thflahau         ###   ########.fr       */
+/*   Created: 2020/11/07 21:54:46 by thflahau          #+#    #+#             */
+/*   Updated: 2020/11/07 21:58:51 by thflahau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef __ACTIVATION_CLASS_HPP__
-#define __ACTIVATION_CLASS_HPP__
+#ifndef __TANH_CLASS_HPP__
+#define __TANH_CLASS_HPP__
 
-#include <string>
+#include "activation.class.hpp"
+#include <cstdint>
 #include <vector>
+#include <cmath>
 
 namespace activation {
 
-class			Activation {
-private:
-	std::string	_name;
-public:
-	virtual void	call(std::vector<float> &) const = 0;
-	std::string	name(void) const;
-
-	Activation(std::string const &);
-	~Activation();
+struct		tanh : public Activation {
+	void	call(std::vector<float> &) const;
+	tanh(void);
 };
 
-std::string	Activation::name(void) const {
-	return (this->_name);
+void		tanh::call(std::vector<float> & units) const {
+	for (register uint_fast32_t idx = 0; idx < units.size(); ++idx)
+		units[idx] = (expf((units[idx]) * 2) - 1) / (expf((units[idx]) * 2) + 1);
 }
 
-Activation::Activation(std::string const &name) : _name(name) {}
-Activation::~Activation() {}
+tanh::tanh(void) : Activation("tanh") {}
 
 } /* namespace activation */
 
-#endif /* __ACTIVATION_CLASS_HPP__ */
+#endif /* __TANH_CLASS_HPP__ */

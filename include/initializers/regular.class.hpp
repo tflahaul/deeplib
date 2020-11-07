@@ -6,7 +6,7 @@
 /*   By: thflahau <thflahau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/04 20:18:30 by thflahau          #+#    #+#             */
-/*   Updated: 2020/11/06 18:53:01 by thflahau         ###   ########.fr       */
+/*   Updated: 2020/11/07 22:55:08 by thflahau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #define __REGULAR_CLASS_HPP__
 
 #include "../core/initializer.class.hpp"
+#include "../core/matrix.struct.hpp"
 #include <cstdint>
 #include <cstdlib>
 #include <vector>
@@ -22,17 +23,18 @@
 namespace initializer {
 
 /*!
- * \brief Initialize weights with normal distribution of values
+ * \brief Initialize weights using a regular distribution of values
  */
 struct			Regular : public Initializer {
-	virtual void	init(std::vector<float> &);
+	virtual void	init(struct Matrix &);
 	Regular(unsigned int const);
 	Regular(void);
 };
 
-void			Regular::init(std::vector<float> & weights) {
-	for (register uint_fast32_t idx = 0; idx < weights.size(); ++idx)
-		weights[idx] = static_cast<float>(std::rand()) / RAND_MAX;
+void			Regular::init(struct Matrix & weights) {
+	for (register uint_fast32_t x = 0; x < weights.xdim; ++x)
+		for (register uint_fast32_t y = 0; y < weights.ydim; ++y)
+			weights.values[x][y] = static_cast<float>(std::rand()) / RAND_MAX;
 }
 
 Regular::Regular(unsigned int const seed) {

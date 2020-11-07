@@ -1,41 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   activation.class.hpp                               :+:      :+:    :+:   */
+/*   relu.class.hpp                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: thflahau <thflahau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/28 22:25:03 by thflahau          #+#    #+#             */
-/*   Updated: 2020/11/07 21:42:15 by thflahau         ###   ########.fr       */
+/*   Created: 2020/11/07 21:42:33 by thflahau          #+#    #+#             */
+/*   Updated: 2020/11/07 21:47:20 by thflahau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef __ACTIVATION_CLASS_HPP__
-#define __ACTIVATION_CLASS_HPP__
+#ifndef __RELU_CLASS_HPP__
+#define __RELU_CLASS_HPP__
 
-#include <string>
+#include "activation.class.hpp"
+#include <cstdint>
 #include <vector>
 
 namespace activation {
 
-class			Activation {
-private:
-	std::string	_name;
-public:
-	virtual void	call(std::vector<float> &) const = 0;
-	std::string	name(void) const;
-
-	Activation(std::string const &);
-	~Activation();
+struct		ReLU : public Activation {
+	void	call(std::vector<float> &) const;
+	ReLU(void);
 };
 
-std::string	Activation::name(void) const {
-	return (this->_name);
+void		ReLU::call(std::vector<float> & units) const {
+	for (register uint_fast32_t idx = 0; idx < units.size(); ++idx)
+		units[idx] = units[idx] * (units[idx] > 0.0);
 }
 
-Activation::Activation(std::string const &name) : _name(name) {}
-Activation::~Activation() {}
+ReLU::ReLU(void) : Activation("ReLU") {}
 
 } /* namespace activation */
 
-#endif /* __ACTIVATION_CLASS_HPP__ */
+#endif /* __RELU_CLASS_HPP__ */

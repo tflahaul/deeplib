@@ -1,33 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   initializer.class.hpp                              :+:      :+:    :+:   */
+/*   activations.hpp                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: thflahau <thflahau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/04 20:06:45 by thflahau          #+#    #+#             */
-/*   Updated: 2020/11/07 23:06:31 by thflahau         ###   ########.fr       */
+/*   Created: 2020/11/07 22:10:55 by thflahau          #+#    #+#             */
+/*   Updated: 2020/11/07 22:13:10 by thflahau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef __INITIALIZER_CLASS_HPP__
-#define __INITIALIZER_CLASS_HPP__
+#ifndef __ACTIVATIONS_HPP__
+#define __ACTIVATIONS_HPP__
 
-#include "matrix.struct.hpp"
-#include <vector>
+#include "activations/softmax.struct.hpp"
+#include "activations/sigmoid.struct.hpp"
+#include "activations/linear.struct.hpp"
+#include "activations/minmax.struct.hpp"
+#include "activations/leaky.struct.hpp"
+#include "activations/relu.struct.hpp"
+#include "activations/tanh.struct.hpp"
 
-namespace initializer {
-
-class			Initializer {
-public:
-	virtual void	init(struct Matrix &) = 0;
-	Initializer(void);
-	~Initializer();
-};
-
-Initializer::Initializer(void) {}
-Initializer::~Initializer() {}
-
-} /* namespace initializer */
-
-#endif /* __INITIALIZER_CLASS_HPP__ */
+#endif /* __ACTIVATIONS_HPP__ */

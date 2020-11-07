@@ -1,41 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   activation.class.hpp                               :+:      :+:    :+:   */
+/*   leaky.class.hpp                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: thflahau <thflahau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/28 22:25:03 by thflahau          #+#    #+#             */
-/*   Updated: 2020/11/07 21:42:15 by thflahau         ###   ########.fr       */
+/*   Created: 2020/11/07 21:49:27 by thflahau          #+#    #+#             */
+/*   Updated: 2020/11/07 21:55:40 by thflahau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef __ACTIVATION_CLASS_HPP__
-#define __ACTIVATION_CLASS_HPP__
+#ifndef __LEAKY_CLASS_HPP__
+#define __LEAKY_CLASS_HPP__
 
-#include <string>
+#include "activation.class.hpp"
+#include <cstdint>
 #include <vector>
 
 namespace activation {
 
-class			Activation {
-private:
-	std::string	_name;
-public:
-	virtual void	call(std::vector<float> &) const = 0;
-	std::string	name(void) const;
-
-	Activation(std::string const &);
-	~Activation();
+struct		leaky : public Activation {
+	void	call(std::vector<float> &) const;
+	leaky(void);
 };
 
-std::string	Activation::name(void) const {
-	return (this->_name);
+void		leaky::call(std::vector<float> & units) const {
+	for (register uint_fast32_t idx = 0; idx < units.size(); ++idx)
+		units[idx] = (units[idx] > 0.0) ? (units[idx] * 0.1) : (units[idx]);
 }
 
-Activation::Activation(std::string const &name) : _name(name) {}
-Activation::~Activation() {}
+leaky::leaky(void) : Activation("leaky") {}
 
 } /* namespace activation */
 
-#endif /* __ACTIVATION_CLASS_HPP__ */
+#endif /* __LEAKY_CLASS_HPP__ */

@@ -17,7 +17,7 @@ The describe method will output informations on the network,
 ```cpp
 model.describe();
 ```
-```
+```bash
 Layer -> type=input, shape=(512), normalization=minmax
 Layer -> type=dense, shape=(512,300), activation=relu
 Layer -> type=dropout, shape=(300), droprate=0.5
@@ -31,3 +31,4 @@ TODO:
  - loss functions
  - optimizers
  - BATCHES!!!
+ - and only then multi-threading & GPU support?

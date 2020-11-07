@@ -1,33 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   initializer.class.hpp                              :+:      :+:    :+:   */
+/*   initializers.hpp                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: thflahau <thflahau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/04 20:06:45 by thflahau          #+#    #+#             */
-/*   Updated: 2020/11/07 23:06:31 by thflahau         ###   ########.fr       */
+/*   Created: 2020/11/07 22:14:26 by thflahau          #+#    #+#             */
+/*   Updated: 2020/11/07 22:15:05 by thflahau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef __INITIALIZER_CLASS_HPP__
-#define __INITIALIZER_CLASS_HPP__
+#ifndef __INITIALIZERS_HPP__
+#define __INITIALIZERS_HPP__
 
-#include "matrix.struct.hpp"
-#include <vector>
+#include "initializers/constant.class.hpp"
+#include "initializers/regular.class.hpp"
+#include "initializers/uniform.class.hpp"
 
-namespace initializer {
-
-class			Initializer {
-public:
-	virtual void	init(struct Matrix &) = 0;
-	Initializer(void);
-	~Initializer();
-};
-
-Initializer::Initializer(void) {}
-Initializer::~Initializer() {}
-
-} /* namespace initializer */
-
-#endif /* __INITIALIZER_CLASS_HPP__ */
+#endif /* __INITIALIZERS_HPP__ */
