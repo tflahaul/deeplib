@@ -6,22 +6,12 @@ Building a simple network,
 ```cpp
 class Network          model;
 
-model.add<Input>(Input(512, "minmax"));
-model.add<Dense>(Dense(512, 300, "relu"));
-model.add<Dropout>(Dropout(300, 0.50));
-model.add<Dense>(Dense(300, 6, "softmax"));
+model.add(Input<minmax>(512));
+model.add(Dense<relu>(512, 300));
+model.add(Dropout(300, 0.50));
+model.add(Dense<softmax>(300, 6));
 
 model.build<initializer::Uniform>();
-```
-The describe method will output informations on the network,
-```cpp
-model.describe();
-```
-```bash
-Layer -> type=input, shape=(512), normalization=minmax
-Layer -> type=dense, shape=(512,300), activation=relu
-Layer -> type=dropout, shape=(300), droprate=0.5
-Layer -> type=dense, shape=(300,6), activation=softmax
 ```
 
 TODO:

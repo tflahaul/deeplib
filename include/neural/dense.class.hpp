@@ -6,7 +6,7 @@
 /*   By: thflahau <thflahau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/21 16:13:43 by thflahau          #+#    #+#             */
-/*   Updated: 2020/11/07 23:10:19 by thflahau         ###   ########.fr       */
+/*   Updated: 2020/11/09 19:02:25 by thflahau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,21 +26,18 @@
  * \brief Regular fully-connected neural network layer
  */
 template<class Activation>
-class				Dense : public Layer {
-private:
-	std::vector<float>	_bias;
-public:
+struct				Dense : virtual public Layer {
+	std::vector<float>	biases;
 	struct Matrix		weights;
 	void			forward(std::vector<float> &);
 	void			backward(std::vector<float> &);
-	virtual void		describe(std::ostream &) const;
 	Dense(uint32_t, uint32_t);
 };
 
 template<class T> void	Dense<T>::forward(std::vector<float> & input) {
 	T const		activation;
 	for (register uint_fast32_t x = 0; x < this->weights.xdim; ++x) {
-		this->units[x] = this->_bias[x];
+		this->units[x] = this->biases[x];
 		for (register uint_fast32_t y = 0; y < this->weights.ydim; ++y)
 			this->units[x] += input[y] * this->weights.values[x][y];
 	}
@@ -48,12 +45,6 @@ template<class T> void	Dense<T>::forward(std::vector<float> & input) {
 }
 
 template<class T> void	Dense<T>::backward([[maybe_unused]] std::vector<float> & input) {}
-
-template<class T> void	Dense<T>::describe(std::ostream & stream) const {
-	T const		activation;
-	stream << "type=dense, shape=(" << this->weights.xdim << "," << this->weights.ydim;
-	stream << "), activation=" << activation.name();
-}
 
 /*!
  * \param in	Number of units of the previous layer

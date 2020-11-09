@@ -6,7 +6,7 @@
 /*   By: thflahau <thflahau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/30 21:31:57 by thflahau          #+#    #+#             */
-/*   Updated: 2020/11/07 22:09:26 by thflahau         ###   ########.fr       */
+/*   Updated: 2020/11/09 19:11:27 by thflahau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,18 +17,17 @@
 #include <cstdint>
 #include <vector>
 
-class				Layer {
+using namespace std;
+
+class			Layer {
 private:
-	bool			_trainable = false;
+	bool		_trainable = false;
 public:
-	std::vector<float>	units;
+	vector<float>	units;
 
-	bool			trainable(void) const;
-	virtual void		forward(std::vector<float> &);
-	virtual void		backward(std::vector<float> &);
-	virtual void		describe(std::ostream &) const = 0;
-	friend std::ostream&	operator<<(std::ostream &, Layer const &);
-
+	bool		trainable(void) const;
+	virtual void	forward(vector<float> &);
+	virtual void	backward(vector<float> &);
 	Layer(uint32_t const);
 	Layer(uint32_t const, bool const);
 	virtual ~Layer();
@@ -38,13 +37,8 @@ bool		Layer::trainable(void) const {
 	return (this->_trainable);
 }
 
-std::ostream&	operator<<(std::ostream & stream, Layer const & instance) {
-	instance.describe(stream);
-	return (stream);
-}
-
-void		Layer::forward([[maybe_unused]] std::vector<float> & output) {}
-void		Layer::backward([[maybe_unused]] std::vector<float> & output) {}
+void		Layer::forward([[maybe_unused]] std::vector<float> & out) {}
+void		Layer::backward([[maybe_unused]] std::vector<float> & out) {}
 
 /*!
  * \param size	Number of units for the current layer

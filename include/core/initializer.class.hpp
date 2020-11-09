@@ -6,7 +6,7 @@
 /*   By: thflahau <thflahau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/04 20:06:45 by thflahau          #+#    #+#             */
-/*   Updated: 2020/11/07 23:06:31 by thflahau         ###   ########.fr       */
+/*   Updated: 2020/11/09 18:49:14 by thflahau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ namespace initializer {
 
 class			Initializer {
 public:
-	virtual void	init(struct Matrix &) = 0;
+	virtual void	init(struct Matrix &, std::vector<float> &) = 0;
 	Initializer(void);
 	~Initializer();
 };

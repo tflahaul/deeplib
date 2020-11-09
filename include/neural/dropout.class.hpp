@@ -6,13 +6,14 @@
 /*   By: thflahau <thflahau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/21 15:11:19 by thflahau          #+#    #+#             */
-/*   Updated: 2020/11/07 22:40:47 by thflahau         ###   ########.fr       */
+/*   Updated: 2020/11/09 19:02:30 by thflahau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef __DROPOUT_CLASS_HPP__
 #define __DROPOUT_CLASS_HPP__
 
+#include "../core/layer.class.hpp"
 #include <iostream>
 #include <random>
 #include <vector>
@@ -20,14 +21,12 @@
 /*!
  * \brief Regular dropout neural network layer : applies dropout to the input
  */
-class				Dropout : public Layer {
+class				Dropout : virtual public Layer {
 private:
 	float			_rate;
 public:
 	void			forward(std::vector<float> &);
 	void			backward(std::vector<float> &);
-	virtual void		describe(std::ostream &) const;
-
 	Dropout(unsigned int, double);
 };
 
@@ -44,11 +43,6 @@ void		Dropout::forward(std::vector<float> & input) {
 }
 
 void		Dropout::backward([[maybe_unused]] std::vector<float> & input) {}
-
-void		Dropout::describe(std::ostream & stream) const {
-	stream << "type=dropout, shape=(" << this->units.size() << ")";
-	stream << ", droprate=" << this->_rate;
-}
 
 /*!
  * \param in		Number of units of the previous layer

@@ -6,7 +6,7 @@
 /*   By: thflahau <thflahau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/22 12:17:13 by thflahau          #+#    #+#             */
-/*   Updated: 2020/11/07 23:13:42 by thflahau         ###   ########.fr       */
+/*   Updated: 2020/11/09 19:02:36 by thflahau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,9 @@
  * \brief Regular input layer
  */
 template<class Activation>
-class			Input : public Layer {
-public:
+struct			Input : virtual public Layer {
 	void		forward(std::vector<float> &);
 	void		backward(std::vector<float> &);
-	virtual void	describe(std::ostream &) const;
 	Input(unsigned int);
 };
 
@@ -38,12 +36,6 @@ template<class T> void	Input<T>::forward(std::vector<float> & input) {
 }
 
 template<class T> void	Input<T>::backward([[maybe_unused]] std::vector<float> & input) {}
-
-template<class T> void	Input<T>::describe(std::ostream & stream) const {
-	T const		activation;
-	stream << "type=input, shape=(" << this->units.size() << ")";
-	stream << ", normalization=" << activation.name();
-}
 
 /*!
  * \param size	Number of units for the input layer
