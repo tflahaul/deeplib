@@ -6,7 +6,7 @@
 /*   By: thflahau <thflahau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/21 16:13:43 by thflahau          #+#    #+#             */
-/*   Updated: 2020/11/09 19:02:25 by thflahau         ###   ########.fr       */
+/*   Updated: 2020/11/09 20:01:20 by thflahau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,19 +16,18 @@
 #include "../activations/activation.class.hpp"
 #include "../core/matrix.struct.hpp"
 #include "../core/layer.class.hpp"
-#include <iostream>
 #include <cstdint>
-#include <cstdlib>
-#include <string>
 #include <vector>
 
 /*!
  * \brief Regular fully-connected neural network layer
  */
-template<class Activation>
+template<typename Activation>
 struct				Dense : virtual public Layer {
 	std::vector<float>	biases;
+	std::vector<float>	bgrad;
 	struct Matrix		weights;
+	struct Matrix		wgrad;
 	void			forward(std::vector<float> &);
 	void			backward(std::vector<float> &);
 	Dense(uint32_t, uint32_t);
@@ -50,6 +49,8 @@ template<class T> void	Dense<T>::backward([[maybe_unused]] std::vector<float> & 
  * \param in	Number of units of the previous layer
  * \param out	Number of units for the current layer
  */
-template<class T> Dense<T>::Dense(uint32_t in, uint32_t out) : Layer(out, true), weights(out, in) {}
+template<class T> Dense<T>::Dense(uint32_t in, uint32_t out) : Layer(out, true),
+	biases(out), bgrad(out),
+	weights(out, in), wgrad(out, in) {}
 
 #endif /* __DENSE_CLASS_HPP__ */
