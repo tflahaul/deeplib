@@ -18,6 +18,6 @@ int			main(void)
 	model.add(new Dropout(300, 0.50));
 	model.add(new Dense<softmax>(300, 6));
 
-	model.build("uniform");
+	model.build<initializer::Uniform>();
 	return (EXIT_SUCCESS);
 }

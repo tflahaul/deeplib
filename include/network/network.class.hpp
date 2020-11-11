@@ -6,7 +6,7 @@
 /*   By: thflahau <thflahau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/31 11:40:34 by thflahau          #+#    #+#             */
-/*   Updated: 2020/11/11 15:47:17 by thflahau         ###   ########.fr       */
+/*   Updated: 2020/11/11 15:52:48 by thflahau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,13 +25,13 @@
 
 using namespace std;
 
-class			Network {
+class				Network {
 private:
-	vector<Layer *>	_layers;
+	vector<Layer *>		_layers;
 public:
-	void		add(Layer *);
-	void		build(string const &);
-	void		fit(vector<float> &, vector<float> &);
+	void			add(Layer *);
+	template<class I> void	build(void);
+	void			fit(vector<float> &, vector<float> &);
 	~Network();
 };
 
@@ -39,7 +39,7 @@ void			Network::add(Layer * ptr) {
 	this->_layers.push_back(ptr);
 }
 
-void			Network::build([[maybe_unused]] string const & init) {
+template<class I> void	Network::build(void) {
 	if (this->_layers.size() < 2)
 		throw logic_error("build method requires multiple _layers");
 	for (uint_fast32_t idx = 1; idx < this->_layers.size(); ++idx)
