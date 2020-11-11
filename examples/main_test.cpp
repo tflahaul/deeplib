@@ -13,10 +13,10 @@ int			main(void)
 {
 	class Network	model;
 
-	model.add(new Input<minmax>(512));
-	model.add(new Dense<relu>(512, 300));
-	model.add(new Dropout(300, 0.50));
-	model.add(new Dense<softmax>(300, 6));
+	model.add(Input<minmax>(512));
+	model.add(Dense<relu>(512, 300));
+	model.add(Dropout(300, 0.50));
+	model.add(Dense<softmax>(300, 6));
 
 	model.build<initializer::Uniform>();
 	return (EXIT_SUCCESS);
