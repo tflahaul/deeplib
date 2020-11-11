@@ -6,7 +6,7 @@
 /*   By: thflahau <thflahau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/30 21:31:57 by thflahau          #+#    #+#             */
-/*   Updated: 2020/11/09 19:11:27 by thflahau         ###   ########.fr       */
+/*   Updated: 2020/11/11 15:17:49 by thflahau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@ public:
 	vector<float>	units;
 
 	bool		trainable(void) const;
-	virtual void	forward(vector<float> &);
-	virtual void	backward(vector<float> &);
+	virtual void	forward(vector<float> &) = 0;
+	virtual void	backward(vector<float> &) = 0;
 	Layer(uint32_t const);
 	Layer(uint32_t const, bool const);
 	virtual ~Layer();
@@ -36,9 +36,6 @@ public:
 bool		Layer::trainable(void) const {
 	return (this->_trainable);
 }
-
-void		Layer::forward([[maybe_unused]] std::vector<float> & out) {}
-void		Layer::backward([[maybe_unused]] std::vector<float> & out) {}
 
 /*!
  * \param size	Number of units for the current layer

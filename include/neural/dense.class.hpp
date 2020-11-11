@@ -6,7 +6,7 @@
 /*   By: thflahau <thflahau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/21 16:13:43 by thflahau          #+#    #+#             */
-/*   Updated: 2020/11/09 20:01:20 by thflahau         ###   ########.fr       */
+/*   Updated: 2020/11/11 15:07:36 by thflahau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,6 @@ template<class T> void	Dense<T>::backward([[maybe_unused]] std::vector<float> & 
  * \param out	Number of units for the current layer
  */
 template<class T> Dense<T>::Dense(uint32_t in, uint32_t out) : Layer(out, true),
-	biases(out), bgrad(out),
-	weights(out, in), wgrad(out, in) {}
+	biases(out), bgrad(out), weights(out, in), wgrad(out, in) {}
 
 #endif /* __DENSE_CLASS_HPP__ */
