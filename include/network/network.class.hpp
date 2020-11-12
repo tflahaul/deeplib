@@ -6,7 +6,7 @@
 /*   By: thflahau <thflahau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/31 11:40:34 by thflahau          #+#    #+#             */
-/*   Updated: 2020/11/12 20:59:16 by thflahau         ###   ########.fr       */
+/*   Updated: 2020/11/12 21:33:05 by thflahau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@
 #include "../neural/input.class.hpp"
 #include "../neural/dense.class.hpp"
 #include <stdexcept>
-#include <iostream> // delete
 #include <cstdint>
 #include <vector>
 
@@ -33,6 +32,7 @@ public:
 	template<class I> void	build(void);
 	void			set_optimizer(struct Optimizer *);
 	void			fit(vector<float> &, vector<float> &);
+	~Network();
 };
 
 void			Network::add(Layer * instance) {
@@ -41,7 +41,7 @@ void			Network::add(Layer * instance) {
 
 template<class I> void	Network::build(void) {
 	if (this->_layers.size() < 2)
-		throw logic_error("build method requires multiple _layers");
+		throw logic_error("build method requires multiple layers");
 	for (uint_fast32_t idx = 1; idx < this->_layers.size(); ++idx)
 		I().init(this->_layers[idx]->get_weights(), this->_layers[idx]->get_biases());
 }
@@ -50,6 +50,11 @@ void			Network::fit(vector<float> & X, [[maybe_unused]] vector<float> & y) {
 	this->_layers[0]->forward(X);
 	for (uint_fast32_t idx = 1; idx < this->_layers.size(); ++idx)
 		this->_layers[idx]->forward(this->_layers[idx - 1]->units);
+}
+
+Network::~Network() {
+	for (unsigned int idx = 0; idx < this->_layers.size(); ++idx)
+		delete this->_layers[idx];
 }
 
 #endif /* __NETWORK_CLASS_HPP__ */

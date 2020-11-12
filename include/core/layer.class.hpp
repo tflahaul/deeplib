@@ -6,14 +6,13 @@
 /*   By: thflahau <thflahau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/30 21:31:57 by thflahau          #+#    #+#             */
-/*   Updated: 2020/11/12 20:49:17 by thflahau         ###   ########.fr       */
+/*   Updated: 2020/11/12 21:08:42 by thflahau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef __LAYER_CLASS_HPP__
 #define __LAYER_CLASS_HPP__
 
-#include <iostream>
 #include <cstdint>
 #include <vector>
 
