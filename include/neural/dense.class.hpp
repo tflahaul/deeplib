@@ -6,7 +6,7 @@
 /*   By: thflahau <thflahau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/21 16:13:43 by thflahau          #+#    #+#             */
-/*   Updated: 2020/11/11 15:07:36 by thflahau         ###   ########.fr       */
+/*   Updated: 2020/11/12 20:08:17 by thflahau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,21 +19,35 @@
 #include <cstdint>
 #include <vector>
 
+using namespace std;
+
 /*!
  * \brief Regular fully-connected neural network layer
  */
 template<typename Activation>
-struct				Dense : virtual public Layer {
-	std::vector<float>	biases;
-	std::vector<float>	bgrad;
-	struct Matrix		weights;
-	struct Matrix		wgrad;
-	void			forward(std::vector<float> &);
-	void			backward(std::vector<float> &);
+class			Dense : virtual public Layer {
+private:
+	vector<float>	biases;
+	vector<float>	bgrads;
+	struct Matrix	weights;
+	struct Matrix	wgrads;
+public:
+	vector<float> *	get_biases(void);
+	Matrix *	get_weights(void);
+	void		forward(vector<float> &);
+	void		backward(vector<float> &);
 	Dense(uint32_t, uint32_t);
 };
 
-template<class T> void	Dense<T>::forward(std::vector<float> & input) {
+template<class T> vector<float> * Dense<T>::get_biases(void) {
+	return (&(this->biases));
+}
+
+template<class T> Matrix * Dense<T>::get_weights(void) {
+	return (&(this->weights));
+}
+
+template<class T> void	Dense<T>::forward(vector<float> & input) {
 	T const		activation;
 	for (register uint_fast32_t x = 0; x < this->weights.xdim; ++x) {
 		this->units[x] = this->biases[x];
@@ -43,13 +57,13 @@ template<class T> void	Dense<T>::forward(std::vector<float> & input) {
 	activation.call(this->units);
 }
 
-template<class T> void	Dense<T>::backward([[maybe_unused]] std::vector<float> & input) {}
+template<class T> void	Dense<T>::backward([[maybe_unused]] vector<float> & input) {}
 
 /*!
  * \param in	Number of units of the previous layer
  * \param out	Number of units for the current layer
  */
-template<class T> Dense<T>::Dense(uint32_t in, uint32_t out) : Layer(out, true),
-	biases(out), bgrad(out), weights(out, in), wgrad(out, in) {}
+template<class T> Dense<T>::Dense(uint32_t in, uint32_t out) : Layer(out),
+	biases(out), bgrads(out), weights(out, in), wgrads(out, in) {}
 
 #endif /* __DENSE_CLASS_HPP__ */
