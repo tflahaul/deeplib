@@ -25,7 +25,7 @@ struct		leaky : public Activation {
 };
 
 void		leaky::call(std::vector<float> & units) const {
-	for (register uint_fast32_t idx = 0; idx < units.size(); ++idx)
+	for (uint_fast32_t idx = 0; idx < units.size(); ++idx)
 		units[idx] = (units[idx] > 0.0) ? (units[idx] * 0.1) : (units[idx]);
 }
 

@@ -36,11 +36,11 @@ public:
 
 void		Regular::init(struct Matrix * weights, vector<float> * biases) {
 	if (weights != NULL)
-		for (register uint_fast32_t x = 0; x < weights->xdim; ++x)
-			for (register uint_fast32_t y = 0; y < weights->ydim; ++y)
+		for (uint_fast32_t x = 0; x < weights->xdim; ++x)
+			for (uint_fast32_t y = 0; y < weights->ydim; ++y)
 				weights->values[x][y] = static_cast<float>(rand()) / RAND_MAX;
 	if (biases != NULL)
-		for (register uint_fast32_t idx = 0; idx < biases->size(); ++idx)
+		for (uint_fast32_t idx = 0; idx < biases->size(); ++idx)
 			(*biases)[idx] = static_cast<float>(rand()) / (RAND_MAX / 2) - 1.0;
 }
 

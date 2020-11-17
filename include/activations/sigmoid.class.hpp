@@ -26,7 +26,7 @@ struct		sigmoid : public Activation {
 };
 
 void		sigmoid::call(std::vector<float> & units) const {
-	for (register uint_fast32_t idx = 0; idx < units.size(); ++idx)
+	for (uint_fast32_t idx = 0; idx < units.size(); ++idx)
 		units[idx] = 1.0 / (1.0 + expf(-(units[idx])));
 }
 

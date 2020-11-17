@@ -26,7 +26,7 @@ struct		tanh : public Activation {
 };
 
 void		tanh::call(std::vector<float> & units) const {
-	for (register uint_fast32_t idx = 0; idx < units.size(); ++idx)
+	for (uint_fast32_t idx = 0; idx < units.size(); ++idx)
 		units[idx] = (expf((units[idx]) * 2) - 1) / (expf((units[idx]) * 2) + 1);
 }
 

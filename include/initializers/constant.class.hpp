@@ -32,11 +32,11 @@ public:
 
 void		Constant::init(struct Matrix * weights, vector<float> * biases) {
 	if (weights != NULL)
-		for (register uint_fast32_t x = 0; x < weights->xdim; ++x)
-			for (register uint_fast32_t y = 0; y < weights->ydim; ++y)
+		for (uint_fast32_t x = 0; x < weights->xdim; ++x)
+			for (uint_fast32_t y = 0; y < weights->ydim; ++y)
 				weights->values[x][y] = this->_constant;
 	if (biases != NULL)
-		for (register uint_fast32_t idx = 0; idx < biases->size(); ++idx)
+		for (uint_fast32_t idx = 0; idx < biases->size(); ++idx)
 			(*biases)[idx] = this->_constant;
 }
 

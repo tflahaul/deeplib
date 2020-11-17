@@ -28,13 +28,13 @@ struct		softmax : public Activation {
 void		softmax::call(std::vector<float> & units) const {
 	float	max = units[0], sum = 0.0, offset;
 
-	for (register uint_fast32_t idx = 1; idx < units.size(); ++idx)
+	for (uint_fast32_t idx = 1; idx < units.size(); ++idx)
 		if (max < units[idx])
 			max = units[idx];
-	for (register uint_fast32_t idx = 0; idx < units.size(); ++idx)
+	for (uint_fast32_t idx = 0; idx < units.size(); ++idx)
 		sum = sum + expf(units[idx] - max);
 	offset = max + log(sum);
-	for (register uint_fast32_t idx = 0; idx < units.size(); ++idx)
+	for (uint_fast32_t idx = 0; idx < units.size(); ++idx)
 		units[idx] = expf(units[idx] - offset);
 }
 

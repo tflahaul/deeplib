@@ -23,7 +23,8 @@ DIRS		=	$(patsubst $(SRCDIR)%, $(OBJDIR)%, $(shell find $(SRCDIR) -type d))
 CCFLAGS		=	-Wall					\
 			-Wextra					\
 			-Werror					\
-			-pedantic
+			-pedantic				\
+			-std=c++17
 
 INCFLAG		=	-I $(HEADERS)
 

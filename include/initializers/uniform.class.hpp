@@ -38,11 +38,11 @@ public:
 void		Uniform::init(struct Matrix * weights, vector<float> * biases) {
 	uniform_real_distribution<float> rng(-1., 1.);
 	if (weights != NULL)
-		for (register uint_fast32_t x = 0; x < weights->xdim; ++x)
-			for (register uint_fast32_t y = 0; y < weights->ydim; ++y)
+		for (uint_fast32_t x = 0; x < weights->xdim; ++x)
+			for (uint_fast32_t y = 0; y < weights->ydim; ++y)
 				weights->values[x][y] = rng(this->_generator);
 	if (biases != NULL)
-		for (register uint_fast32_t idx = 0; idx < biases->size(); ++idx)
+		for (uint_fast32_t idx = 0; idx < biases->size(); ++idx)
 			(*biases)[idx] = rng(this->_generator);
 }
 

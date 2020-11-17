@@ -49,9 +49,9 @@ template<class T> Matrix * Dense<T>::get_weights(void) {
 
 template<class T> void	Dense<T>::forward(vector<float> & input) {
 	T const		activation;
-	for (register uint_fast32_t x = 0; x < this->weights.xdim; ++x) {
+	for (uint_fast32_t x = 0; x < this->weights.xdim; ++x) {
 		this->units[x] = this->biases[x];
-		for (register uint_fast32_t y = 0; y < this->weights.ydim; ++y)
+		for (uint_fast32_t y = 0; y < this->weights.ydim; ++y)
 			this->units[x] += input[y] * this->weights.values[x][y];
 	}
 	activation.call(this->units);

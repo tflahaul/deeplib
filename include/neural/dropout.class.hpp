@@ -50,7 +50,7 @@ void		Dropout::forward(vector<float> & input) {
 	random_device	dev;
 	mt19937		generator(dev());
 	uniform_real_distribution<double>	rng(0.0, 1.0);
-	for (register unsigned int idx = 0; idx < this->units.size(); ++idx)
+	for (unsigned int idx = 0; idx < this->units.size(); ++idx)
 		this->units[idx] = input[idx] * (rng(generator) >= this->_rate);
 }
 
