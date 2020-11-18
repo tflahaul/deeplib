@@ -17,9 +17,9 @@ model.build<initializer::Uniform>();
 TODO:
  - [X] more & better initializers
  - [ ] improve dropout implementation
- - [ ] convolutional layers
  - [ ] loss functions
  - [ ] optimizers
  - [ ] BATCHES!!!
+ - [ ] convolutional layers
 
 and only then multi-threading & GPU support?

@@ -29,8 +29,8 @@ private:
 public:
 	vector<float> *	get_biases(void);
 	Matrix *	get_weights(void);
-	void		forward(vector<float> &);
-	void		backward(vector<float> &);
+	void		forward(vector<float> const &);
+	void		backward(vector<float> const &);
 	Dropout(unsigned int, double);
 };
 
@@ -43,10 +43,10 @@ vector<float> *	Dropout::get_biases(void) {
 }
 
 /*!
- * \brief	Apply dropout to the input using the Mersenne Twister RNG (mt19937)
- *		to generate evenly distributed numbers
+ * \brief Apply dropout to the input using the Mersenne Twister RNG (mt19937)
+ *	  to generate evenly distributed numbers
  */
-void		Dropout::forward(vector<float> & input) {
+void		Dropout::forward(vector<float> const & input) {
 	random_device	dev;
 	mt19937		generator(dev());
 	uniform_real_distribution<double>	rng(0.0, 1.0);
@@ -54,11 +54,11 @@ void		Dropout::forward(vector<float> & input) {
 		this->units[idx] = input[idx] * (rng(generator) >= this->_rate);
 }
 
-void		Dropout::backward([[maybe_unused]] vector<float> & input) {}
+void		Dropout::backward([[maybe_unused]] vector<float> const & input) {}
 
 /*!
- * \param in		Number of units of the previous layer
- * \param rate		Fraction of the input units to drop (between 0 and 1)
+ * \param in	Number of units of the previous layer
+ * \param rate	Fraction of the input units to drop (between 0 and 1)
  */
 Dropout::Dropout(unsigned int in, double rate) : Layer(in) {
 	this->_rate = static_cast<float>(min(1.0, max(0.0, rate)));

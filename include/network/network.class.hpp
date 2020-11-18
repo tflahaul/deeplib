@@ -31,15 +31,23 @@ public:
 	void			add(Layer *);
 	template<class I> void	build(void);
 	void			set_optimizer(struct Optimizer *);
-	void			feed(vector<float> &);
-	void			fit(vector<float> &, vector<float> &);
+	vector<float> &		feed(vector<float> const &);
+	void			fit(vector<float> const &, vector<float> const &);
 	~Network();
 };
 
+/*!
+ * \brief Push a new layer to the network
+ * \param instance pointer to the layer
+ */
 void			Network::add(Layer * instance) {
 	this->_layers.push_back(instance);
 }
 
+/*!
+ * \brief Initialize all the weights and biases of layers.
+ * 	  You have to specify a type of initializer to use this function
+ */
 template<class I> void	Network::build(void) {
 	if (this->_layers.size() < 2)
 		throw logic_error("build method requires multiple layers");
@@ -47,13 +55,24 @@ template<class I> void	Network::build(void) {
 		I().init(this->_layers[idx]->get_weights(), this->_layers[idx]->get_biases());
 }
 
-void			Network::feed(vector<float> & X) {
+/*!
+ * \brief Does a single feed-forward through the network and returns its output.
+ * 	  This can be helpful for testing
+ * \param X data to feed in
+ */
+vector<float> &		Network::feed(vector<float> const & X) {
 	this->_layers[0]->forward(X);
 	for (uint_fast32_t idx = 1; idx < this->_layers.size(); ++idx)
 		this->_layers[idx]->forward(this->_layers[idx - 1]->units);
+	return (this->_layers[this->_layers.size() - 1]->units);
 }
 
-void			Network::fit(vector<float> & X, [[maybe_unused]] vector<float> & y) {
+/*!
+ * \brief Train the network
+ * \param X data to feed in
+ * \param y targets
+ */
+void			Network::fit(vector<float> const & X, [[maybe_unused]] vector<float> const & y) {
 	this->_layers[0]->forward(X);
 	for (uint_fast32_t idx = 1; idx < this->_layers.size(); ++idx)
 		this->_layers[idx]->forward(this->_layers[idx - 1]->units);

@@ -34,8 +34,8 @@ private:
 public:
 	vector<float> *	get_biases(void);
 	Matrix *	get_weights(void);
-	void		forward(vector<float> &);
-	void		backward(vector<float> &);
+	void		forward(vector<float> const &);
+	void		backward(vector<float> const &);
 	Dense(uint32_t, uint32_t);
 };
 
@@ -47,7 +47,7 @@ template<class T> Matrix * Dense<T>::get_weights(void) {
 	return (&(this->weights));
 }
 
-template<class T> void	Dense<T>::forward(vector<float> & input) {
+template<class T> void	Dense<T>::forward(vector<float> const & input) {
 	static T const activation;
 	for (uint_fast32_t x = 0; x < this->weights.xdim; ++x) {
 		this->units[x] = this->biases[x];
@@ -57,7 +57,7 @@ template<class T> void	Dense<T>::forward(vector<float> & input) {
 	activation.call(this->units);
 }
 
-template<class T> void	Dense<T>::backward([[maybe_unused]] vector<float> & input) {}
+template<class T> void	Dense<T>::backward([[maybe_unused]] vector<float> const & input) {}
 
 /*!
  * \param in	Number of units of the previous layer

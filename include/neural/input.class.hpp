@@ -28,8 +28,8 @@ template<class Activation>
 struct			Input : virtual public Layer {
 	Matrix *	get_weights(void);
 	vector<float> *	get_biases(void);
-	void		forward(vector<float> &);
-	void		backward(vector<float> &);
+	void		forward(vector<float> const &);
+	void		backward(vector<float> const &);
 	Input(unsigned int);
 };
 
@@ -41,13 +41,13 @@ template<class T> Matrix * Input<T>::get_weights(void) {
 	return (NULL);
 }
 
-template<class T> void	Input<T>::forward(vector<float> & input) {
+template<class T> void	Input<T>::forward(vector<float> const & input) {
 	T const		activation;
 	this->units = input;
 	activation.call(this->units);
 }
 
-template<class T> void	Input<T>::backward([[maybe_unused]] vector<float> & input) {}
+template<class T> void	Input<T>::backward([[maybe_unused]] vector<float> const & input) {}
 
 /*!
  * \param size	Number of units for the input layer

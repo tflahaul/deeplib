@@ -22,8 +22,8 @@ struct 				Layer {
 	vector<float>		units;
 	virtual struct Matrix *	get_weights(void) = 0;
 	virtual vector<float> * get_biases(void) = 0;
-	virtual void		forward(vector<float> &) = 0;
-	virtual void		backward(vector<float> &) = 0;
+	virtual void		forward(vector<float> const &) = 0;
+	virtual void		backward(vector<float> const &) = 0;
 	Layer(uint32_t const);
 	Layer(uint32_t const, bool const);
 	virtual ~Layer();

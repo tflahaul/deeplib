@@ -4,10 +4,15 @@
 #include "../include/neural.hpp"
 #include "../include/core.hpp"
 #include <stdexcept>
-#include <iostream>
+#include <cstdio>
 #include <vector>
 
 using namespace activation;
+
+static inline void	print_vector(vector<float> const & v) {
+	for (unsigned int index = 0; index < v.size(); ++index)
+		printf("%.3f\n", v[index]);
+}
 
 int			main(void)
 {
@@ -21,6 +26,6 @@ int			main(void)
 	model.build<initializer::Uniform>();
 
 	std::vector<float> X = {2.4, 7.8, -7.0, 4.11, 0.567};
-	model.feed(X);
+	print_vector(model.feed(X));
 	return (EXIT_SUCCESS);
 }
