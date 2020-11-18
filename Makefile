@@ -24,7 +24,8 @@ CCFLAGS		=	-Wall					\
 			-Wextra					\
 			-Werror					\
 			-pedantic				\
-			-std=c++17
+			-std=c++17				\
+			-g -O0
 
 INCFLAG		=	-I $(HEADERS)
 

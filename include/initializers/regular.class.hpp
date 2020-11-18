@@ -35,13 +35,13 @@ public:
 };
 
 void		Regular::init(struct Matrix * weights, vector<float> * biases) {
-	if (weights != NULL)
+	if (weights != NULL && biases != NULL) {
 		for (uint_fast32_t x = 0; x < weights->xdim; ++x)
 			for (uint_fast32_t y = 0; y < weights->ydim; ++y)
 				weights->values[x][y] = static_cast<float>(rand()) / RAND_MAX;
-	if (biases != NULL)
 		for (uint_fast32_t idx = 0; idx < biases->size(); ++idx)
 			(*biases)[idx] = static_cast<float>(rand()) / (RAND_MAX / 2) - 1.0;
+	}
 }
 
 Regular::Regular(unsigned int const seed) {

@@ -26,6 +26,9 @@ struct				Matrix {
 	Matrix(unsigned int const, unsigned int const);
 };
 
-Matrix::Matrix(unsigned int const x, unsigned int const y) : values(x, vector<float>(y)) {}
+Matrix::Matrix(unsigned int const x, unsigned int const y) : values(x, vector<float>(y)) {
+	this->xdim = x;
+	this->ydim = y;
+}
 
 #endif /* __MATRIX_CLASS_HPP__ */

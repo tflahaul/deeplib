@@ -33,7 +33,6 @@ struct 				Layer {
  * \param size	Number of units for the current layer
  */
 Layer::Layer(uint32_t const size) : units(size) {}
-
 Layer::~Layer() {}
 
 #endif /* __LAYER_CLASS_HPP__ */

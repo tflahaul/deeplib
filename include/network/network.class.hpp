@@ -31,6 +31,7 @@ public:
 	void			add(Layer *);
 	template<class I> void	build(void);
 	void			set_optimizer(struct Optimizer *);
+	void			feed(vector<float> &);
 	void			fit(vector<float> &, vector<float> &);
 	~Network();
 };
@@ -44,6 +45,12 @@ template<class I> void	Network::build(void) {
 		throw logic_error("build method requires multiple layers");
 	for (uint_fast32_t idx = 1; idx < this->_layers.size(); ++idx)
 		I().init(this->_layers[idx]->get_weights(), this->_layers[idx]->get_biases());
+}
+
+void			Network::feed(vector<float> & X) {
+	this->_layers[0]->forward(X);
+	for (uint_fast32_t idx = 1; idx < this->_layers.size(); ++idx)
+		this->_layers[idx]->forward(this->_layers[idx - 1]->units);
 }
 
 void			Network::fit(vector<float> & X, [[maybe_unused]] vector<float> & y) {
