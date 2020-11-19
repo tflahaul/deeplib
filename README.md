@@ -6,10 +6,10 @@ Building a simple network,
 ```cpp
 class Network          model;
 
-model.add(new Input<norm_minmax>(512));
-model.add(new Dense<relu>(512, 300));
-model.add(new Dropout(300, 0.50));
-model.add(new Dense<softmax>(300, 6));
+model.add(new Input<activation::minmax>(512));
+model.add(new Dense<activation::tanh>(512, 300));
+model.add(new Dropout(300, 0.35));
+model.add(new Dense<activation::softmax>(300, 6));
 
 model.build<initializer::Uniform>();
 ```
