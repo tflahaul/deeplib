@@ -16,7 +16,6 @@
 #include "../core/layer.class.hpp"
 #include "../core/matrix.struct.hpp"
 #include <random>
-#include <cstdio>
 #include <vector>
 
 using namespace std;
@@ -48,7 +47,7 @@ void		Dropout::forward(vector<float> const & input) {
 	mt19937			generator(dev());
 	bernoulli_distribution	rng(this->_rate);
 	for (unsigned int idx = 0; idx < this->units.size(); ++idx)
-		this->units[idx] = input[idx] * rng(generator) * (1.0 / (1.0 - this->_rate));
+		this->units[idx] = input[idx] * rng(generator) * (1.0 / this->_rate);
 }
 
 void		Dropout::backward([[maybe_unused]] vector<float> const & input) {}

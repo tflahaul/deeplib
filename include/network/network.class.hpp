@@ -57,7 +57,7 @@ template<class I> void	Network::build(void) {
 
 /*!
  * \brief Does a single feed-forward through the network and returns its output.
- * 	  This can be helpful for testing
+ * 	  Don't use this for testing if your network contains dropout layers (yet)
  * \param X data to feed in
  */
 vector<float> &		Network::feed(vector<float> const & X) {
@@ -76,6 +76,7 @@ void			Network::fit(vector<float> const & X, [[maybe_unused]] vector<float> cons
 	this->_layers[0]->forward(X);
 	for (uint_fast32_t idx = 1; idx < this->_layers.size(); ++idx)
 		this->_layers[idx]->forward(this->_layers[idx - 1]->units);
+	// bprop here
 }
 
 Network::~Network() {
