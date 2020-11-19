@@ -7,8 +7,6 @@
 #include <cstdio>
 #include <vector>
 
-using namespace activation;
-
 static inline void	print_vector(vector<float> const & v) {
 	for (unsigned int index = 0; index < v.size(); ++index)
 		printf("%.3f\n", v[index]);
@@ -18,10 +16,10 @@ int			main(void)
 {
 	class Network	model;
 
-	model.add(new Input<norm_minmax>(5));
-	model.add(new Dense<relu>(5, 10));
+	model.add(new Input<activation::minmax>(5));
+	model.add(new Dense<activation::tanh>(5, 10));
 	model.add(new Dropout(10, 0.25));
-	model.add(new Dense<softmax>(10, 6));
+	model.add(new Dense<activation::softmax>(10, 6));
 
 	model.build<initializer::Uniform>();
 

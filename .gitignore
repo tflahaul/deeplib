@@ -8,3 +8,7 @@ __pycache__
 # Binaries
 *.bin
 *.o
+
+# macOS
+*.swp
+.DS_Store

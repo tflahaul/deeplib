@@ -16,6 +16,7 @@
 #include "../core/layer.class.hpp"
 #include "../core/matrix.struct.hpp"
 #include <random>
+#include <cstdio>
 #include <vector>
 
 using namespace std;
@@ -42,26 +43,22 @@ vector<float> *	Dropout::get_biases(void) {
 	return (NULL);
 }
 
-/*!
- * \brief Apply dropout to the input using the Mersenne Twister RNG (mt19937)
- *	  to generate evenly distributed numbers
- */
 void		Dropout::forward(vector<float> const & input) {
-	random_device	dev;
-	mt19937		generator(dev());
-	uniform_real_distribution<double>	rng(0.0, 1.0);
+	random_device		dev;
+	mt19937			generator(dev());
+	bernoulli_distribution	rng(this->_rate);
 	for (unsigned int idx = 0; idx < this->units.size(); ++idx)
-		this->units[idx] = input[idx] * (rng(generator) >= this->_rate);
+		this->units[idx] = input[idx] * rng(generator) * (1.0 / (1.0 - this->_rate));
 }
 
 void		Dropout::backward([[maybe_unused]] vector<float> const & input) {}
 
 /*!
  * \param in	Number of units of the previous layer
- * \param rate	Fraction of the input units to drop (between 0 and 1)
+ * \param rate	Fraction of the input units to drop (between 0.0 and 1.0)
  */
 Dropout::Dropout(unsigned int in, double rate) : Layer(in) {
-	this->_rate = static_cast<float>(min(1.0, max(0.0, rate)));
+	this->_rate = 1.0 - static_cast<float>(min(1.0, max(0.0, rate)));
 }
 
 #endif /* __DROPOUT_CLASS_HPP__ */

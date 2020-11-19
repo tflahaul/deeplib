@@ -19,12 +19,12 @@
 
 namespace activation {
 
-struct		norm_minmax : public Activation {
+struct		minmax : public Activation {
 	void	call(std::vector<float> &) const;
-	norm_minmax(void);
+	minmax(void);
 };
 
-void		norm_minmax::call(std::vector<float> & units) const {
+void		minmax::call(std::vector<float> & units) const {
 	float	max = units[0], min = units[0];
 
 	for (uint_fast32_t idx = 0; idx < units.size(); ++idx) {
@@ -37,7 +37,7 @@ void		norm_minmax::call(std::vector<float> & units) const {
 		units[idx] = (units[idx] - min) / (max - min);
 }
 
-norm_minmax::norm_minmax(void) : Activation("minmax") {}
+minmax::minmax(void) : Activation("minmax") {}
 
 } /* namespace activation */
 
