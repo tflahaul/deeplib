@@ -57,7 +57,7 @@ template<class T> void	Dense<T>::forward(vector<float> const & input) {
 	activation.call(this->units);
 }
 
-template<class T> void	Dense<T>::backward([[maybe_unused]] vector<float> const & input) {}
+template<class T> void	Dense<T>::backward([[maybe_unused]] vector<float> const & grads) {}
 
 /*!
  * \param in	Number of units of the previous layer

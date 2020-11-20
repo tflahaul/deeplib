@@ -1,8 +1,10 @@
 #include "../include/initializers.hpp"
 #include "../include/activations.hpp"
+#include "../include/optimizers.hpp"
 #include "../include/network.hpp"
 #include "../include/neural.hpp"
 #include "../include/core.hpp"
+#include "../include/loss.hpp"
 #include <cstdio>
 #include <vector>
 

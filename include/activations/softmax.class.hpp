@@ -22,6 +22,7 @@ namespace activation {
 
 struct		softmax : public Activation {
 	void	call(std::vector<float> &) const;
+	void	derivative(std::vector<float> &) const;
 	softmax(void);
 };
 
@@ -37,6 +38,8 @@ void		softmax::call(std::vector<float> & units) const {
 	for (uint_fast32_t idx = 0; idx < units.size(); ++idx)
 		units[idx] = expf(units[idx] - offset);
 }
+
+void		softmax::derivative([[maybe_unused]] std::vector<float> & units) const {}
 
 softmax::softmax(void) : Activation("softmax") {}
 

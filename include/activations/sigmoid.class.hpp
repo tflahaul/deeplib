@@ -22,12 +22,18 @@ namespace activation {
 
 struct		sigmoid : public Activation {
 	void	call(std::vector<float> &) const;
+	void	derivative(std::vector<float> &) const;
 	sigmoid(void);
 };
 
 void		sigmoid::call(std::vector<float> & units) const {
 	for (uint_fast32_t idx = 0; idx < units.size(); ++idx)
 		units[idx] = 1.0 / (1.0 + expf(-(units[idx])));
+}
+
+void		sigmoid::derivative(std::vector<float> & units) const {
+	for (uint_fast32_t idx = 0; idx < units.size(); ++idx)
+		units[idx] = (1.0 - units[idx]) * units[idx];
 }
 
 sigmoid::sigmoid(void) : Activation("sigmoid") {}

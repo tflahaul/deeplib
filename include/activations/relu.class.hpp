@@ -21,12 +21,18 @@ namespace activation {
 
 struct		relu : public Activation {
 	void	call(std::vector<float> &) const;
+	void	derivative(std::vector<float> &) const;
 	relu(void);
 };
 
 void		relu::call(std::vector<float> & units) const {
 	for (uint_fast32_t idx = 0; idx < units.size(); ++idx)
 		units[idx] = units[idx] * (units[idx] > 0.0);
+}
+
+void		relu::derivative(std::vector<float> & units) const {
+	for (uint_fast32_t idx = 0; idx < units.size(); ++idx)
+		units[idx] = (units[idx] > 0.0);
 }
 
 relu::relu(void) : Activation("relu") {}

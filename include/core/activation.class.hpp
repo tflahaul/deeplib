@@ -23,6 +23,7 @@ private:
 	std::string	_name;
 public:
 	virtual void	call(std::vector<float> &) const = 0;
+	virtual void	derivative(std::vector<float> &) const = 0;
 	std::string	name(void) const;
 
 	Activation(std::string const &);

@@ -21,6 +21,7 @@ namespace activation {
 
 struct		minmax : public Activation {
 	void	call(std::vector<float> &) const;
+	void	derivative(std::vector<float> &) const;
 	minmax(void);
 };
 
@@ -36,6 +37,8 @@ void		minmax::call(std::vector<float> & units) const {
 	for (uint_fast32_t idx = 0; idx < units.size(); ++idx)
 		units[idx] = (units[idx] - min) / (max - min);
 }
+
+void		minmax::derivative([[maybe_unused]] std::vector<float> & units) const {}
 
 minmax::minmax(void) : Activation("minmax") {}
 
