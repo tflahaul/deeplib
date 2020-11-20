@@ -13,7 +13,7 @@
 #ifndef __LEAKY_CLASS_HPP__
 #define __LEAKY_CLASS_HPP__
 
-#include "activation.class.hpp"
+#include "../core/activation.class.hpp"
 #include <cstdint>
 #include <vector>
 

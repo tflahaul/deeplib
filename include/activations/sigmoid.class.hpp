@@ -13,7 +13,7 @@
 #ifndef __SIGMOID_CLASS_HPP__
 #define __SIGMOID_CLASS_HPP__
 
-#include "activation.class.hpp"
+#include "../core/activation.class.hpp"
 #include <cstdint>
 #include <vector>
 #include <cmath>

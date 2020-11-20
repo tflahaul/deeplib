@@ -3,7 +3,7 @@ C++ deep learning framework to easily implement different types of neural networ
 
 ### Examples
 Building a simple network,
-```cpp
+```cxx
 class Network          model;
 
 model.add(new Input<activation::minmax>(512));

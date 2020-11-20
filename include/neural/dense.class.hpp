@@ -13,7 +13,7 @@
 #ifndef __DENSE_CLASS_HPP__
 #define __DENSE_CLASS_HPP__
 
-#include "../activations/activation.class.hpp"
+#include "../core/activation.class.hpp"
 #include "../core/matrix.struct.hpp"
 #include "../core/layer.class.hpp"
 #include <cstdint>

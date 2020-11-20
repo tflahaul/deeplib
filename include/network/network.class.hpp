@@ -13,8 +13,8 @@
 #ifndef __NETWORK_CLASS_HPP__
 #define __NETWORK_CLASS_HPP__
 
-#include "../optimizers/optimizer.class.hpp"
 #include "../core/initializer.class.hpp"
+#include "../core/optimizer.class.hpp"
 #include "../core/layer.class.hpp"
 #include "../neural/input.class.hpp"
 #include "../neural/dense.class.hpp"
@@ -30,7 +30,7 @@ private:
 public:
 	void			add(Layer *);
 	template<class I> void	build(void);
-	void			set_optimizer(struct Optimizer *);
+	void			prepare(struct Optimizer *);
 	vector<float> &		feed(vector<float> const &);
 	void			fit(vector<float> const &, vector<float> const &);
 	~Network();

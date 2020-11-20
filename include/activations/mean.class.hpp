@@ -13,7 +13,7 @@
 #ifndef __MEAN_CLASS_HPP__
 #define __MEAN_CLASS_HPP__
 
-#include "activation.class.hpp"
+#include "../core/activation.class.hpp"
 #include <vector>
 
 namespace activation {

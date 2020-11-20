@@ -3,7 +3,6 @@
 #include "../include/network.hpp"
 #include "../include/neural.hpp"
 #include "../include/core.hpp"
-#include <stdexcept>
 #include <cstdio>
 #include <vector>
 
@@ -19,9 +18,9 @@ int			main(void)
 	model.add(new Input<activation::minmax>(5));
 	model.add(new Dense<activation::tanh>(5, 10));
 	model.add(new Dropout(10, 0.25));
-	model.add(new Dense<activation::softmax>(10, 6));
+	model.add(new Dense<activation::softmax>(10, 4));
 
-	model.build<initializer::Uniform>();
+	model.build<initializer::Regular>();
 
 	std::vector<float> X = {2.4, 7.8, -7.0, 4.11, 0.567};
 	print_vector(model.feed(X));

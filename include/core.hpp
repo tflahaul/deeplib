@@ -13,8 +13,10 @@
 #ifndef __CORE_HPP__
 #define __CORE_HPP__
 
-#include "core/layer.class.hpp"
 #include "core/initializer.class.hpp"
+#include "core/activation.class.hpp"
+#include "core/optimizer.class.hpp"
 #include "core/matrix.struct.hpp"
+#include "core/layer.class.hpp"
 
 #endif /* __CORE_HPP__ */

@@ -13,7 +13,7 @@
 #ifndef __INPUT_CLASS_HPP__
 #define __INPUT_CLASS_HPP__
 
-#include "../activations/activation.class.hpp"
+#include "../core/activation.class.hpp"
 #include "../core/layer.class.hpp"
 #include "../core/matrix.struct.hpp"
 #include <string>
