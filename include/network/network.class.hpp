@@ -27,6 +27,7 @@ using namespace std;
 class				Network {
 private:
 	vector<Layer *>		_layers;
+	struct Optimizer *	_optimizer = NULL;
 public:
 	void			add(Layer *);
 	template<class I> void	build(void);
@@ -38,21 +39,27 @@ public:
 
 /*!
  * \brief Push a new layer to the network
- * \param instance pointer to the layer
+ * \param layer pointer to the layer
  */
-void			Network::add(Layer * instance) {
-	this->_layers.push_back(instance);
+void			Network::add(Layer * layer) {
+	this->_layers.push_back(layer);
 }
 
 /*!
  * \brief Initialize all the weights and biases of layers.
- * 	  You have to specify a type of initializer to use this function
+ * 	  You need to specify a type of initializer
  */
 template<class I> void	Network::build(void) {
-	if (this->_layers.size() < 2)
-		throw logic_error("build method requires multiple layers");
+	assert(this->_layers.size() >= 2);
 	for (uint_fast32_t idx = 1; idx < this->_layers.size(); ++idx)
 		I().init(this->_layers[idx]->get_weights(), this->_layers[idx]->get_biases());
+}
+
+/*!
+ * \brief Prepares training by setting an optimizer
+ */
+void			Network::prepare(struct Optimizer *opti) {
+	this->_optimizer = opti;
 }
 
 /*!
@@ -76,10 +83,11 @@ void			Network::fit(vector<float> const & X, [[maybe_unused]] vector<float> cons
 	this->_layers[0]->forward(X);
 	for (uint_fast32_t idx = 1; idx < this->_layers.size(); ++idx)
 		this->_layers[idx]->forward(this->_layers[idx - 1]->units);
-	// bprop here
 }
 
 Network::~Network() {
+	if (this->_optimizer != NULL)
+		delete this->_optimizer;
 	for (unsigned int idx = 0; idx < this->_layers.size(); ++idx)
 		delete this->_layers[idx];
 }

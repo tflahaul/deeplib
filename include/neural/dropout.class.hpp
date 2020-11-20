@@ -21,7 +21,7 @@
 using namespace std;
 
 /*!
- * \brief Regular dropout neural network layer : applies dropout to the input
+ * \brief Regular dropout NN layer : applies dropout to the input
  */
 class			Dropout : virtual public Layer {
 private:
@@ -54,7 +54,7 @@ void		Dropout::backward([[maybe_unused]] vector<float> const & input) {}
 
 /*!
  * \param in	Number of units of the previous layer
- * \param rate	Fraction of the input units to drop (between 0.0 and 1.0)
+ * \param rate	Fraction of the input units TO DROP (between 0.0 and 1.0)
  */
 Dropout::Dropout(unsigned int in, double rate) : Layer(in) {
 	this->_rate = 1.0 - static_cast<float>(min(1.0, max(0.0, rate)));
