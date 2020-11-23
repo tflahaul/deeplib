@@ -8,11 +8,6 @@
 #include <cstdio>
 #include <vector>
 
-static inline void	print_vector(vector<float> const & v) {
-	for (unsigned int index = 0; index < v.size(); ++index)
-		printf("%.3f\n", v[index]);
-}
-
 int			main(void)
 {
 	class Network	model;
@@ -20,11 +15,14 @@ int			main(void)
 	model.add(new Input<activation::minmax>(5));
 	model.add(new Dense<activation::tanh>(5, 10));
 	model.add(new Dropout(10, 0.25));
-	model.add(new Dense<activation::softmax>(10, 4));
+	model.add(new Dense<activation::sigmoid>(10, 1));
 
-	model.build<initializer::Regular>();
+	model.build<initializer::Uniform>();
 
 	std::vector<float> X = {2.4, 7.8, -7.0, 4.11, 0.567};
-	print_vector(model.feed(X));
+	std::vector<float> y = {0.0};
+	auto output = model.feed(X);
+
+	printf("loss=%.3f\n", loss::BCE().error(output, y));
 	return (EXIT_SUCCESS);
 }

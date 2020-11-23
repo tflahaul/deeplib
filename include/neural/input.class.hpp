@@ -42,9 +42,8 @@ template<class T> Matrix * Input<T>::get_weights(void) {
 }
 
 template<class T> void	Input<T>::forward(vector<float> const & input) {
-	T const		activation;
 	this->units = input;
-	activation.call(this->units);
+	T().call(this->units);
 }
 
 template<class T> void	Input<T>::backward([[maybe_unused]] vector<float> const & input) {}

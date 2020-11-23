@@ -46,7 +46,7 @@ void		Dropout::forward(vector<float> const & input) {
 	random_device		dev;
 	mt19937			generator(dev());
 	bernoulli_distribution	rng(this->_rate);
-	for (unsigned int idx = 0; idx < this->units.size(); ++idx)
+	for (uint_fast32_t idx = 0; idx < this->units.size(); ++idx)
 		this->units[idx] = input[idx] * rng(generator) * (1.0 / this->_rate);
 }
 

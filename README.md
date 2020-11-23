@@ -17,7 +17,7 @@ model.build<initializer::Uniform>();
 TODO:
  - [X] more & better initializers
  - [X] improve dropout implementation
- - [ ] loss functions
+ - [X] loss functions
  - [ ] optimizers
  - [ ] BATCHES!!!
  - [ ] convolutional layers

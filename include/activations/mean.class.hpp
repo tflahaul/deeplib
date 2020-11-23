@@ -18,8 +18,7 @@
 
 namespace activation {
 
-struct		mean : public Activation
-{
+struct		mean : public Activation {
 	void	call(std::vector<float> &) const;
 	mean(void);
 };
