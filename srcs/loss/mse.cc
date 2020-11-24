@@ -6,7 +6,7 @@
 /*   By: thflahau <thflahau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/24 15:27:19 by thflahau          #+#    #+#             */
-/*   Updated: 2020/11/24 15:29:29 by thflahau         ###   ########.fr       */
+/*   Updated: 2020/11/24 19:07:31 by thflahau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 #include <cstdint>
 #include <cassert>
 #include <vector>
-#include <cmath>
 
 namespace loss {
 
@@ -22,15 +21,15 @@ float			MSE::error(vector<float> const & out, vector<float> const & target) cons
 	float		loss = 0.0;
 	assert(out.size() == target.size());
 	for (uint_fast32_t idx = 0; idx < out.size(); ++idx)
-		loss += powf(out[idx] - target[idx], 2);
+		loss += (out[idx] - target[idx]) * (out[idx] - target[idx]);
 	return (loss);
 }
 
 vector<float>		MSE::gradient(vector<float> const & out, vector<float> const & target) const {
-	vector<float>	gradients(out.size());
+	vector<float>	derivatives(out.size());
 	for (uint_fast32_t idx = 0; idx < out.size(); ++idx)
-		gradients[idx] = (out[idx] - target[idx]) * 2;
-	return (gradients);
+		derivatives[idx] = 2.0 * (out[idx] - target[idx]);
+	return (derivatives);
 }
 
 } /* namespace loss */
