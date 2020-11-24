@@ -6,7 +6,7 @@
 /*   By: thflahau <thflahau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/04 20:38:38 by thflahau          #+#    #+#             */
-/*   Updated: 2020/11/12 21:10:57 by thflahau         ###   ########.fr       */
+/*   Updated: 2020/11/24 15:22:33 by thflahau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,7 @@
 
 #include "../core/initializer.class.hpp"
 #include "../core/matrix.struct.hpp"
-#include <cstdint>
 #include <vector>
-
-using namespace std;
 
 namespace initializer {
 
@@ -26,21 +23,9 @@ class		Constant : public Initializer {
 private:
 	float	_constant = 0.0;
 public:
-	void	init(struct Matrix *, vector<float> *);
+	void	init(struct Matrix *, std::vector<float> *);
 	Constant(float const);
 };
-
-void		Constant::init(struct Matrix * weights, vector<float> * biases) {
-	if (weights != NULL && biases != NULL) {
-		for (uint_fast32_t x = 0; x < weights->xdim; ++x)
-			for (uint_fast32_t y = 0; y < weights->ydim; ++y)
-				weights->values[x][y] = this->_constant;
-		for (uint_fast32_t idx = 0; idx < biases->size(); ++idx)
-			(*biases)[idx] = this->_constant;
-	}
-}
-
-Constant::Constant(float const x) : _constant(x) {}
 
 } /* namespace initializer */
 

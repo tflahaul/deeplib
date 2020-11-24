@@ -10,7 +10,7 @@
 #                                                                              #
 # **************************************************************************** #
 
-""" Import the MNIST dataset from internet """
+""" Download the MNIST dataset from internet """
 
 import requests, gzip
 

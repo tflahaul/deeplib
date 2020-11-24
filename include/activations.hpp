@@ -6,7 +6,7 @@
 /*   By: thflahau <thflahau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/07 22:10:55 by thflahau          #+#    #+#             */
-/*   Updated: 2020/11/09 19:21:16 by thflahau         ###   ########.fr       */
+/*   Updated: 2020/11/24 15:11:03 by thflahau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,5 @@
 #include "activations/leaky.class.hpp"
 #include "activations/relu.class.hpp"
 #include "activations/tanh.class.hpp"
-//#include "activations/mean.struct.hpp"
 
 #endif /* __ACTIVATIONS_HPP__ */
