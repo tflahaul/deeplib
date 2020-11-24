@@ -21,15 +21,8 @@
 #include <cassert>
 #include <cstdint>
 #include <vector>
-#include <cstdio> // delete
 
 using namespace std;
-
-static inline void	print_vector(vector<float> const & v) { // delete
-	for (unsigned int index = 0; index < v.size(); ++index)
-		printf("%.3f ", v[index]);
-	puts("");
-}
 
 class				Network {
 private:
@@ -76,11 +69,8 @@ void			Network::prepare(struct Optimizer *opti) {
  */
 vector<float> &		Network::feed(vector<float> const & X) {
 	this->_layers[0]->forward(X);
-	print_vector(this->_layers[0]->units); // delete
-	for (uint_fast32_t idx = 1; idx < this->_layers.size(); ++idx) {
+	for (uint_fast32_t idx = 1; idx < this->_layers.size(); ++idx)
 		this->_layers[idx]->forward(this->_layers[idx - 1]->units);
-		print_vector(this->_layers[idx]->units); // delete
-	}
 	return (this->_layers[this->_layers.size() - 1]->units);
 }
 

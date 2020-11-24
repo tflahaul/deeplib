@@ -15,7 +15,8 @@ int			main(void)
 	model.add(new Input<activation::minmax>(5));
 	model.add(new Dense<activation::tanh>(5, 10));
 	model.add(new Dropout(10, 0.25));
-	model.add(new Dense<activation::sigmoid>(10, 1));
+	model.add(new Dense<activation::tanh>(10, 8));
+	model.add(new Dense<activation::sigmoid>(8, 1));
 
 	model.build<initializer::Uniform>();
 
