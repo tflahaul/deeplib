@@ -6,7 +6,7 @@
 /*   By: thflahau <thflahau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/22 12:17:13 by thflahau          #+#    #+#             */
-/*   Updated: 2020/11/24 15:35:53 by thflahau         ###   ########.fr       */
+/*   Updated: 2020/11/25 14:30:55 by thflahau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,22 +14,39 @@
 #define __INPUT_CLASS_HPP__
 
 #include "../core/activation.class.hpp"
-#include "../core/layer.class.hpp"
 #include "../core/matrix.struct.hpp"
+#include "../core/layer.class.hpp"
 #include <vector>
 
 using namespace std;
 
-/*!
- * \brief Regular input layer
- */
 template<class Activation>
 struct			Input : virtual public Layer {
-	Matrix *	get_weights(void);
+	struct Matrix *	get_weights(void);
 	vector<float> *	get_biases(void);
 	void		forward(vector<float> const &);
 	void		backward(vector<float> const &);
 	Input(unsigned int);
 };
+
+template<class T> vector<float> * Input<T>::get_biases(void) {
+	return (NULL);
+}
+
+template<class T> struct Matrix * Input<T>::get_weights(void) {
+	return (NULL);
+}
+
+template<class T> void	Input<T>::forward(vector<float> const & input) {
+	this->units = input;
+	T().call(this->units);
+}
+
+template<class T> void	Input<T>::backward([[maybe_unused]] vector<float> const & input) {}
+
+/*!
+ * \param size	Number of units for the input layer
+ */
+template<class T> Input<T>::Input(unsigned int size) : Layer(size) {}
 
 #endif /* __INPUT_CLASS_HPP__ */

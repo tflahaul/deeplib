@@ -6,7 +6,7 @@
 /*   By: thflahau <thflahau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/07 21:52:16 by thflahau          #+#    #+#             */
-/*   Updated: 2020/11/24 15:05:53 by thflahau         ###   ########.fr       */
+/*   Updated: 2020/11/25 14:06:55 by thflahau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #define __LINEAR_CLASS_HPP__
 
 #include "../core/activation.class.hpp"
+#include <cstdint>
 #include <vector>
 
 namespace activation {
@@ -23,6 +24,15 @@ struct		linear : public Activation {
 	void	derivative(std::vector<float> &) const;
 	linear(void);
 };
+
+void		linear::call([[maybe_unused]] std::vector<float> & units) const {}
+
+void		linear::derivative([[maybe_unused]] std::vector<float> & units) const {
+	for (uint_fast32_t idx = 0; idx < units.size(); ++idx)
+		units[idx] = 1.0;
+}
+
+linear::linear(void) : Activation("linear") {}
 
 } /* namespace activation */
 

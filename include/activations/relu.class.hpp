@@ -6,7 +6,7 @@
 /*   By: thflahau <thflahau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/07 21:42:33 by thflahau          #+#    #+#             */
-/*   Updated: 2020/11/24 15:12:19 by thflahau         ###   ########.fr       */
+/*   Updated: 2020/11/25 14:07:59 by thflahau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #define __RELU_CLASS_HPP__
 
 #include "../core/activation.class.hpp"
+#include <cstdint>
 #include <vector>
 
 namespace activation {
@@ -23,6 +24,18 @@ struct		relu : public Activation {
 	void	derivative(std::vector<float> &) const;
 	relu(void);
 };
+
+void		relu::call(std::vector<float> & units) const {
+	for (uint_fast32_t idx = 0; idx < units.size(); ++idx)
+		units[idx] = units[idx] * (units[idx] > 0.0);
+}
+
+void		relu::derivative(std::vector<float> & units) const {
+	for (uint_fast32_t idx = 0; idx < units.size(); ++idx)
+		units[idx] = (units[idx] > 0.0);
+}
+
+relu::relu(void) : Activation("relu") {}
 
 } /* namespace activation */
 
