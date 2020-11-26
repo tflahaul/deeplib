@@ -6,7 +6,7 @@
 /*   By: thflahau <thflahau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/07 21:54:46 by thflahau          #+#    #+#             */
-/*   Updated: 2020/11/25 14:10:19 by thflahau         ###   ########.fr       */
+/*   Updated: 2020/11/25 22:19:25 by thflahau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,12 +28,12 @@ struct		tanh : public Activation {
 
 void		tanh::call(std::vector<float> & units) const {
 	for (uint_fast32_t idx = 0; idx < units.size(); ++idx)
-		units[idx] = (expf((units[idx]) * 2.) - 1.) / (expf((units[idx]) * 2.) + 1.);
+		units[idx] = (expf((units[idx]) * 2.0) - 1.0) / (expf((units[idx]) * 2.0) + 1.0);
 }
 
 void		tanh::derivative(std::vector<float> & units) const {
 	for (uint_fast32_t idx = 0; idx < units.size(); ++idx)
-		units[idx] = 1. - units[idx] * units[idx];
+		units[idx] = 1.0 - (units[idx] * units[idx]);
 }
 
 tanh::tanh(void) : Activation("tanh") {}

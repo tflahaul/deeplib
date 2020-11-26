@@ -6,7 +6,7 @@
 /*   By: thflahau <thflahau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/07 21:52:55 by thflahau          #+#    #+#             */
-/*   Updated: 2020/11/25 14:08:30 by thflahau         ###   ########.fr       */
+/*   Updated: 2020/11/25 21:51:27 by thflahau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void		sigmoid::call(std::vector<float> & units) const {
 
 void		sigmoid::derivative(std::vector<float> & units) const {
 	for (uint_fast32_t idx = 0; idx < units.size(); ++idx)
-		units[idx] = (1.0 - units[idx]) * units[idx];
+		units[idx] = units[idx] * (1.0 - units[idx]);
 }
 
 sigmoid::sigmoid(void) : Activation("sigmoid") {}
