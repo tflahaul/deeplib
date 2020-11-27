@@ -6,7 +6,7 @@
 /*   By: thflahau <thflahau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/07 21:49:27 by thflahau          #+#    #+#             */
-/*   Updated: 2020/11/25 14:06:17 by thflahau         ###   ########.fr       */
+/*   Updated: 2020/11/27 20:32:50 by thflahau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,23 +14,23 @@
 #define __LEAKY_CLASS_HPP__
 
 #include "../core/activation.class.hpp"
+#include "../core/matrix.struct.hpp"
 #include <cstdint>
-#include <vector>
 
 namespace activation {
 
 struct		leaky : public Activation {
-	void	call(std::vector<float> &) const;
-	void	derivative(std::vector<float> &) const;
+	void	call(Tensor &) const;
+	void	derivative(Tensor &) const;
 	leaky(void);
 };
 
-void		leaky::call(std::vector<float> & units) const {
+void		leaky::call(Tensor & units) const {
 	for (uint_fast32_t idx = 0; idx < units.size(); ++idx)
 		units[idx] = (units[idx] > 0.0) ? (units[idx] * 0.1) : (units[idx]);
 }
 
-void		leaky::derivative(std::vector<float> & units) const {
+void		leaky::derivative(Tensor & units) const {
 	for (uint_fast32_t idx = 0; idx < units.size(); ++idx)
 		units[idx] = (units[idx] > 0.0) ? 1.0 : 0.1;
 }

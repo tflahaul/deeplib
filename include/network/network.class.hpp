@@ -6,7 +6,7 @@
 /*   By: thflahau <thflahau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/31 11:40:34 by thflahau          #+#    #+#             */
-/*   Updated: 2020/11/25 14:16:37 by thflahau         ###   ########.fr       */
+/*   Updated: 2020/11/27 20:41:35 by thflahau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,18 +21,15 @@
 #include <cstdint>
 #include <vector>
 
-using namespace std;
-
 class				Network {
 private:
-	vector<Layer *>		_layers;
-	struct Optimizer *	_optimizer = NULL;
+	std::vector<Layer *>	_layers;
 public:
 	void			add(Layer *);
 	template<class I> void	build(void);
 	void			prepare(struct Optimizer *);
-	vector<float> &		feed(vector<float> const &);
-	void			fit(vector<float> const &, vector<float> const &);
+	Tensor &		feed(Tensor const &);
+	void			fit(Tensor const &, Tensor const &);
 	~Network();
 };
 
@@ -55,38 +52,24 @@ template<class I> void	Network::build(void) {
 }
 
 /*!
- * \brief Prepares training by setting an optimizer
- */
-void			Network::prepare(struct Optimizer *opti) {
-	this->_optimizer = opti;
-}
-
-/*!
  * \brief Does a single feed-forward through the network and returns its output.
  * 	  Don't use this for testing if your network contains dropout layers (yet)
  * \param X data to feed in
  */
-vector<float> &		Network::feed(vector<float> const & X) {
+Tensor &		Network::feed(Tensor const & X) {
 	this->_layers[0]->forward(X);
 	for (uint_fast32_t idx = 1; idx < this->_layers.size(); ++idx)
 		this->_layers[idx]->forward(this->_layers[idx - 1]->units);
 	return (this->_layers[this->_layers.size() - 1]->units);
 }
 
-/*!
- * \brief Train the network
- * \param X data to feed in
- * \param y targets
- */
-void			Network::fit(vector<float> const & X, [[maybe_unused]] vector<float> const & y) {
+void			Network::fit(Tensor const & X, [[maybe_unused]] Tensor const & y) {
 	this->_layers[0]->forward(X);
 	for (uint_fast32_t idx = 1; idx < this->_layers.size(); ++idx)
 		this->_layers[idx]->forward(this->_layers[idx - 1]->units);
 }
 
 Network::~Network() {
-	if (this->_optimizer != NULL)
-		delete this->_optimizer;
 	for (unsigned int idx = 0; idx < this->_layers.size(); ++idx)
 		delete this->_layers[idx];
 }

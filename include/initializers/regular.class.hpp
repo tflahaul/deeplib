@@ -6,7 +6,7 @@
 /*   By: thflahau <thflahau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/04 20:18:30 by thflahau          #+#    #+#             */
-/*   Updated: 2020/11/25 14:12:24 by thflahau         ###   ########.fr       */
+/*   Updated: 2020/11/27 20:44:07 by thflahau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,22 +17,22 @@
 #include "../core/matrix.struct.hpp"
 #include <cstdint>
 #include <cstdlib>
-#include <vector>
 #include <ctime>
 
 namespace initializer {
 
 /*!
- * \brief Initialize weights using a regular distribution of values
+ * \brief Initialize weights using no particular distribution of values. Should
+ *	  be a bit faster than using a uniform distribution
  */
 class		Regular : public Initializer {
 public:
-	void	init(struct Matrix *, std::vector<float> *);
+	void	init(Matrix *, Tensor *);
 	Regular(unsigned int const);
 	Regular(void);
 };
 
-void		Regular::init(struct Matrix * weights, std::vector<float> * biases) {
+void		Regular::init(Matrix * weights, Tensor * biases) {
 	if (weights != NULL && biases != NULL) {
 		for (uint_fast32_t x = 0; x < weights->xdim; ++x)
 			for (uint_fast32_t y = 0; y < weights->ydim; ++y)
@@ -42,13 +42,8 @@ void		Regular::init(struct Matrix * weights, std::vector<float> * biases) {
 	}
 }
 
-Regular::Regular(unsigned int const seed) {
-	srand(seed);
-}
-
-Regular::Regular(void) {
-	srand(time(NULL));
-}
+Regular::Regular(unsigned int const seed) { srand(seed); }
+Regular::Regular(void) { srand(time(NULL)); }
 
 } /* namespace initializer */
 

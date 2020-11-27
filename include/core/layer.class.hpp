@@ -6,24 +6,25 @@
 /*   By: thflahau <thflahau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/30 21:31:57 by thflahau          #+#    #+#             */
-/*   Updated: 2020/11/12 21:08:42 by thflahau         ###   ########.fr       */
+/*   Updated: 2020/11/27 20:36:55 by thflahau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef __LAYER_CLASS_HPP__
 #define __LAYER_CLASS_HPP__
 
+#include "matrix.struct.hpp"
 #include <cstdint>
-#include <vector>
 
 using namespace std;
 
 struct 				Layer {
-	vector<float>		units;
-	virtual struct Matrix *	get_weights(void) = 0;
-	virtual vector<float> * get_biases(void) = 0;
-	virtual void		forward(vector<float> const &) = 0;
-	virtual void		backward(vector<float> const &) = 0;
+	Tensor			units;
+
+	virtual Matrix *	get_weights(void) = 0;
+	virtual Tensor *	get_biases(void) = 0;
+	virtual void		forward(Tensor const &) = 0;
+	virtual void		backward(Tensor const &) = 0;
 	Layer(uint32_t const);
 	Layer(uint32_t const, bool const);
 	virtual ~Layer();

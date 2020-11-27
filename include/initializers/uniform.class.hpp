@@ -6,7 +6,7 @@
 /*   By: thflahau <thflahau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/04 20:44:27 by thflahau          #+#    #+#             */
-/*   Updated: 2020/11/25 14:12:52 by thflahau         ###   ########.fr       */
+/*   Updated: 2020/11/27 20:44:45 by thflahau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@
 #include "../core/initializer.class.hpp"
 #include "../core/matrix.struct.hpp"
 #include <cstdint>
-#include <vector>
 #include <random>
 
 using namespace std;
@@ -30,12 +29,12 @@ class		Uniform : public Initializer {
 private:
 	mt19937	_generator;
 public:
-	void	init(struct Matrix *, vector<float> *);
+	void	init(Matrix *, Tensor *);
 	Uniform(void);
 	Uniform(unsigned int const);
 };
 
-void		Uniform::init(struct Matrix * weights, vector<float> * biases) {
+void		Uniform::init(Matrix * weights, Tensor * biases) {
 	uniform_real_distribution<float> rng(-1., 1.);
 	if (weights != NULL && biases != NULL) {
 		for (uint_fast32_t x = 0; x < weights->xdim; ++x)

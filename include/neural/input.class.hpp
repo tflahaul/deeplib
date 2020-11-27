@@ -6,7 +6,7 @@
 /*   By: thflahau <thflahau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/22 12:17:13 by thflahau          #+#    #+#             */
-/*   Updated: 2020/11/25 14:30:55 by thflahau         ###   ########.fr       */
+/*   Updated: 2020/11/27 20:47:06 by thflahau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,37 +16,34 @@
 #include "../core/activation.class.hpp"
 #include "../core/matrix.struct.hpp"
 #include "../core/layer.class.hpp"
-#include <vector>
-
-using namespace std;
 
 template<class Activation>
 struct			Input : virtual public Layer {
-	struct Matrix *	get_weights(void);
-	vector<float> *	get_biases(void);
-	void		forward(vector<float> const &);
-	void		backward(vector<float> const &);
+	Matrix *	get_weights(void);
+	Tensor *	get_biases(void);
+	void		forward(Tensor const &);
+	void		backward(Tensor const &);
 	Input(unsigned int);
 };
 
-template<class T> vector<float> * Input<T>::get_biases(void) {
+template<class T> Tensor * Input<T>::get_biases(void) {
 	return (NULL);
 }
 
-template<class T> struct Matrix * Input<T>::get_weights(void) {
+template<class T> Matrix * Input<T>::get_weights(void) {
 	return (NULL);
 }
 
-template<class T> void	Input<T>::forward(vector<float> const & input) {
+template<class T> void	Input<T>::forward(Tensor const & input) {
 	this->units = input;
 	T().call(this->units);
 }
 
-template<class T> void	Input<T>::backward([[maybe_unused]] vector<float> const & input) {}
+template<class T> void	Input<T>::backward([[maybe_unused]] Tensor const & input) {}
 
 /*!
  * \param size	Number of units for the input layer
  */
-template<class T> Input<T>::Input(unsigned int size) : Layer(size) {}
+template<class T>	Input<T>::Input(unsigned int size) : Layer(size) {}
 
 #endif /* __INPUT_CLASS_HPP__ */

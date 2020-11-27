@@ -6,7 +6,7 @@
 /*   By: thflahau <thflahau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/07 21:58:41 by thflahau          #+#    #+#             */
-/*   Updated: 2020/11/25 14:07:29 by thflahau         ###   ########.fr       */
+/*   Updated: 2020/11/27 20:33:31 by thflahau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,18 @@
 #define __MINMAX_CLASS_HPP__
 
 #include "../core/activation.class.hpp"
+#include "../core/matrix.struct.hpp"
 #include <cstdint>
-#include <vector>
 
 namespace activation {
 
 struct		minmax : public Activation {
-	void	call(std::vector<float> &) const;
-	void	derivative(std::vector<float> &) const;
+	void	call(Tensor &) const;
+	void	derivative(Tensor &) const;
 	minmax(void);
 };
 
-void		minmax::call(std::vector<float> & units) const {
+void		minmax::call(Tensor & units) const {
 	float	max = units[0], min = units[0];
 	for (uint_fast32_t idx = 0; idx < units.size(); ++idx) {
 		if (max < units[idx])
@@ -37,7 +37,7 @@ void		minmax::call(std::vector<float> & units) const {
 		units[idx] = (units[idx] - min) / (max - min);
 }
 
-void		minmax::derivative([[maybe_unused]] std::vector<float> & units) const {}
+void		minmax::derivative([[maybe_unused]] Tensor & units) const {}
 
 minmax::minmax(void) : Activation("minmax") {}
 
