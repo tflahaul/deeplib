@@ -14,7 +14,15 @@ model.add(new Dense<activation::softmax>(300, 6));
 model.build<initializer::Uniform>();
 ```
 
-TODO:
+### Current capabilities
+**Layers**: dense, dropout, activation
+**Loss functions**: mean squared error, binary cross-entropy
+**Activations**: linear, sigmoid, tanh, leaky, relu, softmax
+**Preprocessing**: min-max
+**Initializers**: regular, uniform, constant
+**Optimizers**: none
+
+#### TODO
  - [X] more & better initializers
  - [X] improve dropout implementation
  - [X] loss functions
