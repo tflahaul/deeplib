@@ -15,12 +15,11 @@ model.build<initializer::Uniform>();
 ```
 
 ### Current capabilities
-**Layers**: dense, dropout, activation
-**Loss functions**: mean squared error, binary cross-entropy
-**Activations**: linear, sigmoid, tanh, leaky, relu, softmax
-**Preprocessing**: min-max
-**Initializers**: regular, uniform, constant
-**Optimizers**: none
+ - Layers: dense, dropout, activation
+ - Loss functions: mean squared error, binary cross-entropy
+ - Activations: linear, sigmoid, tanh, leaky, relu, softmax
+ - Preprocessing: min-max normalization
+ - Initializers: regular, uniform, constant
 
 #### TODO
  - [X] more & better initializers
@@ -29,5 +28,4 @@ model.build<initializer::Uniform>();
  - [ ] optimizers
  - [ ] BATCHES!!!
  - [ ] convolutional layers
-
-and only then multi-threading & GPU support?
+ - [ ] and only then multi-threading & GPU support?
