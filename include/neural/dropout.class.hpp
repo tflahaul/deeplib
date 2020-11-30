@@ -25,7 +25,7 @@ using namespace std;
  */
 class			Dropout : virtual public Layer {
 private:
-	float		_rate;
+	double		_rate;
 public:
 	Tensor *	get_biases(void);
 	Matrix *	get_weights(void);
@@ -53,7 +53,7 @@ void		Dropout::forward(Tensor const & input) {
 void		Dropout::backward([[maybe_unused]] Tensor const & input) {}
 
 Dropout::Dropout(unsigned int in, double rate) : Layer(in) {
-	this->_rate = 1.0 - static_cast<float>(min(1.0, max(0.0, rate)));
+	this->_rate = 1.0 - min(1.0, max(0.0, rate));
 }
 
 #endif /* __DROPOUT_CLASS_HPP__ */
