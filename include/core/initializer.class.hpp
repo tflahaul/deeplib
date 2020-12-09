@@ -6,7 +6,7 @@
 /*   By: thflahau <thflahau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/04 20:06:45 by thflahau          #+#    #+#             */
-/*   Updated: 2020/11/27 20:35:56 by thflahau         ###   ########.fr       */
+/*   Updated: 2020/12/04 17:58:19 by thflahau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,15 +18,9 @@
 
 namespace initializer {
 
-class			Initializer {
-public:
+struct			Initializer {
 	virtual void	init(Matrix *, Tensor *) = 0;
-	Initializer(void);
-	~Initializer();
 };
-
-Initializer::Initializer(void) {}
-Initializer::~Initializer() {}
 
 } /* namespace initializer */
 

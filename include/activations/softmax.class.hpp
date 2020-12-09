@@ -6,24 +6,23 @@
 /*   By: thflahau <thflahau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/07 21:56:12 by thflahau          #+#    #+#             */
-/*   Updated: 2020/11/27 20:34:38 by thflahau         ###   ########.fr       */
+/*   Updated: 2020/12/04 17:53:05 by thflahau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef __SOFTMAX_CLASS_HPP__
 #define __SOFTMAX_CLASS_HPP__
 
-#include "../core/activation.class.hpp"
+#include "../core/activation_function.class.hpp"
 #include "../core/matrix.struct.hpp"
 #include <cstdint>
 #include <cmath>
 
 namespace activation {
 
-struct		softmax : public Activation {
+struct		softmax : public ActivationFunction {
 	void	call(Tensor &) const;
 	void	derivative(Tensor &) const;
-	softmax(void);
 };
 
 void		softmax::call(Tensor & units) const {
@@ -39,8 +38,6 @@ void		softmax::call(Tensor & units) const {
 }
 
 void		softmax::derivative([[maybe_unused]] Tensor & units) const {}
-
-softmax::softmax(void) : Activation("softmax") {}
 
 } /* namespace activation */
 

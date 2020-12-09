@@ -6,7 +6,7 @@
 /*   By: thflahau <thflahau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/24 19:44:11 by thflahau          #+#    #+#             */
-/*   Updated: 2020/11/25 21:10:12 by thflahau         ###   ########.fr       */
+/*   Updated: 2020/12/04 17:56:20 by thflahau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@
 #include "activations/relu.class.hpp"
 #include "activations/tanh.class.hpp"
 
+#include "core/activation_function.class.hpp"
 #include "core/initializer.class.hpp"
-#include "core/activation.class.hpp"
 #include "core/optimizer.class.hpp"
 #include "core/matrix.struct.hpp"
 #include "core/layer.class.hpp"
@@ -36,6 +36,7 @@
 
 #include "network/network.class.hpp"
 
+#include "neural/activation.class.hpp"
 #include "neural/dropout.class.hpp"
 #include "neural/dense.class.hpp"
 #include "neural/input.class.hpp"

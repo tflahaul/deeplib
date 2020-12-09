@@ -6,23 +6,22 @@
 /*   By: thflahau <thflahau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/07 21:58:41 by thflahau          #+#    #+#             */
-/*   Updated: 2020/11/27 20:33:31 by thflahau         ###   ########.fr       */
+/*   Updated: 2020/12/04 17:52:56 by thflahau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef __MINMAX_CLASS_HPP__
 #define __MINMAX_CLASS_HPP__
 
-#include "../core/activation.class.hpp"
+#include "../core/activation_function.class.hpp"
 #include "../core/matrix.struct.hpp"
 #include <cstdint>
 
 namespace activation {
 
-struct		minmax : public Activation {
+struct		minmax : public ActivationFunction {
 	void	call(Tensor &) const;
 	void	derivative(Tensor &) const;
-	minmax(void);
 };
 
 void		minmax::call(Tensor & units) const {
@@ -38,8 +37,6 @@ void		minmax::call(Tensor & units) const {
 }
 
 void		minmax::derivative([[maybe_unused]] Tensor & units) const {}
-
-minmax::minmax(void) : Activation("minmax") {}
 
 } /* namespace activation */
 

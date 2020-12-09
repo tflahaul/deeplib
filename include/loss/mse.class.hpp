@@ -30,7 +30,7 @@ float		MSE::error(Tensor const & out, Tensor const & target) const {
 	assert(out.size() == target.size());
 	for (uint_fast32_t idx = 0; idx < out.size(); ++idx)
 		loss += (out[idx] - target[idx]) * (out[idx] - target[idx]);
-	return (loss);
+	return (loss / out.size());
 }
 
 Tensor		MSE::gradient(Tensor const & out, Tensor const & target) const {

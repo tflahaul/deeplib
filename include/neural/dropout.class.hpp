@@ -6,7 +6,7 @@
 /*   By: thflahau <thflahau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/21 15:11:19 by thflahau          #+#    #+#             */
-/*   Updated: 2020/11/27 20:46:27 by thflahau         ###   ########.fr       */
+/*   Updated: 2020/12/09 18:15:23 by thflahau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,9 @@
 
 using namespace std;
 
-/*!
- * \brief Regular dropout NN layer : applies dropout to the input
- */
 class			Dropout : virtual public Layer {
 private:
-	float		_rate;
+	double		_rate;
 public:
 	Tensor *	get_biases(void);
 	Matrix *	get_weights(void);
@@ -34,26 +31,26 @@ public:
 	Dropout(unsigned int, double);
 };
 
-Matrix *	Dropout::get_weights(void) {
+Matrix *		Dropout::get_weights(void) {
 	return (NULL);
 }
 
-Tensor *	Dropout::get_biases(void) {
+Tensor *		Dropout::get_biases(void) {
 	return (NULL);
 }
 
-void		Dropout::forward(Tensor const & input) {
-	random_device		dev;
-	mt19937			generator(dev());
+void			Dropout::forward(Tensor const & input) {
+	random_device	dev;
+	mt19937		generator(dev());
 	bernoulli_distribution	rng(this->_rate);
 	for (uint_fast32_t idx = 0; idx < this->units.size(); ++idx)
 		this->units[idx] = input[idx] * rng(generator) * (1.0 / this->_rate);
 }
 
-void		Dropout::backward([[maybe_unused]] Tensor const & input) {}
+void			Dropout::backward([[maybe_unused]] Tensor const & input) {}
 
 Dropout::Dropout(unsigned int in, double rate) : Layer(in) {
-	this->_rate = 1.0 - static_cast<float>(min(1.0, max(0.0, rate)));
+	this->_rate = 1.0 - min(1.0, max(0.0, rate));
 }
 
 #endif /* __DROPOUT_CLASS_HPP__ */

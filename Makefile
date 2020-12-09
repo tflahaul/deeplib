@@ -6,11 +6,11 @@
 #    By: thflahau <thflahau@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/03 22:08:10 by abrunet           #+#    #+#              #
-#    Updated: 2020/11/25 14:28:29 by thflahau         ###   ########.fr        #
+#    Updated: 2020/12/04 17:36:15 by thflahau         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME		=	test
+NAME		=	test_deeplib
 
 #######   DIRECTORIES   #######
 HEADERS		=	include
