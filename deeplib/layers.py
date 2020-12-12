@@ -6,7 +6,7 @@
 #    By: thflahau <thflahau@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/12/04 19:11:31 by thflahau          #+#    #+#              #
-#    Updated: 2020/12/11 17:34:39 by thflahau         ###   ########.fr        #
+#    Updated: 2020/12/12 23:23:08 by thflahau         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -58,7 +58,7 @@ class Dropout(Layer):
 		self.rate = 1.0 - min(1.0, max(0.0, rate))
 
 	def forward(self, inputs : np.ndarray) -> np.ndarray:
-		self.mask = np.random.binomial(1, self.rate, size=inputs.shape)
+		self.mask = np.random.binomial(1, self.rate, size=inputs.shape) * (1. / self.rate)
 		return inputs * self.mask
 
 	def backward(self, gradients) -> np.ndarray:

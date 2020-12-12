@@ -5,15 +5,17 @@ Python deep learning framework to easily implement different types of neural net
 Building a simple network,
 ```py
 model = Network([
-	Dense(in_size=512, out_size=32, init='uniform'),
+	Dense(512, 300, init='uniform'),
 	Activation('tanh'),
-	Dense(in_size=32, out_size=1, init='logistic', seed=123),
+	Dropout(rate=0.5),
+	Dense(300, 10, init='regular', seed=42),
 	Activation('sigmoid')])
 ```
 
 Training the model,
 ```py
-model.prepare(optimizer=SGD(), loss=BinaryCrossEntropy(), batch_size=10)
+opti = SGD(lr=0.1, max_norm=True)
+model.prepare(optimizer=opti, loss=BinaryCrossEntropy(), batch_size=10)
 model.fit(X, y)
 ```
 
@@ -21,16 +23,14 @@ model.fit(X, y)
  - Layers: dense, dropout, activation, normalization
  - Loss functions: MAE, MSE, BCE
  - Activations: linear, sigmoid, tanh, leaky, relu
- - Initializers: regular, uniform, logistic
+ - Initializers: regular, uniform
  - Optimizers: SGD
+ - Regularizers/Constraints: max norm, early stopping
 
 #### TODO
- - [ ] more loss functions
+ - [ ] make max norm & future regularizers more modular
+ - [ ] advanced activations layer
+ - [ ] more loss functions (if necessary)
  - [ ] more & better optimizers
  - [ ] convolutional layers
  - [ ] and only then multi-threading & GPU support?
-
-#### XOR example
-<p align="center">
-  <img src="illustrations/xor.png" width="60%"/>
-<p/>

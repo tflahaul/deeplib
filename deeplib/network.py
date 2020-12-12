@@ -6,7 +6,7 @@
 #    By: thflahau <thflahau@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/12/04 19:20:18 by thflahau          #+#    #+#              #
-#    Updated: 2020/12/10 19:17:21 by thflahau         ###   ########.fr        #
+#    Updated: 2020/12/12 22:42:59 by thflahau         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,19 +39,22 @@ class Network(object):
 	def add(self, layer : Layer) -> None:
 		self.layers.append(layer)
 
-	def prepare(self, optimizer, loss, batch_size=32, shuffle=True) -> None:
+	def prepare(self, optimizer, loss, batch_size=32, shuffle=False) -> None:
 		self.optimizer = optimizer
 		self.loss = loss
 		self.batch_size = batch_size
 		self.shuffle = shuffle
 
-	def fit(self, X : np.ndarray, y : np.ndarray, epochs=500, patience=None) -> None:
+	def fit(self, X : np.ndarray, y : np.ndarray, epochs=500, patience=1e-7) -> None:
+		costs = np.zeros(shape=2)
 		for epoch in range(epochs):
-			cost = 0.0
+			costs[1] = costs[0]; costs[0] = 0.0
 			for _X, _y in self.__batch_generator(X, y):
 				output = self.feed(_X)
-				cost = cost + self.loss.cost(output, _y)
+				costs[0] += self.loss.cost(output, _y)
 				gradients = self.loss.derivative(output, _y)
 				self.__bprop(gradients)
 				self.optimizer.update(self.layers)
-			print(f'epoch {epoch}/{epochs}, loss={cost}')
+			print(f'epoch {epoch}/{epochs}, loss={costs[0]}')
+			if np.absolute(costs[0] - costs[1]) < patience:
+				break
