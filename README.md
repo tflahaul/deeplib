@@ -19,7 +19,7 @@ model.fit(X, y)
 
 ### Current capabilities
  - Layers: dense, dropout, activation, normalization
- - Loss functions: mean squared error, binary cross-entropy
+ - Loss functions: MAE, MSE, BCE
  - Activations: linear, sigmoid, tanh, leaky, relu
  - Initializers: regular, uniform, logistic
  - Optimizers: SGD
