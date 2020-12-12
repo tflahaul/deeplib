@@ -1,31 +1,36 @@
 # deeplib
-C++ deep learning framework to easily implement different types of neural networks without compromising on performance.
+Python deep learning framework to easily implement different types of neural networks.
 
 ### Examples
 Building a simple network,
-```cxx
-class Network          model;
+```py
+model = Network([
+	Dense(in_size=512, out_size=32, init='uniform'),
+	Activation('tanh'),
+	Dense(in_size=32, out_size=1, init='logistic', seed=123),
+	Activation('sigmoid')])
+```
 
-model.add(new Input<activation::minmax>(512));
-model.add(new Dense<activation::tanh>(512, 300));
-model.add(new Dropout(300, 0.35));
-model.add(new Dense<activation::softmax>(300, 6));
-
-model.build<initializer::Uniform>();
+Training the model,
+```py
+model.prepare(optimizer=SGD(), loss=BinaryCrossEntropy(), batch_size=10)
+model.fit(X, y)
 ```
 
 ### Current capabilities
- - Layers: dense, dropout, activation
+ - Layers: dense, dropout, activation, normalization
  - Loss functions: mean squared error, binary cross-entropy
- - Activations: linear, sigmoid, tanh, leaky, relu, softmax
- - Preprocessing: min-max normalization
- - Initializers: regular, uniform, constant
+ - Activations: linear, sigmoid, tanh, leaky, relu
+ - Initializers: regular, uniform, logistic
+ - Optimizers: SGD
 
 #### TODO
- - [X] more & better initializers
- - [X] improve dropout implementation
- - [X] loss functions
- - [ ] optimizers
- - [ ] BATCHES!!!
+ - [ ] more loss functions
+ - [ ] more & better optimizers
  - [ ] convolutional layers
  - [ ] and only then multi-threading & GPU support?
+
+#### XOR example
+<p align="center">
+  <img src="illustrations/xor.png" width="60%"/>
+<p/>
