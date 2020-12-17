@@ -6,12 +6,13 @@
 #    By: thflahau <thflahau@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/12/04 19:20:18 by thflahau          #+#    #+#              #
-#    Updated: 2020/12/12 22:42:59 by thflahau         ###   ########.fr        #
+#    Updated: 2020/12/17 15:17:19 by thflahau         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 from deeplib.layers import Layer
 import deeplib.initializers
+from numpy.random import MT19937
 import numpy as np
 
 class Network(object):
@@ -22,15 +23,16 @@ class Network(object):
 		batch_size = min(X.shape[0], max(1, self.batch_size))
 		steps = np.arange(0, X.shape[0], batch_size)
 		if self.shuffle == True:
-			np.random.shuffle(steps)
+			np.random.Generator(MT19937()).shuffle(steps)
 		for start in steps:
 			end = start + batch_size
 			yield (X[start:end], y[start:end])
 
-	def feed(self, X : np.ndarray) -> np.ndarray:
+	def __feed(self, X : np.ndarray) -> np.ndarray:
+		output = X.copy()
 		for layer in self.layers:
-			X = layer.forward(X)
-		return X
+			output = layer.forward(output)
+		return output
 
 	def __bprop(self, gradients : np.ndarray) -> None:
 		for layer in reversed(self.layers):
@@ -45,16 +47,29 @@ class Network(object):
 		self.batch_size = batch_size
 		self.shuffle = shuffle
 
-	def fit(self, X : np.ndarray, y : np.ndarray, epochs=500, patience=1e-7) -> None:
-		costs = np.zeros(shape=2)
+	def fit(self, X : np.ndarray, y : np.ndarray, epochs=500, patience=1e-7):
+		costs = list()
 		for epoch in range(epochs):
-			costs[1] = costs[0]; costs[0] = 0.0
+			epoch_cost = 0.0
 			for _X, _y in self.__batch_generator(X, y):
-				output = self.feed(_X)
-				costs[0] += self.loss.cost(output, _y)
+				output = self.__feed(_X)
+				epoch_cost += self.loss.cost(output, _y)
 				gradients = self.loss.derivative(output, _y)
 				self.__bprop(gradients)
 				self.optimizer.update(self.layers)
-			print(f'epoch {epoch}/{epochs}, loss={costs[0]}')
-			if np.absolute(costs[0] - costs[1]) < patience:
-				break
+			print(f'epoch {epoch}/{epochs}, loss={epoch_cost:.4f}')
+			costs.append(epoch_cost)
+		return costs
+
+	def predict(self, X):
+		return self.__feed(X)
+
+	def accuracy(self, X, y) -> float:
+		valid = 0
+		self.layers[3].test = True
+		for idx in range(X.shape[0]):
+			output = self.__feed(X[idx])
+			if round(output[0]) == y[idx]:
+				valid = valid + 1
+		self.layers[3].test = False
+		return valid / X.shape[0]

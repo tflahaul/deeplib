@@ -6,7 +6,7 @@
 #    By: thflahau <thflahau@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/12/04 19:11:31 by thflahau          #+#    #+#              #
-#    Updated: 2020/12/12 23:23:08 by thflahau         ###   ########.fr        #
+#    Updated: 2020/12/17 14:44:47 by thflahau         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,18 +27,18 @@ class Layer:
 class Dense(Layer):
 	def __init__(self, in_size, out_size, init='regular', seed=None) -> None:
 		super().__init__(trainable=True)
-		self.biases = np.ones(shape=(out_size,))
 		np.random.seed(seed)
-		self.weights = getattr(initializers, init)((out_size, in_size))
+		self.biases = np.ones(shape=(out_size,))
+		self.weights = getattr(initializers, init)((in_size, out_size))
 
 	def forward(self, inputs) -> np.ndarray:
-		self.inputs = inputs
-		return inputs.dot(self.weights.T) + self.biases
+		self.inputs = inputs.copy()
+		return inputs.dot(self.weights) + self.biases
 
 	def backward(self, gradients) -> np.ndarray:
 		self.bgrads = np.sum(gradients, axis=0)
 		self.wgrads = np.dot(self.inputs.T, gradients)
-		return np.dot(gradients, self.weights)
+		return np.dot(gradients, self.weights.T)
 
 class Activation(Layer):
 	def __init__(self, function='linear') -> None:
@@ -58,7 +58,7 @@ class Dropout(Layer):
 		self.rate = 1.0 - min(1.0, max(0.0, rate))
 
 	def forward(self, inputs : np.ndarray) -> np.ndarray:
-		self.mask = np.random.binomial(1, self.rate, size=inputs.shape) * (1. / self.rate)
+		self.mask = np.random.binomial(1, self.rate, size=inputs.shape) * (1.0 / self.rate)
 		return inputs * self.mask
 
 	def backward(self, gradients) -> np.ndarray:
@@ -69,7 +69,7 @@ class Normalization(Layer):
 		super().__init__(trainable=False)
 
 	def forward(self, inputs) -> np.ndarray:
-		return (inputs - min(inputs)) / (max(inputs) - min(inputs))
+		return (inputs - np.min(inputs)) / (np.max(inputs) - np.min(inputs))
 
 	def backward(self, gradients):
 		pass

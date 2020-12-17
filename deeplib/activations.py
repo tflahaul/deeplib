@@ -6,7 +6,7 @@
 #    By: thflahau <thflahau@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/12/04 19:23:02 by thflahau          #+#    #+#              #
-#    Updated: 2020/12/11 16:19:33 by thflahau         ###   ########.fr        #
+#    Updated: 2020/12/17 15:12:22 by thflahau         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -51,7 +51,3 @@ class tanh(ActivationFunction):
 		super().__init__('tanh')
 		self.call = lambda x : (np.exp((x) * 2.0) - 1.0) / (np.exp((x) * 2.0) + 1.0)
 		self.derivative = lambda x : 1.0 - (x * x)
-
-class softmax(ActivationFunction):
-	def __init__(self) -> None:
-		super().__init__('softmax')

@@ -1,22 +1,31 @@
 # **************************************************************************** #
 #                                                                              #
 #                                                         :::      ::::::::    #
-#    initializers.py                                    :+:      :+:    :+:    #
+#    regularizers.py                                    :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
 #    By: thflahau <thflahau@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2020/12/06 15:03:31 by thflahau          #+#    #+#              #
-#    Updated: 2020/12/16 16:26:34 by thflahau         ###   ########.fr        #
+#    Created: 2020/12/13 17:27:49 by thflahau          #+#    #+#              #
+#    Updated: 2020/12/17 14:52:16 by thflahau         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 import numpy as np
+import sys
 
-def regular(shape):
-	return np.random.ranf(size=shape)
+def get(identifier : str):
+	return getattr(sys.modules[__name__], identifier)
 
-def uniform(shape):
-	return np.random.uniform(low=-1.0, high=1.0, size=shape)
+class Regularizer(object):
+	def __init__(self) -> None:
+		pass
 
-def regular_scaled(shape):
-	return np.random.ranf(size=shape) * 0.01
+	def update(self, tensor) -> np.ndarray:
+		raise NotImplementedError
+
+class max_norm(Regularizer):
+	def __init__(self, limit=3.0) -> None:
+		self.limit = limit
+
+	def update(self, tensor) -> np.ndarray:
+		return np.clip(tensor, -self.limit, self.limit)
