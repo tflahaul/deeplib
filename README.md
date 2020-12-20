@@ -13,10 +13,10 @@ from deeplib.optimizers import AdaGrad
 Building a simple network,
 ```py
 model = Network([
-	Dense(512, 300, init='uniform'),
+	Dense(512, 300, init='regular_scaled'),
 	Activation('tanh'),
 	Dropout(rate=0.5),
-	Dense(300, 10, init='regular_scaled', seed=42),
+	Dense(300, 10, init='uniform', seed=42),
 	Activation('sigmoid')
 ])
 ```
@@ -34,7 +34,7 @@ model.fit(X, y, epochs=800, patience=2e-4)
  - Activations: linear, sigmoid, tanh, leaky, relu
  - Initializers: regular, regular scaled, uniform
  - Optimizers: SGD, AdaGrad
- - Weight constraints: max norm
+ - Weight constraints: min-max norm
 
 #### TODO
  - [X] more loss functions (if necessary)

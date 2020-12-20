@@ -6,7 +6,7 @@
 #    By: thflahau <thflahau@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/12/04 19:11:31 by thflahau          #+#    #+#              #
-#    Updated: 2020/12/20 13:15:31 by thflahau         ###   ########.fr        #
+#    Updated: 2020/12/20 14:51:16 by thflahau         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -48,11 +48,11 @@ class Activation(Layer):
 		self.activation = activations.get(function)()
 
 	def forward(self, inputs) -> np.ndarray:
-		self.inputs = np.array([self.activation.call(x) for x in inputs])
+		self.inputs = np.array(list(map(self.activation.call, inputs)))
 		return self.inputs
 
 	def backward(self, gradients) -> np.ndarray:
-		return np.array([self.activation.derivative(x) for x in self.inputs]) * gradients
+		return np.array(list(map(self.activation.derivative, self.inputs))) * gradients
 
 class Dropout(Layer):
 	def __init__(self, rate : float) -> None:
