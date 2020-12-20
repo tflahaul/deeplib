@@ -6,7 +6,7 @@
 #    By: thflahau <thflahau@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/12/04 19:11:31 by thflahau          #+#    #+#              #
-#    Updated: 2020/12/17 14:44:47 by thflahau         ###   ########.fr        #
+#    Updated: 2020/12/20 13:15:31 by thflahau         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@ import deeplib.activations as activations
 import numpy as np
 
 class Layer:
-	def __init__(self, trainable) -> None:
+	def __init__(self, trainable : bool) -> None:
 		self.trainable = trainable
 
 	def forward(self, inputs):
@@ -26,10 +26,12 @@ class Layer:
 
 class Dense(Layer):
 	def __init__(self, in_size, out_size, init='regular', seed=None) -> None:
-		super().__init__(trainable=True)
+		super(Dense, self).__init__(trainable=True)
 		np.random.seed(seed)
-		self.biases = np.ones(shape=(out_size,))
 		self.weights = getattr(initializers, init)((in_size, out_size))
+		self.biases = np.ones(shape=(out_size,), dtype=float)
+		self.wgrads = np.empty_like(self.weights)
+		self.bgrads = np.empty_like(self.biases)
 
 	def forward(self, inputs) -> np.ndarray:
 		self.inputs = inputs.copy()
@@ -42,7 +44,7 @@ class Dense(Layer):
 
 class Activation(Layer):
 	def __init__(self, function='linear') -> None:
-		super().__init__(trainable=False)
+		super(Activation, self).__init__(trainable=False)
 		self.activation = activations.get(function)()
 
 	def forward(self, inputs) -> np.ndarray:
@@ -54,7 +56,7 @@ class Activation(Layer):
 
 class Dropout(Layer):
 	def __init__(self, rate : float) -> None:
-		super().__init__(trainable=False)
+		super(Dropout, self).__init__(trainable=False)
 		self.rate = 1.0 - min(1.0, max(0.0, rate))
 
 	def forward(self, inputs : np.ndarray) -> np.ndarray:
@@ -66,7 +68,7 @@ class Dropout(Layer):
 
 class Normalization(Layer):
 	def __init__(self) -> None:
-		super().__init__(trainable=False)
+		super(Normalization, self).__init__(trainable=False)
 
 	def forward(self, inputs) -> np.ndarray:
 		return (inputs - np.min(inputs)) / (np.max(inputs) - np.min(inputs))

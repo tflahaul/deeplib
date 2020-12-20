@@ -5,7 +5,7 @@ sys.path.append('..')
 from deeplib.layers import Dense, Activation
 from deeplib.network import Network
 from deeplib.loss import BinaryCrossEntropy as BCE
-from deeplib.optimizers import SGD
+from deeplib.optimizers import AdaGrad
 import matplotlib.pyplot as plt
 import numpy as np
 
@@ -35,7 +35,7 @@ if __name__ == '__main__':
 		Activation('tanh'),
 		Dense(in_size=4, out_size=1, init='regular_scaled'),
 		Activation('sigmoid')])
-	solver = SGD(lr=0.1)
+	solver = AdaGrad(model.layers, lr=0.1)
 	model.prepare(optimizer=solver, loss=BCE(), batch_size=4)
 	model.fit(X, y)
 	visualize(model)

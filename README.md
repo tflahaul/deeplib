@@ -1,7 +1,15 @@
 # deeplib
-Python deep learning framework to easily implement different types of neural networks.
+Deep learning framework written in Python to easily implement different kinds of neural networks.
 
-### Examples
+### How to use
+Imports,
+```py
+from deeplib.network import Network
+from deeplib.layers import Dense, Activation, Dropout
+from deeplib.loss import BinaryCrossEntropy as BCE
+from deeplib.optimizers import AdaGrad
+```
+
 Building a simple network,
 ```py
 model = Network([
@@ -15,24 +23,23 @@ model = Network([
 
 Training the model,
 ```py
-solver = SGD(lr=0.1, regularizer='max_norm')
-model.prepare(optimizer=solver, loss=BinaryCrossEntropy(), batch_size=10)
+solver = AdaGrad(lr=0.1, epsilon=1e-7)
+model.prepare(optimizer=solver, loss=BCE(), batch_size=16)
 model.fit(X, y, epochs=800, patience=2e-4)
 ```
 
 ### Current capabilities
  - Layers: dense, dropout, activation, normalization
- - Loss functions: MAE, MSE, BCE
+ - Loss functions: MAE, MSE, CE, BCE
  - Activations: linear, sigmoid, tanh, leaky, relu
- - Initializers: regular, uniform, regular_scaled
- - Optimizers: SGD
- - Regularizers/Constraints: max norm, early stopping
+ - Initializers: regular, regular scaled, uniform
+ - Optimizers: SGD, AdaGrad
+ - Weight constraints: max norm
 
 #### TODO
- - [X] make max norm & future regularizers more modular
- - [ ] advanced activations layer
  - [X] more loss functions (if necessary)
- - [ ] can export model
- - [ ] more & better optimizers
+ - [X] more & better optimizers
+ - [ ] advanced activations layer
+ - [ ] abitily to export the model
  - [ ] convolutional layers
  - [ ] and only then multi-threading & GPU support?
