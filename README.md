@@ -33,7 +33,7 @@ model.fit(X, y, epochs=800, patience=2e-4)
  - Loss functions: MAE, MSE, CE, BCE
  - Activations: linear, sigmoid, tanh, leaky, relu
  - Initializers: regular, regular scaled, uniform
- - Optimizers: SGD, AdaGrad
+ - Optimizers: SGD, AdaGrad, RMSProp
  - Weight constraints: min-max norm
 
 #### TODO
