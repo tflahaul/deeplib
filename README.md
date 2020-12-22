@@ -2,16 +2,13 @@
 Deep learning framework written in Python to easily implement different kinds of neural networks.
 
 ### How to use
-Imports,
+Building a simple network,
 ```py
 from deeplib.network import Network
 from deeplib.layers import Dense, Activation, Dropout
 from deeplib.loss import BinaryCrossEntropy as BCE
 from deeplib.optimizers import AdaGrad
-```
 
-Building a simple network,
-```py
 model = Network([
 	Dense(512, 300, init='regular_scaled'),
 	Activation('tanh'),

@@ -6,7 +6,7 @@
 #    By: thflahau <thflahau@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/12/07 12:38:57 by thflahau          #+#    #+#              #
-#    Updated: 2020/12/22 09:24:37 by thflahau         ###   ########.fr        #
+#    Updated: 2020/12/22 09:33:05 by thflahau         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -52,8 +52,8 @@ class AdaGrad(Optimizer):
 		for idx, layer in enumerate(self.layers):
 			self.acc[idx]['weights'] += layer.wgrads ** 2
 			self.acc[idx]['biases'] += layer.bgrads ** 2
-			layer.weights -= self.lr * (layer.wgrads / np.sqrt(self.eps + self.acc[idx]['weights']))
-			layer.biases -= self.lr * (layer.bgrads / np.sqrt(self.eps + self.acc[idx]['biases']))
+			layer.weights -= self.lr * layer.wgrads / np.sqrt(self.eps + self.acc[idx]['weights'])
+			layer.biases -= self.lr * layer.bgrads / np.sqrt(self.eps + self.acc[idx]['biases'])
 			if self.constraint is not None:
 				layer.weights = self.constraint(layer.weights)
 
