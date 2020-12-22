@@ -6,7 +6,7 @@
 #    By: thflahau <thflahau@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/12/07 12:38:57 by thflahau          #+#    #+#              #
-#    Updated: 2020/12/20 14:53:30 by thflahau         ###   ########.fr        #
+#    Updated: 2020/12/22 09:24:37 by thflahau         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -58,10 +58,22 @@ class AdaGrad(Optimizer):
 				layer.weights = self.constraint(layer.weights)
 
 class RMSProp(Optimizer):
-	def __init__(self, layers, lr=0.01, decay=0.9, epsilon=1e-8) -> None:
+	def __init__(self, layers, lr=0.01, decay=0.9, epsilon=1e-8, initial_accumulator=0.1) -> None:
 		super(RMSProp, self).__init__(layers, lr)
+		self.acc = [None] * len(self.layers)
+		for idx, layer in enumerate(self.layers):
+			self.acc[idx] = {
+				'weights' : np.full_like(layer.wgrads, initial_accumulator),
+				'biases' : np.full_like(layer.bgrads, initial_accumulator)
+			}
 		self.decay = decay
 		self.eps = epsilon
 
 	def update(self) -> None:
-		pass
+		for idx, layer in enumerate(self.layers):
+			self.acc[idx]['weights'] = self.decay * self.acc[idx]['weights'] + (1.0 - self.decay) * layer.wgrads ** 2
+			self.acc[idx]['biases'] = self.decay * self.acc[idx]['biases'] + (1.0 - self.decay) * layer.bgrads ** 2
+			layer.weights -= self.lr * layer.wgrads / np.sqrt(self.acc[idx]['weights'] + self.eps)
+			layer.biases -= self.lr * layer.bgrads / np.sqrt(self.acc[idx]['biases'] + self.eps)
+			if self.constraint is not None:
+				layer.weights = self.constraint(layer.weights)

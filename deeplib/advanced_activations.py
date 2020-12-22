@@ -6,7 +6,7 @@
 #    By: thflahau <thflahau@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/12/13 17:59:53 by thflahau          #+#    #+#              #
-#    Updated: 2020/12/13 21:15:13 by thflahau         ###   ########.fr        #
+#    Updated: 2020/12/22 09:26:26 by thflahau         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,7 +28,7 @@ class AdvancedActivationFunction:
 
 class softmax(AdvancedActivationFunction):
 	def __init__(self) -> None:
-		super().__init__('softmax')
+		super(softmax, self).__init__('softmax')
 
 	def forward(self, inputs) -> np.ndarray:
 		e = np.exp(inputs - np.max(inputs))

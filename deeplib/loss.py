@@ -6,7 +6,7 @@
 #    By: thflahau <thflahau@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/12/04 21:22:26 by thflahau          #+#    #+#              #
-#    Updated: 2020/12/19 18:56:01 by thflahau         ###   ########.fr        #
+#    Updated: 2020/12/20 15:13:19 by thflahau         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,7 +28,7 @@ class CrossEntropy(LossFunction):
 			raise NotImplementedError
 
 	def cost(self, output, target):
-		return np.mean(-target * np.log(output))
+		return (-target * np.log(output)).mean()
 
 	def derivative(self, output, target):
 		return -target / output

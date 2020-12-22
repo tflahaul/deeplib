@@ -24,7 +24,7 @@ model = Network([
 Training the model,
 ```py
 solver = AdaGrad(lr=0.1, epsilon=1e-7)
-model.prepare(optimizer=solver, loss=BCE(), batch_size=16)
+model.prepare(optimizer=solver, loss=BCE(), batch_size=16, shuffle=True)
 model.fit(X, y, epochs=800, patience=2e-4)
 ```
 
