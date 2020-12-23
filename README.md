@@ -30,12 +30,13 @@ model.fit(X, y, epochs=800, patience=2e-4)
  - Loss functions: MAE, MSE, CE, BCE
  - Activations: linear, sigmoid, tanh, leaky, relu
  - Initializers: regular, regular scaled, uniform
- - Optimizers: SGD, AdaGrad, RMSProp
+ - Optimizers: SGD, AdaGrad, RMSprop
  - Weight constraints: min-max norm
 
 #### TODO
  - [X] more loss functions (if necessary)
  - [X] more & better optimizers
+ - [ ] improve weight constraints impl
  - [ ] advanced activations layer
  - [ ] abitily to export the model
  - [ ] convolutional layers

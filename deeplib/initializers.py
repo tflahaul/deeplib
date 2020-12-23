@@ -6,17 +6,21 @@
 #    By: thflahau <thflahau@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/12/06 15:03:31 by thflahau          #+#    #+#              #
-#    Updated: 2020/12/19 15:35:15 by thflahau         ###   ########.fr        #
+#    Updated: 2020/12/23 13:29:27 by thflahau         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-import numpy as np
+import numpy.random as nrand
+from numpy.random import MT19937
 
 def regular(shape):
-	return np.random.ranf(size=shape).astype(float)
+	return nrand.ranf(size=shape).astype(float)
 
 def regular_scaled(shape):
-	return np.random.ranf(size=shape).astype(float) * 0.01
+	return nrand.ranf(size=shape).astype(float) * 0.01
 
 def uniform(shape):
-	return np.random.uniform(-1.0, 1.0, size=shape).astype(float)
+	return nrand.Generator(MT19937()).uniform(-1.0, 1.0, size=shape).astype(float)
+
+def normal(shape):
+	return nrand.Generator(MT19937()).normal(size=shape).astype(float)

@@ -33,7 +33,7 @@ if __name__ == '__main__':
 	model = Network([
 		Dense(in_size=2, out_size=4, init='uniform'),
 		Activation('tanh'),
-		Dense(in_size=4, out_size=1, init='regular_scaled'),
+		Dense(in_size=4, out_size=1, init='normal'),
 		Activation('sigmoid')])
 	solver = AdaGrad(model.layers, lr=0.1)
 	model.prepare(optimizer=solver, loss=BCE(), batch_size=4)

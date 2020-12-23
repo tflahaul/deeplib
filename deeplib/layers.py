@@ -6,7 +6,7 @@
 #    By: thflahau <thflahau@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/12/04 19:11:31 by thflahau          #+#    #+#              #
-#    Updated: 2020/12/20 14:51:16 by thflahau         ###   ########.fr        #
+#    Updated: 2020/12/23 13:07:22 by thflahau         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,8 +30,8 @@ class Dense(Layer):
 		np.random.seed(seed)
 		self.weights = getattr(initializers, init)((in_size, out_size))
 		self.biases = np.ones(shape=(out_size,), dtype=float)
-		self.wgrads = np.empty_like(self.weights)
-		self.bgrads = np.empty_like(self.biases)
+		self.wgrads = np.empty_like(self.weights, dtype=float)
+		self.bgrads = np.empty_like(self.biases, dtype=float)
 
 	def forward(self, inputs) -> np.ndarray:
 		self.inputs = inputs.copy()
