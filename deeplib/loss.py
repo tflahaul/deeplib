@@ -6,7 +6,7 @@
 #    By: thflahau <thflahau@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/12/04 21:22:26 by thflahau          #+#    #+#              #
-#    Updated: 2020/12/20 15:13:19 by thflahau         ###   ########.fr        #
+#    Updated: 2020/12/27 14:01:45 by thflahau         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -50,7 +50,7 @@ class MeanSquaredError(LossFunction):
 			raise NotImplementedError
 
 	def cost(self, output, target):
-		return ((output - target) * (output - target)).mean()
+		return ((output - target) ** 2).mean()
 
 	def derivative(self, output, target):
 		return 2.0 * (output - target)

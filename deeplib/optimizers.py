@@ -6,22 +6,17 @@
 #    By: thflahau <thflahau@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/12/07 12:38:57 by thflahau          #+#    #+#              #
-#    Updated: 2020/12/24 21:00:40 by thflahau         ###   ########.fr        #
+#    Updated: 2020/12/27 13:59:06 by thflahau         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 from deeplib.layers import Layer
-import deeplib.regularizers as regularizers
 import numpy as np
 
 class Optimizer(object):
 	def __init__(self, layers, learning_rate) -> None:
 		self.layers = [item for item in layers if item.trainable == True]
 		self.lr = learning_rate
-		self.constraint = None
-
-	def set_constraint(self, identifier : str) -> None:
-		self.constraint = regularizers.get(identifier)()
 
 	def update(self) -> None:
 		raise NotImplementedError
@@ -34,8 +29,8 @@ class SGD(Optimizer):
 		for layer in self.layers:
 			layer.weights -= self.lr * layer.wgrads
 			layer.biases -= self.lr * layer.bgrads
-			if self.constraint is not None:
-				layer.weights = self.constraint(layer.weights)
+			if layer.kernel_constraint is not None:
+				layer.weights = layer.kernel_constraint(layer.weights)
 
 class AdaGrad(Optimizer):
 	def __init__(self, layers, lr=0.01, epsilon=1e-8, initial_accumulator=0.1) -> None:
@@ -54,8 +49,8 @@ class AdaGrad(Optimizer):
 			acc['biases'] += layer.bgrads ** 2
 			layer.weights -= self.lr * (layer.wgrads / np.sqrt(self.eps + acc['weights']))
 			layer.biases -= self.lr * (layer.bgrads / np.sqrt(self.eps + acc['biases']))
-			if self.constraint is not None:
-				layer.weights = self.constraint(layer.weights)
+			if layer.kernel_constraint is not None:
+				layer.weights = layer.kernel_constraint(layer.weights)
 
 class RMSprop(Optimizer):
 	def __init__(self, layers, lr=0.01, decay=0.9, epsilon=1e-8) -> None:
@@ -75,8 +70,8 @@ class RMSprop(Optimizer):
 			vec['biases'] = self.decay * vec['biases'] + (1.0 - self.decay) * (layer.bgrads ** 2)
 			layer.weights -= self.lr * layer.wgrads / np.sqrt(self.eps + vec['weights'])
 			layer.biases -= self.lr * layer.bgrads / np.sqrt(self.eps + vec['biases'])
-			if self.constraint is not None:
-				layer.weights = self.constraint(layer.weights)
+			if layer.kernel_constraint is not None:
+				layer.weights = layer.kernel_constraint(layer.weights)
 
 class Adam(Optimizer):
 	def __init__(self, layers, lr=0.01, b1=0.9, b2=0.999, epsilon=1e-8) -> None:

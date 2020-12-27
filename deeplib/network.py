@@ -6,12 +6,12 @@
 #    By: thflahau <thflahau@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/12/04 19:20:18 by thflahau          #+#    #+#              #
-#    Updated: 2020/12/23 13:30:04 by thflahau         ###   ########.fr        #
+#    Updated: 2020/12/27 13:58:35 by thflahau         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
+from deeplib.regularizers import EarlyStopping
 from deeplib.layers import Layer
-import deeplib.initializers
 from numpy.random import MT19937
 import numpy as np
 
@@ -47,9 +47,10 @@ class Network(object):
 		self.batch_size = batch_size
 		self.shuffle = shuffle
 
-	def fit(self, X : np.ndarray, y : np.ndarray, epochs=500, patience=1e-7):
+	def fit(self, X : np.ndarray, y : np.ndarray, epochs=500, patience=5):
 		assert X.shape[0] == y.shape[0], 'X and y shapes differ'
 		metrics = list()
+		early_stop = EarlyStopping(patience=patience)
 		for epoch in range(epochs):
 			epoch_cost = 0.0
 			for _X, _y in self.__batch_generator(X, y):
@@ -59,7 +60,9 @@ class Network(object):
 				self.__bprop(gradients)
 				self.optimizer.update()
 			metrics.append(epoch_cost)
-			print(f'epoch {epoch}/{epochs}, loss={epoch_cost:.5f}')
+			print(f'epoch {epoch}/{epochs}, loss={epoch_cost:.9f}')
+			if early_stop(metrics) == True:
+				break
 		return metrics
 
 	def predict(self, X):

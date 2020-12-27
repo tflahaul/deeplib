@@ -6,7 +6,7 @@
 #    By: thflahau <thflahau@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/12/13 17:59:53 by thflahau          #+#    #+#              #
-#    Updated: 2020/12/22 09:26:26 by thflahau         ###   ########.fr        #
+#    Updated: 2020/12/27 13:50:12 by thflahau         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,5 +31,5 @@ class softmax(AdvancedActivationFunction):
 		super(softmax, self).__init__('softmax')
 
 	def forward(self, inputs) -> np.ndarray:
-		e = np.exp(inputs - np.max(inputs))
-		return e / np.sum(e)
+		e = np.exp(inputs - np.max(inputs, axis=1, keepdims=True))
+		return e / np.sum(e, axis=1, keepdims=True)

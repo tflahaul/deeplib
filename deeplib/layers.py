@@ -6,7 +6,7 @@
 #    By: thflahau <thflahau@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/12/04 19:11:31 by thflahau          #+#    #+#              #
-#    Updated: 2020/12/23 13:07:22 by thflahau         ###   ########.fr        #
+#    Updated: 2020/12/27 13:47:26 by thflahau         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,9 +14,11 @@ import deeplib.initializers as initializers
 import deeplib.activations as activations
 import numpy as np
 
-class Layer:
-	def __init__(self, trainable : bool) -> None:
-		self.trainable = trainable
+class Layer(object):
+	def __init__(self, **kwargs) -> None:
+		self.trainable = kwargs.get('trainable', True)
+		self.kernel_constraint = kwargs.get('kernel_constraint', None)
+		np.random.seed(kwargs.get('seed', None))
 
 	def forward(self, inputs):
 		raise NotImplementedError
@@ -25,9 +27,8 @@ class Layer:
 		raise NotImplementedError
 
 class Dense(Layer):
-	def __init__(self, in_size, out_size, init='regular', seed=None) -> None:
-		super(Dense, self).__init__(trainable=True)
-		np.random.seed(seed)
+	def __init__(self, in_size, out_size, init='regular', **kwargs) -> None:
+		super(Dense, self).__init__(**kwargs)
 		self.weights = getattr(initializers, init)((in_size, out_size))
 		self.biases = np.ones(shape=(out_size,), dtype=float)
 		self.wgrads = np.empty_like(self.weights, dtype=float)
@@ -38,7 +39,7 @@ class Dense(Layer):
 		return inputs.dot(self.weights) + self.biases
 
 	def backward(self, gradients) -> np.ndarray:
-		self.bgrads = np.sum(gradients, axis=0)
+		self.bgrads = np.sum(gradients, axis=0, dtype=float)
 		self.wgrads = np.dot(self.inputs.T, gradients)
 		return np.dot(gradients, self.weights.T)
 
@@ -48,11 +49,11 @@ class Activation(Layer):
 		self.activation = activations.get(function)()
 
 	def forward(self, inputs) -> np.ndarray:
-		self.inputs = np.array(list(map(self.activation.call, inputs)))
-		return self.inputs
+		self.output = np.array(self.activation.call(inputs), dtype=float)
+		return self.output
 
 	def backward(self, gradients) -> np.ndarray:
-		return np.array(list(map(self.activation.derivative, self.inputs))) * gradients
+		return np.array(self.activation.derivative(self.output), dtype=float) * gradients
 
 class Dropout(Layer):
 	def __init__(self, rate : float) -> None:
