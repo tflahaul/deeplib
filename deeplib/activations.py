@@ -6,7 +6,7 @@
 #    By: thflahau <thflahau@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/12/04 19:23:02 by thflahau          #+#    #+#              #
-#    Updated: 2020/12/27 13:51:58 by thflahau         ###   ########.fr        #
+#    Updated: 2020/12/28 17:13:23 by thflahau         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,7 +37,7 @@ class sigmoid(ActivationFunction):
 class relu(ActivationFunction):
 	def __init__(self) -> None:
 		super(relu, self).__init__('relu')
-		self.call = lambda x : x * (x >= 0.0)
+		self.call = lambda x : np.maximum(x, 0.0)
 		self.derivative = lambda x : x > 0.0
 
 class leaky(ActivationFunction):

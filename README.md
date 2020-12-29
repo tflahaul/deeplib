@@ -27,16 +27,16 @@ model.fit(X, y, epochs=800, patience=6)
 ```
 
 ### Current capabilities
- - Layers: dense, dropout, activation, normalization (forward)
+ - Layers: dense, dropout, activation
  - Loss functions: MAE, MSE, CE, BCE
  - Activations: linear, sigmoid, tanh, leaky, relu
  - Initializers: regular, regular scaled, uniform, normal
- - Optimizers: SGD, AdaGrad, RMSprop
+ - Optimizers: SGD, AdaGrad, RMSprop, Adam
  - Weight constraints: non neg
  - Regularizers: early stopping
 
 #### TODO
- - [ ] adam optimizer
+ - [X] adam optimizer
  - [ ] implement k-fold cross validation
  - [ ] max norm & min-max norm weight constraints
  - [ ] advanced activations layer

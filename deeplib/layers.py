@@ -6,7 +6,7 @@
 #    By: thflahau <thflahau@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/12/04 19:11:31 by thflahau          #+#    #+#              #
-#    Updated: 2020/12/27 13:47:26 by thflahau         ###   ########.fr        #
+#    Updated: 2020/12/28 17:22:55 by thflahau         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,7 +30,7 @@ class Dense(Layer):
 	def __init__(self, in_size, out_size, init='regular', **kwargs) -> None:
 		super(Dense, self).__init__(**kwargs)
 		self.weights = getattr(initializers, init)((in_size, out_size))
-		self.biases = np.ones(shape=(out_size,), dtype=float)
+		self.biases = np.zeros(shape=(out_size,), dtype=float)
 		self.wgrads = np.empty_like(self.weights, dtype=float)
 		self.bgrads = np.empty_like(self.biases, dtype=float)
 
