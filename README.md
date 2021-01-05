@@ -21,7 +21,7 @@ model.add(Activation('sigmoid'))
 
 Training the model,
 ```py
-solver = (model.layers, lr=0.005)
+solver = RMSprop(model.layers, lr=0.005)
 model.prepare(solver, BCE(), batch_size=32, shuffle=True)
 model.fit(X, y, epochs=800, patience=12)
 ```
