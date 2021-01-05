@@ -7,7 +7,7 @@ Building a simple network,
 from deeplib.network import Network
 from deeplib.layers import Dense, Activation, Dropout
 from deeplib.loss import BinaryCrossEntropy as BCE
-from deeplib.optimizers import AdaGrad
+from deeplib.optimizers import RMSprop
 
 model = Network()
 model.add(Dense(512, 300, init='regular_scaled'))
@@ -21,9 +21,9 @@ model.add(Activation('sigmoid'))
 
 Training the model,
 ```py
-solver = AdaGrad(lr=0.1, epsilon=1e-7)
+solver = (model.layers, lr=0.005)
 model.prepare(solver, BCE(), batch_size=32, shuffle=True)
-model.fit(X, y, epochs=800, patience=6)
+model.fit(X, y, epochs=800, patience=12)
 ```
 
 ### Current capabilities

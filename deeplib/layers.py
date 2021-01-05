@@ -6,7 +6,7 @@
 #    By: thflahau <thflahau@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/12/04 19:11:31 by thflahau          #+#    #+#              #
-#    Updated: 2020/12/28 17:22:55 by thflahau         ###   ########.fr        #
+#    Updated: 2021/01/05 20:11:52 by thflahau         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,6 +18,7 @@ class Layer(object):
 	def __init__(self, **kwargs) -> None:
 		self.trainable = kwargs.get('trainable', True)
 		self.kernel_constraint = kwargs.get('kernel_constraint', None)
+		self.initializer = getattr(initializers, kwargs.get('init', 'regular'))
 		np.random.seed(kwargs.get('seed', None))
 
 	def forward(self, inputs):
@@ -27,9 +28,9 @@ class Layer(object):
 		raise NotImplementedError
 
 class Dense(Layer):
-	def __init__(self, in_size, out_size, init='regular', **kwargs) -> None:
+	def __init__(self, in_size, out_size, **kwargs) -> None:
 		super(Dense, self).__init__(**kwargs)
-		self.weights = getattr(initializers, init)((in_size, out_size))
+		self.weights = self.initializer((in_size, out_size))
 		self.biases = np.zeros(shape=(out_size,), dtype=float)
 		self.wgrads = np.empty_like(self.weights, dtype=float)
 		self.bgrads = np.empty_like(self.biases, dtype=float)
@@ -54,6 +55,11 @@ class Activation(Layer):
 
 	def backward(self, gradients) -> np.ndarray:
 		return np.array(self.activation.derivative(self.output), dtype=float) * gradients
+
+class Convolution2D(Layer):
+	def __init__(self, in_width, in_height, in_depth, kernel_width, kernel_height, **kwargs) -> None:
+		super(Convolution2D, self).__init__(kwargs)
+		self.weights = self.initializer((in_width, in_height, in_depth))
 
 class Dropout(Layer):
 	def __init__(self, rate : float) -> None:
