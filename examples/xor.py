@@ -5,7 +5,7 @@ sys.path.append('..')
 from deeplib.layers import Dense, Activation
 from deeplib.network import Network
 from deeplib.loss import BinaryCrossEntropy as BCE
-from deeplib.optimizers import AdaGrad
+from deeplib.optimizers import Adam
 import matplotlib.pyplot as plt
 import numpy as np
 
@@ -27,15 +27,16 @@ def visualize(model):
 		for y in range(100):
 			array[x][y] = model.predict(np.array([x * 0.01, y * 0.01]))
 	plt.imshow(array, interpolation='nearest')
+	plt.title('Areas of predictions')
 	plt.show()
 
 if __name__ == '__main__':
 	model = Network([
-		Dense(in_size=2, out_size=4, init='uniform'),
+		Dense(in_size=2, out_size=4, init='uniform', seed=42),
 		Activation('tanh'),
-		Dense(in_size=4, out_size=1, init='normal'),
+		Dense(in_size=4, out_size=1, init='normal', seed=34),
 		Activation('sigmoid')])
-	solver = AdaGrad(model.layers, lr=0.1)
-	model.prepare(optimizer=solver, loss=BCE(), batch_size=4)
+	solver = Adam(model.layers)
+	model.prepare(solver, BCE(), batch_size=4)
 	model.fit(X, y)
 	visualize(model)
