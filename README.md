@@ -1,5 +1,5 @@
 # deeplib
-Deep learning framework written in Python to easily implement different kinds of neural networks.
+Lightweight deep learning framework to easily implement different kinds of neural networks.
 
 ### How to use
 Building a simple network,

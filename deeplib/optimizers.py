@@ -6,7 +6,7 @@
 #    By: thflahau <thflahau@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/12/07 12:38:57 by thflahau          #+#    #+#              #
-#    Updated: 2021/01/05 20:08:56 by thflahau         ###   ########.fr        #
+#    Updated: 2021/01/05 23:04:09 by thflahau         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,14 +18,14 @@ class Optimizer(object):
 		self.layers = [item for item in layers if item.trainable == True]
 		self.lr = learning_rate
 
-	def update(self, zero_grads=False) -> None:
+	def update(self) -> None:
 		raise NotImplementedError
 
 class SGD(Optimizer):
 	def __init__(self, layers, lr=0.01) -> None:
 		super(SGD, self).__init__(layers, lr)
 
-	def update(self, zero_grads=False) -> None:
+	def update(self) -> None:
 		for layer in self.layers:
 			layer.weights -= self.lr * layer.wgrads
 			layer.biases -= self.lr * layer.bgrads
@@ -43,7 +43,7 @@ class AdaGrad(Optimizer):
 			})
 		self.eps = epsilon
 
-	def update(self, zero_grads=False) -> None:
+	def update(self) -> None:
 		for acc, layer in zip(self.accumulator, self.layers):
 			acc['weights'] += layer.wgrads ** 2
 			acc['biases'] += layer.bgrads ** 2
@@ -64,7 +64,7 @@ class RMSprop(Optimizer):
 		self.decay = decay
 		self.eps = epsilon
 
-	def update(self, zero_grads=False) -> None:
+	def update(self) -> None:
 		for vec, layer in zip(self.vector, self.layers):
 			vec['weights'] = self.decay * vec['weights'] + (1.0 - self.decay) * (layer.wgrads ** 2)
 			vec['biases'] = self.decay * vec['biases'] + (1.0 - self.decay) * (layer.bgrads ** 2)
@@ -88,7 +88,7 @@ class Adam(Optimizer):
 		self.b1 = b1
 		self.b2 = b2
 
-	def update(self, zero_grads=False) -> None:
+	def update(self) -> None:
 		for vec, layer in zip(self.vector, self.layers):
 			vec['m_weights'] = self.b1 * vec['m_weights'] + (1.0 - self.b1) * layer.wgrads
 			vec['v_weights'] = self.b2 * vec['v_weights'] + (1.0 - self.b2) * (layer.wgrads ** 2)

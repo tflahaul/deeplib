@@ -6,7 +6,7 @@
 #    By: thflahau <thflahau@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/12/04 19:11:31 by thflahau          #+#    #+#              #
-#    Updated: 2021/01/05 20:11:52 by thflahau         ###   ########.fr        #
+#    Updated: 2021/01/09 18:44:22 by thflahau         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -57,9 +57,8 @@ class Activation(Layer):
 		return np.array(self.activation.derivative(self.output), dtype=float) * gradients
 
 class Convolution2D(Layer):
-	def __init__(self, in_width, in_height, in_depth, kernel_width, kernel_height, **kwargs) -> None:
-		super(Convolution2D, self).__init__(kwargs)
-		self.weights = self.initializer((in_width, in_height, in_depth))
+	def __init__(self, in_width, in_height, in_depth, out_size, kernel_width, kernel_height, **kwargs) -> None:
+		super(Convolution2D, self).__init__(**kwargs)
 
 class Dropout(Layer):
 	def __init__(self, rate : float) -> None:
@@ -78,6 +77,7 @@ class Normalization(Layer):
 		super(Normalization, self).__init__(trainable=False)
 
 	def forward(self, inputs) -> np.ndarray:
+		raise DeprecationWarning
 		return (inputs - np.min(inputs)) / (np.max(inputs) - np.min(inputs))
 
 	def backward(self, gradients):
