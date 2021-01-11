@@ -6,7 +6,7 @@
 #    By: thflahau <thflahau@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/12/04 19:23:02 by thflahau          #+#    #+#              #
-#    Updated: 2020/12/28 17:13:23 by thflahau         ###   ########.fr        #
+#    Updated: 2021/01/11 20:15:07 by thflahau         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,14 +17,8 @@ def get(identifier : str):
 	return getattr(sys.modules[__name__], identifier)
 
 class ActivationFunction:
-	def __init__(self, name : str) -> None:
+	def __init__(self, name : str = 'linear') -> None:
 		self.name = name
-		self.call = None
-		self.derivative = None
-
-class linear(ActivationFunction):
-	def __init__(self) -> None:
-		super(linear, self).__init__('linear')
 		self.call = lambda x : x
 		self.derivative = lambda x : 1.0
 

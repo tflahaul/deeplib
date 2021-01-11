@@ -6,7 +6,7 @@
 #    By: thflahau <thflahau@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/12/04 19:11:31 by thflahau          #+#    #+#              #
-#    Updated: 2021/01/11 16:44:30 by thflahau         ###   ########.fr        #
+#    Updated: 2021/01/11 20:08:35 by thflahau         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -59,9 +59,9 @@ class Activation(Layer):
 class Convolution2D(Layer):
 	def __init__(self, kernel_height, kernel_width, filters, padding=1, **kwargs) -> None:
 		super(Convolution2D, self).__init__(**kwargs)
-		self.kernel_shape = (max(1, filters), max(1, kernel_height), max(1, kernel_width))
-		self.weights = self.initializer(self.kernel_shape)
-		self.biases = np.zeros(shape=(self.kernel_shape[0],), dtype=float)
+		self.W_shape = (max(1, filters), max(1, kernel_height), max(1, kernel_width))
+		self.weights = self.initializer(self.W_shape)
+		self.biases = np.zeros(shape=(self.W_shape[0],), dtype=float)
 		self.p = padding
 
 	def forward(self, inputs : np.ndarray) -> np.ndarray:
