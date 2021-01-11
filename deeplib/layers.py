@@ -6,7 +6,7 @@
 #    By: thflahau <thflahau@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/12/04 19:11:31 by thflahau          #+#    #+#              #
-#    Updated: 2021/01/09 18:44:22 by thflahau         ###   ########.fr        #
+#    Updated: 2021/01/11 16:44:30 by thflahau         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -57,8 +57,17 @@ class Activation(Layer):
 		return np.array(self.activation.derivative(self.output), dtype=float) * gradients
 
 class Convolution2D(Layer):
-	def __init__(self, in_width, in_height, in_depth, out_size, kernel_width, kernel_height, **kwargs) -> None:
+	def __init__(self, kernel_height, kernel_width, filters, padding=1, **kwargs) -> None:
 		super(Convolution2D, self).__init__(**kwargs)
+		self.kernel_shape = (max(1, filters), max(1, kernel_height), max(1, kernel_width))
+		self.weights = self.initializer(self.kernel_shape)
+		self.biases = np.zeros(shape=(self.kernel_shape[0],), dtype=float)
+		self.p = padding
+
+	def forward(self, inputs : np.ndarray) -> np.ndarray:
+		self.inputs = inputs.copy()
+		inputs = np.pad(inputs, pad_width=(self.p, self.p), mode='edge')
+		raise NotImplementedError
 
 class Dropout(Layer):
 	def __init__(self, rate : float) -> None:
