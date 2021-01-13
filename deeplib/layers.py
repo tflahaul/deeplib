@@ -6,7 +6,7 @@
 #    By: thflahau <thflahau@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/12/04 19:11:31 by thflahau          #+#    #+#              #
-#    Updated: 2021/01/11 20:08:35 by thflahau         ###   ########.fr        #
+#    Updated: 2021/01/13 18:16:20 by thflahau         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -57,17 +57,17 @@ class Activation(Layer):
 		return np.array(self.activation.derivative(self.output), dtype=float) * gradients
 
 class Convolution2D(Layer):
-	def __init__(self, kernel_height, kernel_width, filters, padding=1, **kwargs) -> None:
+	def __init__(self, kernel_height, kernel_width, filters, padding=0, **kwargs) -> None:
 		super(Convolution2D, self).__init__(**kwargs)
 		self.W_shape = (max(1, filters), max(1, kernel_height), max(1, kernel_width))
 		self.weights = self.initializer(self.W_shape)
 		self.biases = np.zeros(shape=(self.W_shape[0],), dtype=float)
-		self.p = padding
+		self.P = padding
 
 	def forward(self, inputs : np.ndarray) -> np.ndarray:
 		self.inputs = inputs.copy()
-		inputs = np.pad(inputs, pad_width=(self.p, self.p), mode='edge')
-		raise NotImplementedError
+		inputs = np.pad(inputs, pad_width=(self.P, self.P), mode='constant', constant_values=0)
+		return inputs
 
 class Dropout(Layer):
 	def __init__(self, rate : float) -> None:
@@ -84,9 +84,9 @@ class Dropout(Layer):
 class Normalization(Layer):
 	def __init__(self) -> None:
 		super(Normalization, self).__init__(trainable=False)
+		raise DeprecationWarning
 
 	def forward(self, inputs) -> np.ndarray:
-		raise DeprecationWarning
 		return (inputs - np.min(inputs)) / (np.max(inputs) - np.min(inputs))
 
 	def backward(self, gradients):

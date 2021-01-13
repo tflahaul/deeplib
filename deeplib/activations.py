@@ -6,7 +6,7 @@
 #    By: thflahau <thflahau@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/12/04 19:23:02 by thflahau          #+#    #+#              #
-#    Updated: 2021/01/11 20:15:07 by thflahau         ###   ########.fr        #
+#    Updated: 2021/01/13 18:21:50 by thflahau         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,6 +33,12 @@ class relu(ActivationFunction):
 		super(relu, self).__init__('relu')
 		self.call = lambda x : np.maximum(x, 0.0)
 		self.derivative = lambda x : x > 0.0
+
+class elu(ActivationFunction):
+	def __init__(self) -> None:
+		super(elu, self).__init__('elu')
+		self.call = lambda x : (x >= 0.0) * x + (x < 0.0) * (np.exp(x) - 1.0)
+		self.derivative = lambda x : (x >= 0.0) + (x < 0.0) * (x + 1.0)
 
 class leaky(ActivationFunction):
 	def __init__(self) -> None:
