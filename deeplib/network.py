@@ -6,7 +6,7 @@
 #    By: thflahau <thflahau@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/12/04 19:20:18 by thflahau          #+#    #+#              #
-#    Updated: 2021/01/11 20:10:40 by thflahau         ###   ########.fr        #
+#    Updated: 2021/01/14 19:15:32 by thflahau         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -67,3 +67,6 @@ class Network(object):
 
 	def predict(self, X):
 		return self.__feed(X)
+
+	def validation_loss(self, X, y):
+		return sum([self.loss.cost(self.__feed(_X), _y) for _X, _y in self.__batch_generator(X, y)])
