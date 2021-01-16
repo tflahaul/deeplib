@@ -6,7 +6,7 @@
 #    By: thflahau <thflahau@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/12/04 19:11:31 by thflahau          #+#    #+#              #
-#    Updated: 2021/01/13 18:16:20 by thflahau         ###   ########.fr        #
+#    Updated: 2021/01/16 23:56:32 by thflahau         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -62,11 +62,11 @@ class Convolution2D(Layer):
 		self.W_shape = (max(1, filters), max(1, kernel_height), max(1, kernel_width))
 		self.weights = self.initializer(self.W_shape)
 		self.biases = np.zeros(shape=(self.W_shape[0],), dtype=float)
-		self.P = padding
+		self.p = padding
 
 	def forward(self, inputs : np.ndarray) -> np.ndarray:
 		self.inputs = inputs.copy()
-		inputs = np.pad(inputs, pad_width=(self.P, self.P), mode='constant', constant_values=0)
+		inputs = np.pad(inputs, pad_width=(0, self.p), mode='constant', constant_values=0.0)
 		return inputs
 
 class Dropout(Layer):

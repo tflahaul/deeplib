@@ -6,7 +6,7 @@
 #    By: thflahau <thflahau@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/12/04 19:20:18 by thflahau          #+#    #+#              #
-#    Updated: 2021/01/14 19:15:32 by thflahau         ###   ########.fr        #
+#    Updated: 2021/01/16 18:18:20 by thflahau         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -60,7 +60,7 @@ class Network(object):
 				self.__bprop(gradients)
 				self.optimizer.update()
 			metrics.append(epoch_cost)
-			print(f'epoch {epoch + 1}/{epochs}, loss={epoch_cost:.9f}')
+			print(f'Epoch {epoch + 1}/{epochs}, loss={epoch_cost:.8f}')
 			if early_stop(metrics) == True:
 				break
 		return metrics
