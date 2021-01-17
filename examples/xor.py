@@ -4,8 +4,8 @@ import sys
 sys.path.append('..')
 from deeplib.layers import Dense, Activation
 from deeplib.network import Network
-from deeplib.loss import BinaryCrossEntropy as BCE
 from deeplib.optimizers import Adam
+import deeplib.regularizers
 import matplotlib.pyplot as plt
 import numpy as np
 
@@ -32,11 +32,15 @@ def visualize(model):
 
 if __name__ == '__main__':
 	model = Network([
-		Dense(in_size=2, out_size=4, init='uniform', seed=42),
+		Dense(2, 8, kernel_init='uniform', kernel_constraint=deeplib.regularizers.NonNeg()),
 		Activation('tanh'),
-		Dense(in_size=4, out_size=1, init='normal', seed=34),
-		Activation('sigmoid')])
-	solver = Adam(model.layers)
-	model.prepare(solver, BCE(), batch_size=4)
-	model.fit(X, y)
+		Dense(8, 1, kernel_init='normal', seed=42),
+		Activation('sigmoid')
+	])
+	model.prepare(
+		optimizer=Adam(model.layers),
+		loss='binary_crossentropy',
+		batch_size=4
+	)
+	model.fit(X, y, patience=50)
 	visualize(model)

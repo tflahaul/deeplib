@@ -6,7 +6,7 @@
 #    By: thflahau <thflahau@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/12/04 19:11:31 by thflahau          #+#    #+#              #
-#    Updated: 2021/01/16 23:56:32 by thflahau         ###   ########.fr        #
+#    Updated: 2021/01/17 18:34:10 by thflahau         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,7 @@ class Layer(object):
 	def __init__(self, **kwargs) -> None:
 		self.trainable = kwargs.get('trainable', True)
 		self.kernel_constraint = kwargs.get('kernel_constraint', None)
-		self.initializer = getattr(initializers, kwargs.get('init', 'regular'))
+		self.initializer = getattr(initializers, kwargs.get('kernel_init', 'regular'))
 		np.random.seed(kwargs.get('seed', None))
 
 	def forward(self, inputs):
@@ -36,12 +36,12 @@ class Dense(Layer):
 		self.bgrads = np.empty_like(self.biases, dtype=float)
 
 	def forward(self, inputs) -> np.ndarray:
-		self.inputs = inputs.copy()
+		self.cached = inputs.copy()
 		return inputs.dot(self.weights) + self.biases
 
 	def backward(self, gradients) -> np.ndarray:
-		self.bgrads = np.sum(gradients, axis=0, dtype=float)
-		self.wgrads = np.dot(self.inputs.T, gradients)
+		self.bgrads = np.sum(gradients, axis=0)
+		self.wgrads = np.dot(self.cached.T, gradients)
 		return np.dot(gradients, self.weights.T)
 
 class Activation(Layer):
@@ -50,22 +50,22 @@ class Activation(Layer):
 		self.activation = activations.get(function)()
 
 	def forward(self, inputs) -> np.ndarray:
-		self.output = np.array(self.activation.call(inputs), dtype=float)
-		return self.output
+		self.cached = np.array(self.activation.call(inputs))
+		return self.cached
 
 	def backward(self, gradients) -> np.ndarray:
-		return np.array(self.activation.derivative(self.output), dtype=float) * gradients
+		return np.array(self.activation.derivative(self.cached)) * gradients
 
 class Convolution2D(Layer):
 	def __init__(self, kernel_height, kernel_width, filters, padding=0, **kwargs) -> None:
 		super(Convolution2D, self).__init__(**kwargs)
 		self.W_shape = (max(1, filters), max(1, kernel_height), max(1, kernel_width))
-		self.weights = self.initializer(self.W_shape)
+		self.weights = self.initializer(self.W_shape, dtype=float)
 		self.biases = np.zeros(shape=(self.W_shape[0],), dtype=float)
 		self.p = padding
 
 	def forward(self, inputs : np.ndarray) -> np.ndarray:
-		self.inputs = inputs.copy()
+		self.cached = inputs.copy()
 		inputs = np.pad(inputs, pad_width=(0, self.p), mode='constant', constant_values=0.0)
 		return inputs
 
@@ -80,6 +80,17 @@ class Dropout(Layer):
 
 	def backward(self, gradients) -> np.ndarray:
 		return gradients * self.mask
+
+class Flatten(Layer):
+	def __init__(self) -> None:
+		super(Flatten, self).__init__(trainable=False)
+
+	def forward(self, inputs : np.ndarray) -> np.ndarray:
+		self.input_shape = inputs.shape
+		return inputs.flatten()
+
+	def backward(self, gradients) -> np.ndarray:
+		return gradients.reshape(self.input_shape)
 
 class Normalization(Layer):
 	def __init__(self) -> None:

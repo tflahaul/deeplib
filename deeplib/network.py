@@ -6,13 +6,14 @@
 #    By: thflahau <thflahau@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/12/04 19:20:18 by thflahau          #+#    #+#              #
-#    Updated: 2021/01/16 18:18:20 by thflahau         ###   ########.fr        #
+#    Updated: 2021/01/17 18:36:10 by thflahau         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 from deeplib.regularizers import EarlyStopping
 from deeplib.layers import Layer
 from numpy.random import MT19937
+import deeplib.losses
 import numpy as np
 
 class Network(object):
@@ -41,11 +42,14 @@ class Network(object):
 	def add(self, layer : Layer) -> None:
 		self.layers.append(layer)
 
-	def prepare(self, optimizer, loss, batch_size=32, shuffle=False):
+	def prepare(self, optimizer, loss, batch_size=32, shuffle=True):
 		self.optimizer = optimizer
-		self.loss = loss
 		self.batch_size = batch_size
 		self.shuffle = shuffle
+		if type(loss) == str:
+			self.loss = deeplib.losses.get(loss)()
+		else:
+			self.loss = loss
 
 	def fit(self, X : np.ndarray, y : np.ndarray, epochs=500, patience=5):
 		assert X.shape[0] == y.shape[0], 'X and y shapes differ'

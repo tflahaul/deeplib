@@ -1,16 +1,25 @@
 # **************************************************************************** #
 #                                                                              #
 #                                                         :::      ::::::::    #
-#    loss.py                                            :+:      :+:    :+:    #
+#    losses.py                                          :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
 #    By: thflahau <thflahau@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/12/04 21:22:26 by thflahau          #+#    #+#              #
-#    Updated: 2021/01/14 19:43:37 by thflahau         ###   ########.fr        #
+#    Updated: 2021/01/17 18:24:25 by thflahau         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 import numpy as np
+import sys
+
+def get(identifier : str):
+	return dict({
+		'crossentropy' : getattr(sys.modules[__name__], 'CrossEntropy'),
+		'binary_crossentropy' : getattr(sys.modules[__name__], 'BinaryCrossEntropy'),
+		'mean_squared_error' : getattr(sys.modules[__name__], 'MeanSquaredError'),
+		'mean_absolute_error' : getattr(sys.modules[__name__], 'MeanAbsoluteError')
+	})[identifier]
 
 class LossFunction(object):
 	def __init__(self):

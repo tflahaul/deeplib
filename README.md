@@ -6,8 +6,7 @@ Building a simple network,
 ```py
 from deeplib.network import Network
 from deeplib.layers import Dense, Activation, Dropout
-from deeplib.loss import BinaryCrossEntropy as BCE
-from deeplib.optimizers import RMSprop
+from deeplib.optimizers import Adam
 
 model = Network()
 model.add(Dense(512, 300, init='regular_scaled'))
@@ -21,13 +20,13 @@ model.add(Activation('sigmoid'))
 
 Training the model,
 ```py
-solver = RMSprop(model.layers, lr=0.005)
-model.prepare(solver, BCE(), batch_size=32, shuffle=True)
+solver = Adam(model.layers, lr=0.005)
+model.prepare(solver, 'binary_crossentropy', batch_size=126)
 model.fit(X, y, epochs=800, patience=12)
 ```
 
 ### Current capabilities
- - Layers: dense, dropout, activation
+ - Layers: dense, dropout, activation, flatten
  - Loss functions: MAE, MSE, CE, BCE
  - Activations: linear, sigmoid, tanh, leaky, relu, elu
  - Initializers: regular, regular scaled, uniform, normal
