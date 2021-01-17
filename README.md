@@ -9,12 +9,12 @@ from deeplib.layers import Dense, Activation, Dropout
 from deeplib.optimizers import Adam
 
 model = Network()
-model.add(Dense(512, 300, init='regular_scaled'))
+model.add(Dense(512, 300, kernel_init='regular_scaled'))
 model.add(Activation('tanh'))
 model.add(Dropout(rate=0.4))
-model.add(Dense(300, 100, init='uniform', seed=42))
+model.add(Dense(300, 100, kernel_init='uniform', seed=42))
 model.add(Activation('tanh'))
-model.add(Dense(100, 3, init='normal'))
+model.add(Dense(100, 3, kernel_init='normal'))
 model.add(Activation('sigmoid'))
 ```
 
