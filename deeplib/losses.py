@@ -6,7 +6,7 @@
 #    By: thflahau <thflahau@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/12/04 21:22:26 by thflahau          #+#    #+#              #
-#    Updated: 2021/01/18 13:17:57 by thflahau         ###   ########.fr        #
+#    Updated: 2021/01/18 14:04:47 by thflahau         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,14 +32,17 @@ class LossFunction(object):
 		raise NotImplementedError
 
 class CrossEntropy(LossFunction):
-	def __init__(self, regularization=None) -> None:
+	def __init__(self, regularization=None, epsilon=1e-7) -> None:
 		if regularization is not None:
 			raise NotImplementedError
+		self.eps = epsilon
 
 	def cost(self, output, target):
+		output = np.clip(output, self.eps, 1.0 - self.eps)
 		return -(target * np.log(output)).mean()
 
 	def derivative(self, output, target):
+		output = np.clip(output, self.eps, 1.0 - self.eps)
 		return output - target
 
 class BinaryCrossEntropy(LossFunction):

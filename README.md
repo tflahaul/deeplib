@@ -5,24 +5,26 @@ Lightweight deep learning framework to easily implement different kinds of neura
 Building a simple network,
 ```py
 from deeplib.network import Network
-from deeplib.layers import Dense, Activation, Dropout
-from deeplib.optimizers import Adam
+import deeplib.optimizers
+import deeplib.layers
 
-model = Network()
-model.add(Dense(512, 300, kernel_init='regular_scaled'))
-model.add(Activation('tanh'))
-model.add(Dropout(rate=0.4))
-model.add(Dense(300, 100, kernel_init='uniform', seed=42))
-model.add(Activation('tanh'))
-model.add(Dense(100, 3, kernel_init='normal'))
-model.add(Activation('sigmoid'))
+model = Network([
+	deeplib.layers.Dense(784, 128, kernel_init='regular_scaled'),
+	deeplib.layers.Activation('elu'),
+	deeplib.layers.Dropout(0.25),
+	deeplib.layers.Dense(128, 10, kernel_init='uniform', seed=42),
+	deeplib.layers.Activation('sigmoid')
+])
 ```
 
 Training the model,
 ```py
-solver = Adam(model.layers, lr=0.005)
-model.prepare(solver, 'binary_crossentropy', batch_size=126)
-model.fit(X, y, epochs=800, patience=12)
+model.prepare(
+	optimizer=deeplib.optimizers.Adam(model.layers, lr=0.005),
+	loss='binary_crossentropy',
+	batch_size=300
+)
+model.fit(X, y, epochs=200, patience=10)
 ```
 
 ### Current capabilities
