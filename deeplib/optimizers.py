@@ -6,7 +6,7 @@
 #    By: thflahau <thflahau@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/12/07 12:38:57 by thflahau          #+#    #+#              #
-#    Updated: 2021/01/05 23:04:09 by thflahau         ###   ########.fr        #
+#    Updated: 2021/01/18 13:19:07 by thflahau         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,7 +33,7 @@ class SGD(Optimizer):
 				layer.weights = layer.kernel_constraint(layer.weights)
 
 class AdaGrad(Optimizer):
-	def __init__(self, layers, lr=0.01, epsilon=1e-8, initial_accumulator=0.1) -> None:
+	def __init__(self, layers, lr=0.01, epsilon=1e-7, initial_accumulator=0.1) -> None:
 		super(AdaGrad, self).__init__(layers, lr)
 		self.accumulator = [None] * len(self.layers)
 		for index, layer in enumerate(self.layers):
@@ -53,7 +53,7 @@ class AdaGrad(Optimizer):
 				layer.weights = layer.kernel_constraint(layer.weights)
 
 class RMSprop(Optimizer):
-	def __init__(self, layers, lr=0.01, decay=0.9, epsilon=1e-8) -> None:
+	def __init__(self, layers, lr=0.01, decay=0.9, epsilon=1e-7) -> None:
 		super(RMSprop, self).__init__(layers, lr)
 		self.vector = [None] * len(self.layers)
 		for index, layer in enumerate(self.layers):
@@ -74,7 +74,7 @@ class RMSprop(Optimizer):
 				layer.weights = layer.kernel_constraint(layer.weights)
 
 class Adam(Optimizer):
-	def __init__(self, layers, lr=0.01, b1=0.9, b2=0.999, epsilon=1e-8) -> None:
+	def __init__(self, layers, lr=0.01, b1=0.9, b2=0.999, epsilon=1e-7) -> None:
 		super(Adam, self).__init__(layers, lr)
 		self.vector = [None] * len(self.layers)
 		for index, layer in enumerate(self.layers):

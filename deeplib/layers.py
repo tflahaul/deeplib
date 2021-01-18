@@ -6,19 +6,23 @@
 #    By: thflahau <thflahau@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/12/04 19:11:31 by thflahau          #+#    #+#              #
-#    Updated: 2021/01/17 18:34:10 by thflahau         ###   ########.fr        #
+#    Updated: 2021/01/18 13:35:40 by thflahau         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 import deeplib.initializers as initializers
-import deeplib.activations as activations
+import deeplib.activations
 import numpy as np
 
 class Layer(object):
 	def __init__(self, **kwargs) -> None:
+		available_args = {'trainable', 'kernel_init', 'kernel_constraint', 'seed'}
+		for argument in kwargs:
+			if argument not in available_args:
+				raise AttributeError('Unknown argument : ' + argument)
 		self.trainable = kwargs.get('trainable', True)
-		self.kernel_constraint = kwargs.get('kernel_constraint', None)
 		self.initializer = getattr(initializers, kwargs.get('kernel_init', 'regular'))
+		self.kernel_constraint = kwargs.get('kernel_constraint', None)
 		np.random.seed(kwargs.get('seed', None))
 
 	def forward(self, inputs):
@@ -47,7 +51,7 @@ class Dense(Layer):
 class Activation(Layer):
 	def __init__(self, function='linear') -> None:
 		super(Activation, self).__init__(trainable=False)
-		self.activation = activations.get(function)()
+		self.activation = deeplib.activations.get(function)()
 
 	def forward(self, inputs) -> np.ndarray:
 		self.cached = np.array(self.activation.call(inputs))
@@ -93,12 +97,10 @@ class Flatten(Layer):
 		return gradients.reshape(self.input_shape)
 
 class Normalization(Layer):
-	def __init__(self) -> None:
+	def __init__(self, epsilon=1e-7) -> None:
 		super(Normalization, self).__init__(trainable=False)
-		raise DeprecationWarning
+		self.eps = epsilon
 
-	def forward(self, inputs) -> np.ndarray:
-		return (inputs - np.min(inputs)) / (np.max(inputs) - np.min(inputs))
-
-	def backward(self, gradients):
-		pass
+	def forward(self, inputs : np.ndarray) -> np.ndarray:
+		self.cached = inputs.copy()
+		return (inputs - inputs.mean(keepdims=True)) / (self.eps + inputs.std(keepdims=True))
