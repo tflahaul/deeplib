@@ -6,7 +6,7 @@
 #    By: thflahau <thflahau@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/12/04 19:23:02 by thflahau          #+#    #+#              #
-#    Updated: 2021/01/13 18:21:50 by thflahau         ###   ########.fr        #
+#    Updated: 2021/01/19 15:52:45 by thflahau         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,7 +32,7 @@ class relu(ActivationFunction):
 	def __init__(self) -> None:
 		super(relu, self).__init__('relu')
 		self.call = lambda x : np.maximum(x, 0.0)
-		self.derivative = lambda x : x > 0.0
+		self.derivative = lambda x : (x > 0.0)
 
 class elu(ActivationFunction):
 	def __init__(self) -> None:

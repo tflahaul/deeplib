@@ -6,7 +6,7 @@
 #    By: thflahau <thflahau@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/12/04 19:20:18 by thflahau          #+#    #+#              #
-#    Updated: 2021/01/17 18:36:10 by thflahau         ###   ########.fr        #
+#    Updated: 2021/01/19 15:50:03 by thflahau         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -51,10 +51,9 @@ class Network(object):
 		else:
 			self.loss = loss
 
-	def fit(self, X : np.ndarray, y : np.ndarray, epochs=500, patience=5):
+	def fit(self, X, y, epochs=500, early_stop=None):
 		assert X.shape[0] == y.shape[0], 'X and y shapes differ'
 		metrics = list()
-		early_stop = EarlyStopping(patience=patience)
 		for epoch in range(epochs):
 			epoch_cost = 0.0
 			for _X, _y in self.__batch_generator(X, y):
@@ -65,7 +64,7 @@ class Network(object):
 				self.optimizer.update()
 			metrics.append(epoch_cost)
 			print(f'Epoch {epoch + 1}/{epochs}, loss={epoch_cost:.8f}')
-			if early_stop(metrics) == True:
+			if early_stop is not None and early_stop(metrics) == True:
 				break
 		return metrics
 

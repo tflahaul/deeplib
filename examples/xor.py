@@ -42,5 +42,5 @@ if __name__ == '__main__':
 		loss='binary_crossentropy',
 		batch_size=4
 	)
-	model.fit(X, y, patience=50)
+	model.fit(X, y)
 	visualize(model)

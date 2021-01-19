@@ -14,7 +14,7 @@ def get(file : str) -> bytes:
 	response = requests.get(URL + file)
 	return gzip.decompress(response.content)
 
-def fit_model(X_train, y_train):
+def fit_model(X, y):
 	model = Network([
 		deeplib.layers.Dense((28 * 28), 128, kernel_init='uniform'),
 		deeplib.layers.Activation('tanh'),
@@ -24,9 +24,9 @@ def fit_model(X_train, y_train):
 	model.prepare(
 		optimizer=deeplib.optimizers.Adam(model.layers, lr=0.005),
 		loss='crossentropy',
-		batch_size=1000
+		batch_size=600
 	)
-	model.fit(X_train, y_train, epochs=10)
+	model.fit(X, y, epochs=16)
 	return model
 
 if __name__ == '__main__':

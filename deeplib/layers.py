@@ -6,7 +6,7 @@
 #    By: thflahau <thflahau@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/12/04 19:11:31 by thflahau          #+#    #+#              #
-#    Updated: 2021/01/18 13:35:40 by thflahau         ###   ########.fr        #
+#    Updated: 2021/01/18 22:08:37 by thflahau         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -64,11 +64,11 @@ class Convolution2D(Layer):
 	def __init__(self, kernel_height, kernel_width, filters, padding=0, **kwargs) -> None:
 		super(Convolution2D, self).__init__(**kwargs)
 		self.W_shape = (max(1, filters), max(1, kernel_height), max(1, kernel_width))
-		self.weights = self.initializer(self.W_shape, dtype=float)
+		self.weights = self.initializer(self.W_shape)
 		self.biases = np.zeros(shape=(self.W_shape[0],), dtype=float)
 		self.p = padding
 
-	def forward(self, inputs : np.ndarray) -> np.ndarray:
+	def forward(self, inputs) -> np.ndarray:
 		self.cached = inputs.copy()
 		inputs = np.pad(inputs, pad_width=(0, self.p), mode='constant', constant_values=0.0)
 		return inputs
@@ -78,8 +78,8 @@ class Dropout(Layer):
 		super(Dropout, self).__init__(trainable=False)
 		self.rate = 1.0 - min(1.0, max(0.0, rate))
 
-	def forward(self, inputs : np.ndarray) -> np.ndarray:
-		self.mask = np.random.binomial(1, self.rate, size=inputs.shape) * (1.0 / self.rate)
+	def forward(self, inputs) -> np.ndarray:
+		self.mask = np.random.binomial(1, self.rate, size=inputs.shape)
 		return inputs * self.mask
 
 	def backward(self, gradients) -> np.ndarray:
@@ -89,7 +89,7 @@ class Flatten(Layer):
 	def __init__(self) -> None:
 		super(Flatten, self).__init__(trainable=False)
 
-	def forward(self, inputs : np.ndarray) -> np.ndarray:
+	def forward(self, inputs) -> np.ndarray:
 		self.input_shape = inputs.shape
 		return inputs.flatten()
 
@@ -101,6 +101,6 @@ class Normalization(Layer):
 		super(Normalization, self).__init__(trainable=False)
 		self.eps = epsilon
 
-	def forward(self, inputs : np.ndarray) -> np.ndarray:
+	def forward(self, inputs) -> np.ndarray:
 		self.cached = inputs.copy()
 		return (inputs - inputs.mean(keepdims=True)) / (self.eps + inputs.std(keepdims=True))

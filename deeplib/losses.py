@@ -6,7 +6,7 @@
 #    By: thflahau <thflahau@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/12/04 21:22:26 by thflahau          #+#    #+#              #
-#    Updated: 2021/01/18 14:04:47 by thflahau         ###   ########.fr        #
+#    Updated: 2021/01/18 18:09:46 by thflahau         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,12 +38,11 @@ class CrossEntropy(LossFunction):
 		self.eps = epsilon
 
 	def cost(self, output, target):
-		output = np.clip(output, self.eps, 1.0 - self.eps)
-		return -(target * np.log(output)).mean()
+		self.cached = np.clip(output, self.eps, 1.0 - self.eps)
+		return -(target * np.log(self.cached)).mean()
 
 	def derivative(self, output, target):
-		output = np.clip(output, self.eps, 1.0 - self.eps)
-		return output - target
+		return self.cached - target
 
 class BinaryCrossEntropy(LossFunction):
 	def __init__(self, regularization=None, epsilon=1e-7) -> None:
@@ -52,12 +51,11 @@ class BinaryCrossEntropy(LossFunction):
 		self.eps = epsilon
 
 	def cost(self, output, target):
-		output = np.clip(output, self.eps, 1.0 - self.eps)
-		return (-(target * np.log(output) + (1.0 - target) * np.log(1.0 - output))).mean()
+		self.cached = np.clip(output, self.eps, 1.0 - self.eps)
+		return (-(target * np.log(self.cached) + (1.0 - target) * np.log(1.0 - self.cached))).mean()
 
 	def derivative(self, output, target):
-		output = np.clip(output, self.eps, 1.0 - self.eps)
-		return (output - target) / (output * (1.0 - output))
+		return (self.cached - target) / (self.cached * (1.0 - self.cached))
 
 class MeanSquaredError(LossFunction):
 	def __init__(self, regularization=None) -> None:

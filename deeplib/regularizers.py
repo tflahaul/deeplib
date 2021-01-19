@@ -6,7 +6,7 @@
 #    By: thflahau <thflahau@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/12/13 17:27:49 by thflahau          #+#    #+#              #
-#    Updated: 2020/12/27 13:56:37 by thflahau         ###   ########.fr        #
+#    Updated: 2021/01/18 21:23:50 by thflahau         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,10 +28,10 @@ class NonNeg(Regularizer):
 		pass
 
 	def __call__(self, weights) -> np.ndarray:
-		return weights * (weights >= 0.0)
+		return np.maximum(weights, 0.0)
 
 class EarlyStopping(Regularizer):
-	def __init__(self, patience=10, gap=2e-7) -> None:
+	def __init__(self, patience=10, gap=1e-6) -> None:
 		self.patience = patience
 		self.gap = gap
 
