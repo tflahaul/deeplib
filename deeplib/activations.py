@@ -6,7 +6,7 @@
 #    By: thflahau <thflahau@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/12/04 19:23:02 by thflahau          #+#    #+#              #
-#    Updated: 2021/01/19 15:52:45 by thflahau         ###   ########.fr        #
+#    Updated: 2021/01/20 14:41:36 by thflahau         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,7 +43,7 @@ class elu(ActivationFunction):
 class leaky(ActivationFunction):
 	def __init__(self) -> None:
 		super(leaky, self).__init__('leaky')
-		self.call = lambda x : x * ((x > 0.0) * 0.1)
+		self.call = lambda x : np.maximum(x, 0.0) * 0.1
 		self.derivative = lambda x : 0.1 if x < 0.0 else 1.0
 
 class tanh(ActivationFunction):
