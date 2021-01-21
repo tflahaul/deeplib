@@ -6,11 +6,10 @@
 #    By: thflahau <thflahau@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/12/04 19:20:18 by thflahau          #+#    #+#              #
-#    Updated: 2021/01/19 15:50:03 by thflahau         ###   ########.fr        #
+#    Updated: 2021/01/21 21:21:09 by thflahau         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-from deeplib.regularizers import EarlyStopping
 from deeplib.layers import Layer
 from numpy.random import MT19937
 import deeplib.losses
@@ -68,8 +67,31 @@ class Network(object):
 				break
 		return metrics
 
-	def predict(self, X):
-		return self.__feed(X)
+	def predict(self, X : np.ndarray) -> np.ndarray:
+		tmp_layers = self.layers
+		self.layers = [item for item in self.layers if type(item) != deeplib.layers.Dropout]
+		output = self.__feed(X)
+		self.layers = tmp_layers
+		return output
+
+	def export(self, name : str) -> None:
+		assert any(self.layers), 'network is empty, aborting'
+		objects = [None] * len(self.layers)
+		for layer in self.layers:
+			obj = dict({'name' : str(type(layer)), 'data' : None})
+			if type(layer) == deeplib.layers.Dense:
+				obj['data'] = {'W' : layer.weights, 'b' : layer.biases}
+			elif type(layer) == deeplib.layers.Activation:
+				obj['data'] = layer.activation.name
+			elif type(layer) == deeplib.layers.Dropout:
+				obj['data'] = layer.rate
+			elif type(layer) == deeplib.layers.Convolution2D:
+				obj['data'] = {'W' : layer.weights, 'b' : layer.biases}
+			objects.append(obj)
+		np.save(name + '.npy', objects)
+
+	def load(name : str) -> None:
+		pass
 
 	def validation_loss(self, X, y):
 		return sum([self.loss.cost(self.__feed(_X), _y) for _X, _y in self.__batch_generator(X, y)])
