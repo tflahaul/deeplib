@@ -6,7 +6,7 @@
 #    By: thflahau <thflahau@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/12/04 19:20:18 by thflahau          #+#    #+#              #
-#    Updated: 2021/01/22 15:51:34 by thflahau         ###   ########.fr        #
+#    Updated: 2021/01/22 16:02:04 by thflahau         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -86,25 +86,4 @@ class Network(object):
 				obj['data'] = layer.activation.name
 			objects.append(obj)
 		np.save(name, objects, allow_pickle=True)
-
-def load_model(file : str) -> Network:
-	new_model = Network()
-	try:
-		topology = np.load(file, allow_pickle=True)
-		for layer in topology:
-			new_layer = None
-			if layer.get('name') is deeplib.layers.Dense:
-				new_layer = deeplib.layers.Dense(1, 1)
-				new_layer.__dict__ = layer['data']
-			elif layer.get('name') is deeplib.layers.Dropout:
-				new_layer = deeplib.layers.Dropout(layer['data'].rate)
-			elif layer.get('name') is deeplib.layers.Flatten:
-				new_layer = deeplib.layers.Flatten()
-			elif layer.get('name') is deeplib.layers.Normalization:
-				new_layer = deeplib.layers.Normalization()
-			elif layer.get('name') is deeplib.layers.Activation:
-				new_layer = deeplib.layers.Activation(layer['data'])
-			new_model.add(new_layer)
-	except Exception as ex:
-		print('Error:', str(ex))
-	return new_model
+		print('\'' + name + '\' successfully saved on disk')
