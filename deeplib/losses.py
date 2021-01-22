@@ -6,7 +6,7 @@
 #    By: thflahau <thflahau@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/12/04 21:22:26 by thflahau          #+#    #+#              #
-#    Updated: 2021/01/20 14:55:22 by thflahau         ###   ########.fr        #
+#    Updated: 2021/01/22 13:00:25 by thflahau         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,7 @@ def get(identifier : str):
 		'binary_crossentropy' : getattr(sys.modules[__name__], 'CrossEntropy'),
 		'mean_squared_error' : getattr(sys.modules[__name__], 'MeanSquaredError'),
 		'mean_absolute_error' : getattr(sys.modules[__name__], 'MeanAbsoluteError')
-	})[identifier]
+	}).get(identifier)
 
 class LossFunction(object):
 	def __init__(self):

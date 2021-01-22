@@ -24,7 +24,7 @@ model.prepare(
 	loss='binary_crossentropy',
 	batch_size=300
 )
-model.fit(X, y, epochs=200, patience=10)
+model.fit(X, y, epochs=100)
 ```
 
 ### Current capabilities
@@ -41,6 +41,6 @@ model.fit(X, y, epochs=200, patience=10)
  - [ ] implement k-fold cross validation
  - [ ] max norm & min-max norm weight constraints
  - [ ] advanced activations layer
- - [ ] ability to export and load models
+ - [X] ability to export and load models
  - [ ] convolutional and pooling layers
  - [ ] GPU support?
