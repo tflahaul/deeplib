@@ -29,9 +29,9 @@ model.fit(X, y, epochs=100)
 
 ### Current capabilities
  - Layers: dense, dropout, activation, flatten
- - Loss functions: MAE, MSE, CE, BCE
+ - Loss functions: mean absolute error, mean squared error, (binary) cross entropy
  - Activations: linear, sigmoid, tanh, leaky, relu, elu
- - Initializers: regular, regular scaled, uniform, normal
+ - Initializers: regular, regular scaled, uniform, he uniform, normal, he normal
  - Optimizers: SGD, AdaGrad, RMSprop, Adam
  - Weight constraints: non neg
  - Regularizers: early stopping

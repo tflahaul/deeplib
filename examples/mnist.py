@@ -1,4 +1,7 @@
-""" Very simple ANN trained to classify handwritten digits from the MNIST dataset """
+"""
+Very simple ANN trained to classify handwritten digits from the MNIST dataset.
+The goal here is to showcase what the framework can do, not having the best possible accuracy.
+"""
 
 import sys
 sys.path.append('..')
@@ -9,12 +12,12 @@ import requests, gzip, struct
 import numpy
 
 def get(file : str) -> bytes:
-	URL = 'http://yann.lecun.com/exdb/mnist/'
-	print(f'Fetching data from {URL + file}...')
-	response = requests.get(URL + file)
+	URL = 'http://yann.lecun.com/exdb/mnist/' + file
+	print(f'Fetching data from {URL}...')
+	response = requests.get(URL)
 	return gzip.decompress(response.content)
 
-def fit_model(X, y):
+def training(X, y, X_valid, y_valid):
 	model = Network([
 		deeplib.layers.Dense((28 * 28), 128, kernel_init='uniform'),
 		deeplib.layers.Activation('tanh'),
@@ -24,28 +27,31 @@ def fit_model(X, y):
 	model.prepare(
 		optimizer=deeplib.optimizers.Adam(model.layers, lr=0.005),
 		loss='crossentropy',
-		batch_size=600
+		batch_size=256
 	)
-	model.fit(X, y, epochs=16)
-	return model
+	model.fit(X, y, X_valid, y_valid, epochs=10)
+
+def parse_mnist_images(images):
+	_, samples = struct.unpack('>ii', images[:8])
+	rows, cols = struct.unpack('>ii', images[8:16])
+	images = numpy.array([struct.unpack_from('B', images, offset=(16 + off))[0] for off in range(samples * (rows * cols))])
+	images = numpy.reshape((images / 255.0), (samples, rows * cols))
+	return images
+
+def parse_mnist_labels(labels, to_categorical=True):
+	_, samples = struct.unpack('>ii', labels[:8])
+	labels = [struct.unpack_from('B', labels, offset=(8 + off))[0] for off in range(samples)]
+	if to_categorical is True:
+		labels = numpy.eye(10)[labels]
+	return labels
 
 if __name__ == '__main__':
 	train_images = get('train-images-idx3-ubyte.gz')
 	train_labels = get('train-labels-idx1-ubyte.gz')
-	magic, samples = struct.unpack('>ii', train_images[:8])
-	rows, cols = struct.unpack('>ii', train_images[8:16])
-	train_images = numpy.array([struct.unpack_from('B', train_images, offset=(16 + off))[0] for off in range(samples * (rows * cols))], dtype=float)
-	train_images = numpy.reshape((train_images / 255.0), (samples, rows * cols))
-	train_labels = [struct.unpack_from('B', train_labels, offset=(8 + off))[0] for off in range(samples)]
-	train_labels = numpy.eye(10)[train_labels]
-	model = fit_model(train_images, train_labels)
-
 	test_images = get('t10k-images-idx3-ubyte.gz')
 	test_labels = get('t10k-labels-idx1-ubyte.gz')
-	magic, samples = struct.unpack('>ii', test_images[:8])
-	rows, cols = struct.unpack('>ii', test_images[8:16])
-	test_images = numpy.array([struct.unpack_from('B', test_images, offset=(16 + off))[0] for off in range(samples * (rows * cols))], dtype=float)
-	test_images = numpy.reshape((test_images / 255.0), (samples, rows * cols))
-	test_labels = [struct.unpack_from('B', test_labels, offset=(8 + off))[0] for off in range(samples)]
-	h = model.predict(test_images)
-	print('Validation accuracy=' + str((numpy.argmax(h, axis=-1) == test_labels).mean()))
+	train_images = parse_mnist_images(train_images)
+	test_images = parse_mnist_images(test_images)
+	train_labels = parse_mnist_labels(train_labels)
+	test_labels = parse_mnist_labels(test_labels, to_categorical=False)
+	training(train_images, train_labels, test_images, test_labels)

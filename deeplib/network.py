@@ -6,7 +6,7 @@
 #    By: thflahau <thflahau@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/12/04 19:20:18 by thflahau          #+#    #+#              #
-#    Updated: 2021/01/22 16:02:04 by thflahau         ###   ########.fr        #
+#    Updated: 2021/01/23 14:49:50 by thflahau         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -50,9 +50,9 @@ class Network(object):
 		else:
 			self.loss = loss
 
-	def fit(self, X, y, epochs=500, early_stop=None):
+	def fit(self, X, y, X_valid=None, y_valid=None, epochs=100, early_stop=None, verbose=True):
 		assert X.shape[0] == y.shape[0], 'X and y shapes differ'
-		metrics = list()
+		cost = list()
 		for epoch in range(epochs):
 			epoch_cost = 0.0
 			for _X, _y in self.__batch_generator(X, y):
@@ -61,11 +61,15 @@ class Network(object):
 				gradients = self.loss.derivative(output, _y)
 				self.__bprop(gradients)
 				self.optimizer.update()
-			metrics.append(epoch_cost)
-			print(f'Epoch {epoch + 1}/{epochs}, loss={epoch_cost:.8f}')
-			if early_stop is not None and early_stop(metrics) == True:
+			cost.append(epoch_cost)
+			if verbose is True:
+				verbose_format = f'Epoch {epoch + 1}/{epochs}, loss={epoch_cost:.8f}'
+				if X_valid is not None and y_valid is not None:
+					verbose_format += f', validation_accuracy={self.validation_accuracy(X_valid, y_valid):.4f}'
+				print(verbose_format)
+			if early_stop is not None and early_stop(cost) == True:
 				break
-		return metrics
+		return cost
 
 	def predict(self, X : np.ndarray) -> np.ndarray:
 		temp = self.layers
@@ -76,6 +80,9 @@ class Network(object):
 
 	def validation_loss(self, X, y):
 		return sum([self.loss.cost(self.__feed(_X), _y) for _X, _y in self.__batch_generator(X, y)])
+
+	def validation_accuracy(self, X_valid, y_valid):
+		return (np.argmax(self.predict(X_valid), axis=-1) == y_valid).mean()
 
 	def export(self, name : str) -> None:
 		assert any(self.layers), 'network is empty, aborting'
