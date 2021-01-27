@@ -6,7 +6,7 @@
 #    By: thflahau <thflahau@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/12/04 19:11:31 by thflahau          #+#    #+#              #
-#    Updated: 2021/01/22 19:16:38 by thflahau         ###   ########.fr        #
+#    Updated: 2021/01/23 17:34:01 by thflahau         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ import numpy as np
 
 class Layer(object):
 	def __init__(self, **kwargs) -> None:
-		available_args = {'trainable', 'kernel_init', 'kernel_constraint', 'seed'}
+		available_args = ['trainable', 'kernel_init', 'kernel_constraint', 'seed']
 		for argument in kwargs:
 			if argument not in available_args:
 				raise AttributeError('Unknown argument : ' + argument)

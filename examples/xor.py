@@ -2,10 +2,10 @@
 
 import sys
 sys.path.append('..')
-from deeplib.layers import Dense, Activation
 from deeplib.network import Network
-from deeplib.optimizers import Adam
 import deeplib.regularizers
+import deeplib.optimizers
+import deeplib.layers
 import matplotlib.pyplot as plt
 import numpy as np
 
@@ -32,13 +32,13 @@ def visualize(model):
 
 if __name__ == '__main__':
 	model = Network([
-		Dense(2, 8, kernel_init='uniform', kernel_constraint=deeplib.regularizers.NonNeg()),
-		Activation('tanh'),
-		Dense(8, 1, kernel_init='normal', seed=42),
-		Activation('sigmoid')
+		deeplib.layers.Dense(2, 8, kernel_init='uniform', kernel_constraint=deeplib.regularizers.NonNeg()),
+		deeplib.layers.Activation('tanh'),
+		deeplib.layers.Dense(8, 1, kernel_init='normal', seed=42),
+		deeplib.layers.Activation('sigmoid')
 	])
 	model.prepare(
-		optimizer=Adam(model.layers),
+		optimizer=deeplib.optimizers.Adam(model.layers, lr=0.05),
 		loss='binary_crossentropy',
 		batch_size=4
 	)

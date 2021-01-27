@@ -24,13 +24,13 @@ model.prepare(
 	loss='binary_crossentropy',
 	batch_size=300
 )
-model.fit(X, y, epochs=100)
+model.fit(X, y)
 ```
 
 ### Current capabilities
  - Layers: dense, dropout, activation, flatten
  - Loss functions: mean absolute error, mean squared error, (binary) cross entropy
- - Activations: linear, sigmoid, tanh, leaky, relu, elu
+ - Activations: linear, sigmoid, tanh, leaky, relu, elu, softmax
  - Initializers: regular, regular scaled, uniform, he uniform, normal, he normal
  - Optimizers: SGD, AdaGrad, RMSprop, Adam
  - Weight constraints: non neg
@@ -40,7 +40,6 @@ model.fit(X, y, epochs=100)
  - [X] adam optimizer
  - [ ] implement k-fold cross validation
  - [ ] max norm & min-max norm weight constraints
- - [ ] advanced activations layer
  - [X] ability to export and load models
  - [ ] convolutional and pooling layers
  - [ ] GPU support?
