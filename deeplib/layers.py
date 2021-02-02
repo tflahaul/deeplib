@@ -6,7 +6,7 @@
 #    By: thflahau <thflahau@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/12/04 19:11:31 by thflahau          #+#    #+#              #
-#    Updated: 2021/01/23 17:34:01 by thflahau         ###   ########.fr        #
+#    Updated: 2021/02/02 19:14:48 by thflahau         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,7 +35,7 @@ class Dense(Layer):
 	def __init__(self, in_size, out_size, **kwargs) -> None:
 		super(Dense, self).__init__(**kwargs)
 		self.weights = self.initializer((in_size, out_size))
-		self.biases = np.zeros(shape=(out_size,), dtype=float)
+		self.biases = np.zeros(shape=(out_size,), dtype='float32')
 		self.wgrads = np.empty_like(self.weights)
 		self.bgrads = np.empty_like(self.biases)
 
@@ -65,7 +65,7 @@ class Convolution2D(Layer):
 		super(Convolution2D, self).__init__(**kwargs)
 		self.W_shape = (max(1, filters), max(1, kernel_height), max(1, kernel_width))
 		self.weights = self.initializer(self.W_shape)
-		self.biases = np.zeros(shape=(self.W_shape[0],), dtype=float)
+		self.biases = np.zeros(shape=(self.W_shape[0],), dtype='float32')
 		self.p = padding
 
 	def forward(self, inputs) -> np.ndarray:

@@ -3,7 +3,6 @@
 import sys
 sys.path.append('..')
 from deeplib.network import Network
-import deeplib.regularizers
 import deeplib.optimizers
 import deeplib.layers
 import matplotlib.pyplot as plt
@@ -32,7 +31,7 @@ def visualize(model):
 
 if __name__ == '__main__':
 	model = Network([
-		deeplib.layers.Dense(2, 8, kernel_init='uniform', kernel_constraint=deeplib.regularizers.NonNeg()),
+		deeplib.layers.Dense(2, 8, kernel_init='uniform'),
 		deeplib.layers.Activation('tanh'),
 		deeplib.layers.Dense(8, 1, kernel_init='normal', seed=42),
 		deeplib.layers.Activation('sigmoid')

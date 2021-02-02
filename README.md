@@ -1,5 +1,5 @@
 # deeplib
-Lightweight deep learning framework to easily implement different kinds of neural networks.
+A lightweight deep learning framework in order to easily implement different kinds of neural networks.
 
 ### How to use
 Building a simple network,
@@ -9,7 +9,7 @@ import deeplib.optimizers
 import deeplib.layers
 
 model = Network([
-	deeplib.layers.Dense(784, 128, kernel_init='regular_scaled'),
+	deeplib.layers.Dense(300, 128, kernel_init='regular_scaled'),
 	deeplib.layers.Activation('elu'),
 	deeplib.layers.Dropout(0.25),
 	deeplib.layers.Dense(128, 10, kernel_init='uniform', seed=42),

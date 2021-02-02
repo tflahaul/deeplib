@@ -29,7 +29,7 @@ def training(X, y, X_valid, y_valid):
 		loss='crossentropy',
 		batch_size=256
 	)
-	model.fit(X, y, X_valid, y_valid, epochs=10, measures=['accuracy'])
+	model.fit(X, y, X_valid, y_valid, epochs=10, metrics=['accuracy'])
 
 def parse_mnist_images(images):
 	_, samples = struct.unpack('>ii', images[:8])

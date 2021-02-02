@@ -6,7 +6,7 @@
 #    By: thflahau <thflahau@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/01/23 14:48:05 by thflahau          #+#    #+#              #
-#    Updated: 2021/01/27 19:24:48 by thflahau         ###   ########.fr        #
+#    Updated: 2021/02/02 19:02:32 by thflahau         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,5 +22,5 @@ def accuracy(model, X : np.ndarray, y : np.ndarray) -> float:
 	return np.mean(np.argmax(model.predict(X), axis=-1) == y)
 
 def sc_accuracy(model, X : np.ndarray, y : np.ndarray) -> float:
-	""" Single class accuracy """
+	""" Binary classification accuracy (single class) """
 	return np.mean([round(model.predict(_X)[0]) == _y for _X, _y in zip(X, y)])

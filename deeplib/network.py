@@ -6,12 +6,12 @@
 #    By: thflahau <thflahau@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/12/04 19:20:18 by thflahau          #+#    #+#              #
-#    Updated: 2021/01/27 19:17:22 by thflahau         ###   ########.fr        #
+#    Updated: 2021/02/02 19:18:21 by thflahau         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 from numpy.random import MT19937
-import deeplib.metrics as metrics
+import deeplib.metrics
 import deeplib.layers
 import deeplib.losses
 import numpy as np
@@ -51,7 +51,7 @@ class Network(object):
 		else:
 			self.loss = loss
 
-	def fit(self, X, y, X_valid=None, y_valid=None, epochs=100, early_stop=None, verbose=True, measures=[]):
+	def fit(self, X, y, X_valid=None, y_valid=None, epochs=100, early_stop=None, metrics=[]):
 		assert X.shape[0] == y.shape[0], 'X and y shapes differ'
 		costs = list()
 		for epoch in range(epochs):
@@ -63,15 +63,13 @@ class Network(object):
 				self.__bprop(gradients)
 				self.optimizer.update()
 			costs.append(epoch_cost)
-			if verbose == True:
-				verbose_format = f'Epoch {epoch + 1}/{epochs}, loss={epoch_cost:.8f}'
-				if any(measures) and X_valid is not None and y_valid is not None:
-					for item in measures:
-						verbose_format += f', {item}={metrics.get(item)(self, X_valid, y_valid):.4f}'
-				print(verbose_format)
+			verbose_format = f'Epoch {epoch + 1:02d}/{epochs}, loss={epoch_cost:.8f}'
+			if any(metrics) and X_valid is not None and y_valid is not None:
+				for item in metrics:
+					verbose_format += f', {item}={deeplib.metrics.get(item)(self, X_valid, y_valid):.4f}'
+			print(verbose_format)
 			if early_stop is not None and early_stop(costs) == True:
 				break
-		return costs
 
 	def predict(self, X : np.ndarray) -> np.ndarray:
 		temp = self.layers
