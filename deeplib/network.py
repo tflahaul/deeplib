@@ -6,7 +6,7 @@
 #    By: thflahau <thflahau@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/12/04 19:20:18 by thflahau          #+#    #+#              #
-#    Updated: 2021/02/02 19:18:21 by thflahau         ###   ########.fr        #
+#    Updated: 2021/04/14 22:29:46 by thflahau         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -46,7 +46,7 @@ class Network(object):
 		self.optimizer = optimizer
 		self.batch_size = batch_size
 		self.shuffle = shuffle
-		if type(loss) == str:
+		if isinstance(loss, str):
 			self.loss = deeplib.losses.get(loss)()
 		else:
 			self.loss = loss
@@ -64,16 +64,16 @@ class Network(object):
 				self.optimizer.update()
 			costs.append(epoch_cost)
 			verbose_format = f'Epoch {epoch + 1:02d}/{epochs}, loss={epoch_cost:.8f}'
-			if any(metrics) and X_valid is not None and y_valid is not None:
+			if any(metrics) and X_valid != None and y_valid != None:
 				for item in metrics:
 					verbose_format += f', {item}={deeplib.metrics.get(item)(self, X_valid, y_valid):.4f}'
 			print(verbose_format)
-			if early_stop is not None and early_stop(costs) == True:
+			if early_stop and early_stop(costs) == True:
 				break
 
 	def predict(self, X : np.ndarray) -> np.ndarray:
 		temp = self.layers
-		self.layers = [item for item in self.layers if type(item) != deeplib.layers.Dropout]
+		self.layers = [x for x in self.layers if not isinstance(x, deeplib.layers.Dropout)]
 		output = self.__feed(X)
 		self.layers = temp
 		return output

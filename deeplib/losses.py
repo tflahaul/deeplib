@@ -6,7 +6,7 @@
 #    By: thflahau <thflahau@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/12/04 21:22:26 by thflahau          #+#    #+#              #
-#    Updated: 2021/01/27 18:44:04 by thflahau         ###   ########.fr        #
+#    Updated: 2021/04/14 21:28:11 by thflahau         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,12 +14,7 @@ import numpy as np
 import sys
 
 def get(identifier : str):
-	return dict({
-		'crossentropy' : getattr(sys.modules[__name__], 'CrossEntropy'),
-		'binary_crossentropy' : getattr(sys.modules[__name__], 'CrossEntropy'),
-		'mean_squared_error' : getattr(sys.modules[__name__], 'MeanSquaredError'),
-		'mean_absolute_error' : getattr(sys.modules[__name__], 'MeanAbsoluteError')
-	}).get(identifier)
+	return getattr(sys.modules[__name__], identifier)
 
 class LossFunction(object):
 	def __init__(self):
@@ -65,3 +60,8 @@ class MeanAbsoluteError(LossFunction):
 
 	def derivative(self, output, target):
 		return output - target
+
+crossentropy = CrossEntropy
+binary_crossentropy = crossentropy
+mean_squared_error = MeanSquaredError
+mean_absolute_error = MeanAbsoluteError

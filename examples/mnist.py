@@ -45,7 +45,7 @@ def parse_mnist_labels(labels, to_categorical=True):
 		labels = numpy.eye(10)[labels]
 	return labels
 
-if __name__ == '__main__':
+def main() -> None:
 	train_images = get('train-images-idx3-ubyte.gz')
 	train_labels = get('train-labels-idx1-ubyte.gz')
 	test_images = get('t10k-images-idx3-ubyte.gz')
@@ -55,3 +55,6 @@ if __name__ == '__main__':
 	train_labels = parse_mnist_labels(train_labels)
 	test_labels = parse_mnist_labels(test_labels, to_categorical=False)
 	training(train_images, train_labels, test_images, test_labels)
+
+if __name__ == '__main__':
+	main()
