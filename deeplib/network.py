@@ -64,7 +64,7 @@ class Network(object):
 				self.optimizer.update()
 			costs.append(epoch_cost)
 			verbose_format = f'Epoch {epoch + 1:02d}/{epochs}, loss={epoch_cost:.8f}'
-			if any(metrics) and X_valid != None and y_valid != None:
+			if any(metrics) and X_valid is not None and y_valid is not None:
 				for item in metrics:
 					verbose_format += f', {item}={deeplib.metrics.get(item)(self, X_valid, y_valid):.4f}'
 			print(verbose_format)
